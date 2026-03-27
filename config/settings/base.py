@@ -2,6 +2,7 @@ from pathlib import Path
 
 import environ
 from celery.schedules import crontab
+from django.core.exceptions import ImproperlyConfigured
 
 BASE_DIR = Path(__file__).resolve().parents[2]
 APPS_DIR = BASE_DIR / "apps"
@@ -117,12 +118,20 @@ TEMPLATES = [
     }
 ]
 
-DATABASES = {
-    "default": env.db(
+database_url = env("DATABASE_URL", default="").strip()
+if database_url:
+    default_database_config = env.db_url("DATABASE_URL")
+elif DEBUG:
+    default_database_config = env.db_url(
         "DATABASE_URL",
-        default="postgresql://nestandwhisk:nestandwhisk@127.0.0.1:5432/nestandwhisk",
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
     )
-}
+else:
+    raise ImproperlyConfigured(
+        "DATABASE_URL is missing or empty. In Railway, set DATABASE_URL to your Postgres service reference before deploying the web or Celery services."
+    )
+
+DATABASES = {"default": default_database_config}
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 AUTH_PASSWORD_VALIDATORS = [

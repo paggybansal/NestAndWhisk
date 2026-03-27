@@ -168,3 +168,115 @@ SHIPROCKET_TIMEOUT_SECONDS=8
 
 When enabled, checkout uses the customer city and postal code to query Shiprocket courier serviceability and ETA in real time.
 
+## Railway deployment
+
+This repo can be deployed to Railway using the included `Dockerfile` and startup scripts.
+
+### Recommended Railway services
+
+Create one Railway project with:
+
+- `web` (public)
+- `postgres` (Railway Postgres)
+- `redis` (Railway Redis)
+- `celery-worker` (private)
+- `celery-beat` (private)
+
+Use the same GitHub repo for all three app services.
+
+### Branch
+
+- repository: `https://github.com/paggybansal/NestAndWhisk.git`
+- branch: `master`
+
+### Service commands
+
+`web` can use the default Docker command because `docker/web/entrypoint.sh` now honors Railway's `PORT`.
+
+For the background services, override the Railway start command:
+
+```sh
+/app/docker/celery/worker-entrypoint.sh
+```
+
+```sh
+/app/docker/celery/beat-entrypoint.sh
+```
+
+### Web health check
+
+Set the Railway health check path to:
+
+```text
+/health/
+```
+
+### Required environment variables
+
+Set these on `web`, `celery-worker`, and `celery-beat` unless noted:
+
+```dotenv
+DJANGO_SETTINGS_MODULE=config.settings.prod
+DJANGO_DEBUG=False
+DJANGO_SECRET_KEY=<generate a strong secret>
+DATABASE_URL=<Railway Postgres DATABASE_URL>
+REDIS_URL=<Railway Redis URL>
+CELERY_BROKER_URL=<Railway Redis URL>
+CELERY_RESULT_BACKEND=<Railway Redis URL>
+USE_REDIS_CACHE=True
+SECURE_SSL_REDIRECT=True
+SESSION_COOKIE_SECURE=True
+CSRF_COOKIE_SECURE=True
+DJANGO_VITE_DEV_MODE=False
+DJANGO_BOOTSTRAP_DEMO=0
+DJANGO_BOOTSTRAP_ADMIN=1
+DJANGO_SUPERUSER_EMAIL=admin@nestandwhisk.com
+DJANGO_SUPERUSER_PASSWORD=<set in Railway>
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST=<your smtp host>
+EMAIL_PORT=587
+EMAIL_HOST_USER=<your smtp username>
+EMAIL_HOST_PASSWORD=<set in Railway>
+EMAIL_USE_TLS=True
+DEFAULT_FROM_EMAIL="Nest & Whisk <hello@nestandwhisk.com>"
+SERVER_EMAIL=server@nestandwhisk.com
+RAILWAY_PUBLIC_DOMAIN=<auto-filled by Railway on web>
+STRIPE_PUBLIC_KEY=<Stripe test publishable key>
+STRIPE_SECRET_KEY=<Stripe test secret key>
+STRIPE_WEBHOOK_SECRET=<Stripe test webhook secret>
+SHIPROCKET_ENABLED=True
+SHIPROCKET_EMAIL=<set in Railway>
+SHIPROCKET_PASSWORD=<set in Railway>
+SHIPROCKET_PICKUP_POSTCODE=<your pickup postal code>
+AI_CHAT_ENABLED=True
+AI_CHAT_PROVIDER=gemini
+AI_CHAT_MODEL=gemini-2.0-flash
+AI_CHAT_API_KEY=<set in Railway>
+SENTRY_DSN=<set in Railway>
+SENTRY_ENVIRONMENT=production
+SENTRY_TRACES_SAMPLE_RATE=0.0
+```
+
+You can leave `DJANGO_ALLOWED_HOSTS` and `DJANGO_CSRF_TRUSTED_ORIGINS` empty if you rely on `RAILWAY_PUBLIC_DOMAIN`; the app automatically adds the Railway domain when that variable is present. Add those variables explicitly later when you move to a custom domain.
+
+### Generating a Django secret key
+
+Run this locally:
+
+```powershell
+python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+```
+
+Copy the output into Railway as `DJANGO_SECRET_KEY`.
+
+### Best simple free media option
+
+For the simplest free option, use **Cloudinary** for uploaded media. Railway's filesystem is ephemeral, so local `media/` storage is only suitable for short-lived demos.
+
+### Important production caveats
+
+- `web` currently runs migrations and `collectstatic` on boot. This is fine for a single web instance, but move those to a release step before scaling horizontally.
+- `celery-beat` should stay at **one instance only**.
+- The current Celery beat scheduler uses local persistent state; it works, but `django-celery-beat` is a better long-term fit for Railway.
+- `SERVE_MEDIA_FILES=True` is okay only for demos. Use Cloudinary/S3/R2 for production uploads.
+

@@ -14,6 +14,10 @@ env = environ.Env(
     DJANGO_VITE_DEV_MODE=(bool, False),
     AI_CHAT_ENABLED=(bool, False),
     SERVE_MEDIA_FILES=(bool, False),
+    EMAIL_PORT=(int, 587),
+    EMAIL_USE_TLS=(bool, True),
+    EMAIL_USE_SSL=(bool, False),
+    SENTRY_TRACES_SAMPLE_RATE=(float, 0.0),
 )
 
 environ.Env.read_env(BASE_DIR / ".env")
@@ -28,6 +32,14 @@ CSRF_TRUSTED_ORIGINS = env.list(
     "DJANGO_CSRF_TRUSTED_ORIGINS",
     default=["http://127.0.0.1:8000", "http://localhost:8000"],
 )
+RAILWAY_PUBLIC_DOMAIN = env("RAILWAY_PUBLIC_DOMAIN", default="")
+if RAILWAY_PUBLIC_DOMAIN:
+    if RAILWAY_PUBLIC_DOMAIN not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append(RAILWAY_PUBLIC_DOMAIN)
+    railway_origin = f"https://{RAILWAY_PUBLIC_DOMAIN}"
+    if railway_origin not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(railway_origin)
+
 SITE_ID = env.int("SITE_ID", default=1)
 
 DJANGO_APPS = [
@@ -156,6 +168,12 @@ ACCOUNT_SESSION_REMEMBER = True
 EMAIL_BACKEND = env(
     "EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
 )
+EMAIL_HOST = env("EMAIL_HOST", default="")
+EMAIL_PORT = env.int("EMAIL_PORT", default=587)
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
+EMAIL_USE_SSL = env.bool("EMAIL_USE_SSL", default=False)
 DEFAULT_FROM_EMAIL = env(
     "DEFAULT_FROM_EMAIL", default="Nest & Whisk <hello@nestandwhisk.com>"
 )
@@ -255,6 +273,29 @@ DJANGO_VITE = {
         "manifest_path": BASE_DIR / "static" / "build" / "manifest.json",
     }
 }
+
+SENTRY_DSN = env("SENTRY_DSN", default="")
+SENTRY_ENVIRONMENT = env("SENTRY_ENVIRONMENT", default="development" if DEBUG else "production")
+SENTRY_TRACES_SAMPLE_RATE = env.float("SENTRY_TRACES_SAMPLE_RATE", default=0.0)
+
+def _initialize_sentry() -> None:
+    try:
+        import sentry_sdk
+        from sentry_sdk.integrations.celery import CeleryIntegration
+        from sentry_sdk.integrations.django import DjangoIntegration
+    except ImportError:
+        return
+    sentry_sdk.init(
+        dsn=SENTRY_DSN,
+        environment=SENTRY_ENVIRONMENT,
+        traces_sample_rate=SENTRY_TRACES_SAMPLE_RATE,
+        send_default_pii=True,
+        integrations=[DjangoIntegration(), CeleryIntegration()],
+    )
+
+
+if SENTRY_DSN:
+    _initialize_sentry()
 
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True

@@ -1,0 +1,32 @@
+{% extends 'account/base_auth.html' %}
+
+{% block title %}Sign In | Nest & Whisk{% endblock %}
+
+{% block auth_panel %}
+  <p class="text-xs font-semibold uppercase tracking-[0.35em] text-caramel">Sign in</p>
+  <h2 class="font-display mt-3 text-4xl font-semibold text-cocoa">Welcome back.</h2>
+  <p class="mt-3 text-sm leading-7 text-cocoa/70">Sign in with your email to manage orders, gifting, and subscriptions.</p>
+  <form method="post" action="{% url 'account_login' %}" class="mt-8 space-y-5">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+      <div class="rounded-2xl border border-rose/20 bg-rose/10 px-4 py-3 text-sm text-cocoa">{{ form.non_field_errors }}</div>
+    {% endif %}
+    <div class="space-y-2">
+      <label for="id_login" class="text-sm font-medium text-cocoa">Email address</label>
+      {{ form.login }}
+    </div>
+    <div class="space-y-2">
+      <div class="flex items-center justify-between gap-4">
+        <label for="id_password" class="text-sm font-medium text-cocoa">Password</label>
+        <a href="{% url 'account_reset_password' %}" class="text-sm font-medium text-caramel">Forgot password?</a>
+      </div>
+      {{ form.password }}
+    </div>
+    {% if form.remember %}
+      <label class="flex items-center gap-3 text-sm text-cocoa/70">{{ form.remember }} <span>Keep me signed in on this device.</span></label>
+    {% endif %}
+    <button type="submit" class="inline-flex w-full items-center justify-center rounded-full bg-cocoa px-6 py-3.5 text-sm font-semibold text-cream transition hover:bg-chocolate">Sign in</button>
+  </form>
+  <p class="mt-6 text-sm text-cocoa/70">New here? <a href="{% url 'account_signup' %}" class="font-semibold text-caramel">Create your account</a>.</p>
+{% endblock %}
+

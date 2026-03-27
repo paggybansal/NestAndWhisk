@@ -1,0 +1,15 @@
+Hello {{ customer_name }},
+{{ brand_name }}
+Warmly,
+
+If payment is still pending or needs another try, return to the payment summary and continue securely from there.
+
+{{ success_url }}
+View your payment summary:
+
+{{ tracking_url }}
+Track your order:
+
+Here are your self-service Nest & Whisk order links for {{ order.order_number }}.
+
+

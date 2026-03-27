@@ -1,0 +1,26 @@
+{
+  "name": "nest-and-whisk-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node ./node_modules/vite/bin/vite.js",
+    "build": "node ./node_modules/vite/bin/vite.js build",
+    "preview": "node ./node_modules/vite/bin/vite.js preview",
+    "lint": "node ./node_modules/eslint/bin/eslint.js static_src --ext .js",
+    "format": "node ./node_modules/prettier/bin/prettier.cjs --write \"templates/**/*.html\" \"static_src/**/*.{js,css}\""
+  },
+  "dependencies": {
+    "alpinejs": "^3.14.9"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.10",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.23.0",
+    "postcss": "^8.5.3",
+    "prettier": "^3.5.3",
+    "tailwindcss": "^3.4.17",
+    "vite": "^6.2.2"
+  }
+}
+

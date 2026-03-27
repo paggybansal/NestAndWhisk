@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load currency %}
+
+{% block title %}Order Created | Nest & Whisk{% endblock %}
+
+{% block content %}
+<section class="container-shell py-16 lg:py-24">
+  <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
+    <div class="editorial-panel p-8 lg:p-10">
+      <p class="eyebrow-label">{{ hero.eyebrow }} · {{ order.order_number }}</p>
+      <h1 class="font-display mt-4 text-5xl font-semibold text-cocoa">{{ hero.title }}</h1>
+      <p class="mt-5 max-w-3xl text-sm leading-8 text-cocoa/75">{{ hero.body }}</p>
+      <p class="mt-5 rounded-[1.5rem] bg-warm-beige/70 px-5 py-4 text-sm leading-7 text-cocoa/80">{{ hero.notice }}</p>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        {% if can_retry_payment %}
+          <form method="post" action="{% url 'checkout:start_payment' order.order_number %}">
+            {% csrf_token %}
+            <button type="submit" class="cta-primary px-6 py-3">{{ retry_button_label }}</button>
+          </form>
+        {% endif %}
+        {% if payment and payment.provider == 'mock' %}
+          <a href="{% url 'checkout:mock_payment' order.order_number %}" class="cta-secondary px-6 py-3">Open mock payment simulator</a>
+        {% endif %}
+        <a href="{{ tracking_url }}" class="cta-secondary px-6 py-3">Track this order</a>
+        {% if request.user.is_authenticated %}
+          <a href="{% url 'account_orders' %}" class="cta-secondary px-6 py-3">View account orders</a>
+        {% endif %}
+        <a href="{% url 'catalog:shop' %}" class="cta-secondary px-6 py-3">Continue shopping</a>
+      </div>
+
+      <section class="mt-10 grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+        <article class="editorial-panel p-6">
+          <p class="eyebrow-label">Order details</p>
+          <div class="mt-5 space-y-4 text-sm text-cocoa/75">
+            <div class="flex items-start justify-between gap-4 border-b border-cocoa/8 pb-4">
+              <span>Recipient</span>
+              <span class="text-right font-semibold text-cocoa">{{ order.customer_first_name }}{% if order.customer_last_name %} {{ order.customer_last_name }}{% endif %}</span>
+            </div>
+            <div class="flex items-start justify-between gap-4 border-b border-cocoa/8 pb-4">
+              <span>Delivery city</span>
+              <span class="text-right font-semibold text-cocoa">{{ order.shipping_city }}, {{ order.shipping_state }}</span>
+            </div>
+            <div class="flex items-start justify-between gap-4 border-b border-cocoa/8 pb-4">
+              <span>Payment status</span>
+              <span class="text-right font-semibold text-cocoa">{% if payment %}{{ payment.get_status_display }}{% else %}Pending{% endif %}</span>
+            </div>
+            <div class="flex items-start justify-between gap-4">
+              <span>Order total</span>
+              <span class="text-right font-semibold text-cocoa">{{ order.total|inr }}</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="editorial-panel p-6">
+          <p class="eyebrow-label">Care & gifting notes</p>
+          <div class="mt-5 space-y-4 text-sm leading-7 text-cocoa/75">
+            <p>Once paid, your order moves into preparation with the same gift notes and packaging preferences you selected earlier.</p>
+            <p>For the best first bite, let the box settle at room temperature before serving and keep it sealed between moments.</p>
+            <p>Need another status check later? Use the tracking page to review payment progress and order milestones in one place.</p>
+          </div>
+        </article>
+      </section>
+
+      {% if payment %}
+        <section class="mt-8 editorial-panel p-6">
+          <p class="eyebrow-label">Payment summary</p>
+          <div class="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-3 text-sm text-cocoa/80">
+            <div class="editorial-note p-4">
+              <p class="luxury-kicker">Provider</p>
+              <p class="mt-2 font-semibold text-cocoa">{{ payment.provider|title }}</p>
+            </div>
+            <div class="editorial-note p-4">
+              <p class="luxury-kicker">Tracked amount</p>
+              <p class="mt-2 font-semibold text-cocoa">{{ payment.amount|inr }}</p>
+            </div>
+            <div class="editorial-note p-4">
+              <p class="luxury-kicker">Status</p>
+              <p class="mt-2 font-semibold text-cocoa">{{ payment.get_status_display }}</p>
+            </div>
+          </div>
+          <div class="mt-5 space-y-2 text-sm text-cocoa/75">
+            {% if payment_preferences.payment_preference %}<p><strong>Checkout preference:</strong> {{ payment_preferences.payment_preference|title }}</p>{% endif %}
+            {% if payment_preferences.payment_method_types %}<p><strong>Configured methods:</strong> {{ payment_preferences.payment_method_types|join:', '|upper }}</p>{% endif %}
+            {% if payment.provider_checkout_id %}<p><strong>Checkout reference:</strong> {{ payment.provider_checkout_id }}</p>{% endif %}
+            {% if payment.provider_payment_id %}<p><strong>Payment reference:</strong> {{ payment.provider_payment_id }}</p>{% endif %}
+            {% if payment.paid_at %}<p><strong>Paid at:</strong> {{ payment.paid_at }}</p>{% endif %}
+            {% if payment.receipt_url %}<p class="pt-2"><a href="{{ payment.receipt_url }}" class="font-semibold text-caramel">View Stripe receipt</a></p>{% endif %}
+          </div>
+        </section>
+      {% endif %}
+
+      <section class="mt-8 editorial-panel p-6">
+        <p class="eyebrow-label">What happens next</p>
+        <ul class="mt-5 space-y-3 text-sm leading-7 text-cocoa/75">
+          {% if payment and payment.provider == 'mock' %}
+            <li>• Mock mode lets you simulate paid, failed, or cancelled payment outcomes without leaving local development.</li>
+            <li>• Each simulator action updates the same order and payment states the storefront uses for real payment providers.</li>
+          {% else %}
+            <li>• Stripe confirms payment and updates this order through the webhook endpoint.</li>
+            <li>• Successful payments move the order to a paid state.</li>
+            <li>• Failed or expired sessions stay retryable from this screen.</li>
+            <li>• UPI payments can confirm asynchronously, so this page may briefly show processing before the final paid state arrives.</li>
+          {% endif %}
+        </ul>
+      </section>
+    </div>
+
+    <aside class="space-y-6">
+      <div class="editorial-panel-dark p-8">
+        <p class="text-xs font-semibold uppercase tracking-[0.35em] text-cream/70">In this order</p>
+        <div class="mt-6 space-y-4 border-b border-white/10 pb-6 text-sm text-cream/80">
+          {% for item in order.items.all %}
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="font-semibold text-cream">{{ item.product_name }}</p>
+                {% if item.variant_name %}<p class="mt-1 text-xs uppercase tracking-[0.2em] text-cream/55">{{ item.variant_name }}</p>{% endif %}
+                <p class="mt-1 text-xs text-cream/55">Qty {{ item.quantity }}</p>
+                {% if item.packaging_option %}<p class="mt-1 text-xs text-cream/55">Packaging: {{ item.packaging_option }}</p>{% endif %}
+              </div>
+              <p class="font-semibold text-cream">{{ item.line_total|inr }}</p>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="mt-6 space-y-4 text-sm text-cream/85">
+          <div class="flex items-center justify-between"><span>Subtotal</span><span>{{ order.subtotal|inr }}</span></div>
+          <div class="flex items-center justify-between"><span>Total</span><span>{{ order.total|inr }}</span></div>
+        </div>
+      </div>
+
+      <div class="editorial-panel p-6">
+        <p class="eyebrow-label">A premium follow-up</p>
+        <div class="mt-4 space-y-4 text-sm leading-7 text-cocoa/75">
+          <p>Tracking keeps payment and order milestones together, so you can return without digging through emails.</p>
+          <p>If this box was a gift, the order summary stays polished enough to revisit before it arrives.</p>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+{% endblock %}

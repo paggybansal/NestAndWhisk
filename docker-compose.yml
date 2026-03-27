@@ -1,0 +1,145 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /app/docker/web/entrypoint.sh
+    env_file:
+      - .env
+    environment:
+      DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE:-config.settings.prod}
+      DJANGO_DEBUG: ${DJANGO_DEBUG:-False}
+      DJANGO_VITE_DEV_MODE: "False"
+      SERVE_MEDIA_FILES: "True"
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      DATABASE_URL: postgresql://nestandwhisk:nestandwhisk@db:5432/nestandwhisk
+      USE_REDIS_CACHE: "True"
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/1
+      DJANGO_BOOTSTRAP_DEMO: ${DJANGO_BOOTSTRAP_DEMO:-0}
+      DJANGO_BOOTSTRAP_ADMIN: ${DJANGO_BOOTSTRAP_ADMIN:-0}
+      GUNICORN_WORKERS: ${GUNICORN_WORKERS:-3}
+      GUNICORN_TIMEOUT: ${GUNICORN_TIMEOUT:-120}
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./:/app
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"from urllib.request import urlopen; import sys; sys.exit(0 if urlopen('http://127.0.0.1:8000/health/').status == 200 else 1)\""]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-nestandwhisk}
+      POSTGRES_USER: ${POSTGRES_USER:-nestandwhisk}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-nestandwhisk}
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-nestandwhisk} -d ${POSTGRES_DB:-nestandwhisk}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  celery_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /app/docker/celery/worker-entrypoint.sh
+    env_file:
+      - .env
+    environment:
+      DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE:-config.settings.prod}
+      DJANGO_DEBUG: ${DJANGO_DEBUG:-False}
+      DJANGO_VITE_DEV_MODE: "False"
+      SERVE_MEDIA_FILES: "True"
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      DATABASE_URL: postgresql://nestandwhisk:nestandwhisk@db:5432/nestandwhisk
+      USE_REDIS_CACHE: "True"
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/1
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      web:
+        condition: service_healthy
+    volumes:
+      - ./:/app
+    restart: unless-stopped
+
+  celery_beat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /app/docker/celery/beat-entrypoint.sh
+    env_file:
+      - .env
+    environment:
+      DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE:-config.settings.prod}
+      DJANGO_DEBUG: ${DJANGO_DEBUG:-False}
+      DJANGO_VITE_DEV_MODE: "False"
+      SERVE_MEDIA_FILES: "True"
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      DATABASE_URL: postgresql://nestandwhisk:nestandwhisk@db:5432/nestandwhisk
+      USE_REDIS_CACHE: "True"
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/1
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      web:
+        condition: service_healthy
+    volumes:
+      - ./:/app
+    restart: unless-stopped
+
+  vite:
+    image: node:22-alpine
+    profiles: ["dev"]
+    working_dir: /app
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    volumes:
+      - ./:/app
+    ports:
+      - '5173:5173'
+
+volumes:
+  postgres_data:
+  redis_data:
+

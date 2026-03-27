@@ -1,0 +1,76 @@
+[build-system]
+requires = ["setuptools>=70.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nest-and-whisk"
+version = "0.1.0"
+description = "Premium artisan cookie e-commerce platform built with Django"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+  { name = "Nest & Whisk Engineering" }
+]
+dependencies = [
+  "django==5.2.12",
+  "djangorestframework==3.15.2",
+  "django-filter==25.1",
+  "django-allauth==65.4.1",
+  "django-environ==0.12.0",
+  "django-htmx==1.21.0",
+  "django-vite==3.1.0",
+  "django-widget-tweaks==1.5.0",
+  "whitenoise==6.9.0",
+  "psycopg[binary]==3.2.13",
+  "Pillow==11.3.0",
+  "celery[redis]==5.4.0",
+  "redis==5.2.1",
+  "gunicorn==23.0.0",
+  "stripe==11.6.0",
+  "markdown==3.7",
+  "bleach==6.2.0",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["apps*", "config*"]
+exclude = ["templates*", "static_src*", "staticfiles*", "media*"]
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
+combine_as_imports = true
+include_trailing_comma = true
+multi_line_output = 3
+known_first_party = ["apps", "config"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+exclude = [
+  ".git",
+  ".idea",
+  ".venv",
+  "node_modules",
+  "staticfiles",
+  "frontend/dist",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "DJ"]
+ignore = ["B008"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["DJ008"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.dev"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+addopts = "--reuse-db --strict-markers --disable-warnings"
+testpaths = ["tests", "apps"]

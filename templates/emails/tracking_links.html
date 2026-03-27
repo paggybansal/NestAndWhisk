@@ -1,0 +1,24 @@
+{% extends "emails/base.html" %}
+
+{% block email_heading %}Your order links are ready.{% endblock %}
+
+{% block email_content %}
+  <p style="margin:0 0 16px;font-size:16px;line-height:1.7;">Hello {{ customer_name }},</p>
+  <p style="margin:0 0 16px;font-size:16px;line-height:1.7;">Here are your self-service links for order <strong>{{ order.order_number }}</strong>. Use them any time to review payment status, track webhook-updated progress, or continue payment securely if needed.</p>
+  <table role="presentation" cellspacing="0" cellpadding="0" style="margin:28px 0 20px;">
+    <tr>
+      <td style="padding-right:12px;">
+        <a href="{{ tracking_url }}" style="display:inline-block;background:#4A2E2A;color:#FFF8F0;text-decoration:none;padding:14px 22px;border-radius:999px;font-weight:700;font-size:14px;">Track your order</a>
+      </td>
+      <td>
+        <a href="{{ success_url }}" style="display:inline-block;background:#F3E4D3;color:#4A2E2A;text-decoration:none;padding:14px 22px;border-radius:999px;font-weight:700;font-size:14px;">View payment summary</a>
+      </td>
+    </tr>
+  </table>
+  <p style="margin:0 0 8px;font-size:14px;line-height:1.7;color:#4A2E2ACC;">Tracking link: <a href="{{ tracking_url }}" style="color:#C98A44;">{{ tracking_url }}</a></p>
+  <p style="margin:0 0 24px;font-size:14px;line-height:1.7;color:#4A2E2ACC;">Payment summary: <a href="{{ success_url }}" style="color:#C98A44;">{{ success_url }}</a></p>
+  <div style="border-radius:18px;background:#F3E4D3;padding:18px 20px;font-size:14px;line-height:1.7;color:#4A2E2ACC;">
+    If payment is still pending or needs another try, return to the payment summary and continue securely from there.
+  </div>
+{% endblock %}
+

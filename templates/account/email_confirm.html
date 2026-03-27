@@ -1,0 +1,19 @@
+{% extends 'account/base_auth.html' %}
+
+{% block title %}Confirm Email | Nest & Whisk{% endblock %}
+
+{% block auth_panel %}
+  <p class="text-xs font-semibold uppercase tracking-[0.35em] text-caramel">Email confirmation</p>
+  <h2 class="font-display mt-3 text-4xl font-semibold text-cocoa">Confirm your email address.</h2>
+  {% if confirmation %}
+    <p class="mt-4 text-sm leading-7 text-cocoa/70">Please confirm that <span class="font-semibold text-cocoa">{{ confirmation.email_address.email }}</span> should be connected to your Nest &amp; Whisk account.</p>
+    <form method="post" action="{% url 'account_confirm_email' confirmation.key %}" class="mt-8">
+      {% csrf_token %}
+      <button type="submit" class="inline-flex w-full items-center justify-center rounded-full bg-cocoa px-6 py-3.5 text-sm font-semibold text-cream transition hover:bg-chocolate">Confirm email</button>
+    </form>
+  {% else %}
+    <p class="mt-4 text-sm leading-7 text-cocoa/70">This confirmation link is no longer valid. Please request a new verification email from your account settings.</p>
+    <a href="{% url 'account_email' %}" class="mt-8 inline-flex rounded-full border border-cocoa/15 px-6 py-3 text-sm font-semibold text-cocoa transition hover:border-caramel hover:text-caramel">Manage email addresses</a>
+  {% endif %}
+{% endblock %}
+

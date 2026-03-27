@@ -1,0 +1,70 @@
+<div id="cart-content" class="mt-10 grid gap-8 lg:grid-cols-[1fr_360px]" data-cart-item-count="{{ cart.item_count }}" data-cart-subtotal="{{ cart.subtotal }}">
+  <div class="space-y-4">
+    {% if cart.items.all %}
+      <div class="editorial-panel p-5">
+        <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <p class="eyebrow-label">Your selection</p>
+            <h2 class="mt-3 text-2xl font-semibold text-cocoa">{{ cart.item_count }} item{{ cart.item_count|pluralize }} currently in your box.</h2>
+            <p class="mt-3 text-sm leading-7 text-cocoa/72">A polished mix of gifting-ready boxes, packaging preferences, and notes is already taking shape.</p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <a href="{% url 'catalog:shop' %}" class="cta-secondary px-5 py-2.5">Explore the collection</a>
+            <a href="{% url 'cart:build_a_box' %}" class="cta-secondary px-5 py-2.5">Add another custom box</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <div class="editorial-note">
+          <p class="luxury-kicker">Packaging</p>
+          <p class="mt-2 text-sm leading-7 text-cocoa/72">Ribbon, classic presentation, or understated packing notes stay tied to each line item.</p>
+        </div>
+        <div class="editorial-note">
+          <p class="luxury-kicker">Delivery promise</p>
+          <p class="mt-2 text-sm leading-7 text-cocoa/72">You’ll confirm the destination once at checkout while current Delhi NCR guidance remains visible.</p>
+        </div>
+        <div class="editorial-note sm:col-span-2 xl:col-span-1">
+          <p class="luxury-kicker">Gifting polish</p>
+          <p class="mt-2 text-sm leading-7 text-cocoa/72">Message cards and thoughtful order notes turn each box into a more complete gifting moment.</p>
+        </div>
+      </div>
+    {% endif %}
+
+    {% for item in cart.items.all %}
+      {% include 'cart/_cart_item.html' with item=item %}
+    {% empty %}
+      <div class="overflow-hidden rounded-[1.75rem] border border-dashed border-cocoa/20 bg-white/70 shadow-soft transition duration-300">
+        <div class="bg-gradient-to-r from-warm-beige to-cream px-8 py-10 text-center">
+          <div class="mx-auto inline-flex h-16 w-16 items-center justify-center rounded-full bg-cocoa/5 text-2xl text-cocoa/70 animate-pulse">🍪</div>
+          <p class="eyebrow-label mt-6">Curated from scratch</p>
+          <h2 class="font-display mt-3 text-4xl font-semibold text-cocoa">Your cart is waiting for something warm and memorable.</h2>
+          <p class="mx-auto mt-4 max-w-2xl text-sm leading-7 text-cocoa/70">Start with a signature cookie box, build your own assortment, or save a few favorites to your wishlist before checkout.</p>
+          <div class="mx-auto mt-8 grid max-w-3xl gap-4 sm:grid-cols-3">
+            <div class="editorial-note">
+              <p class="luxury-kicker">For gifting</p>
+              <p class="mt-2 text-sm leading-7 text-cocoa/72">Choose a ready-to-send box with room for a warm message.</p>
+            </div>
+            <div class="editorial-note">
+              <p class="luxury-kicker">For hosting</p>
+              <p class="mt-2 text-sm leading-7 text-cocoa/72">Build a box around texture, variety, and table-ready presentation.</p>
+            </div>
+            <div class="editorial-note">
+              <p class="luxury-kicker">For repeat rituals</p>
+              <p class="mt-2 text-sm leading-7 text-cocoa/72">Save favorites and return when the next indulgent moment calls.</p>
+            </div>
+          </div>
+          <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <a href="{% url 'catalog:shop' %}" class="cta-primary px-6 py-3">Shop cookies</a>
+            <a href="{% url 'cart:build_a_box' %}" class="cta-secondary px-6 py-3">Build a box</a>
+            {% if request.user.is_authenticated %}
+              <a href="{% url 'cart:wishlist' %}" class="cta-secondary px-6 py-3">View wishlist</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% include 'cart/_cart_summary.html' with cart=cart %}
+</div>

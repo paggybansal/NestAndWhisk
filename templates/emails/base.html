@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body style="margin:0;padding:0;background:#FFF8F0;font-family:Arial,sans-serif;color:#2B1B18;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#FFF8F0;padding:32px 16px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;background:#ffffff;border-radius:24px;overflow:hidden;box-shadow:0 18px 45px rgba(43,27,24,0.08);">
+            <tr>
+              <td style="background:#4A2E2A;padding:26px 32px;color:#FFF8F0;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      <a href="{{ brand_home_url }}" style="display:inline-flex;align-items:center;text-decoration:none;color:#FFF8F0;">
+                        <img src="{{ brand_logo_url }}" alt="{{ brand_name }} logo" width="72" height="72" style="display:block;width:72px;height:72px;border-radius:999px;border:1px solid rgba(255,248,240,0.18);background:transparent;object-fit:cover;" />
+                      </a>
+                    </td>
+                    <td style="vertical-align:middle;padding-left:18px;">
+                      <p style="margin:0;font-size:12px;letter-spacing:0.35em;text-transform:uppercase;opacity:0.75;">{{ brand_name }}</p>
+                      <h1 style="margin:12px 0 0;font-size:30px;line-height:1.2;font-weight:700;">{% block email_heading %}{% endblock %}</h1>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:36px;">
+                {% block email_content %}{% endblock %}
+                <p style="margin:28px 0 0;font-size:15px;line-height:1.7;">Warmly,<br><strong>{{ brand_name }}</strong></p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+

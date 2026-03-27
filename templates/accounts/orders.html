@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load currency %}
+
+{% block title %}Your Orders | Nest & Whisk{% endblock %}
+
+{% block content %}
+<section class="container-shell py-16 lg:py-24">
+  <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end">
+    <div>
+      <p class="eyebrow-label">Orders</p>
+      <h1 class="font-display mt-3 text-4xl font-semibold text-cocoa lg:text-5xl">Your Nest &amp; Whisk orders.</h1>
+      <p class="mt-4 max-w-2xl text-sm leading-7 text-cocoa/70">Review payment status, revisit tracking, and keep every gifting or personal order in one polished account view.</p>
+    </div>
+    <div class="editorial-panel p-6 lg:p-7">
+      <p class="eyebrow-label">Order archive</p>
+      <p class="mt-4 text-sm leading-7 text-cocoa/75">Use this space as your personal bakery ledger—each order stays easy to revisit without searching through inboxes.</p>
+      <div class="mt-5 flex flex-wrap gap-3">
+        <a href="{% url 'account_dashboard' %}" class="cta-secondary px-5 py-2.5">Back to dashboard</a>
+        <a href="{{ lookup_url }}" class="cta-primary px-5 py-2.5">Track a guest order</a>
+      </div>
+    </div>
+  </div>
+
+  {% if orders %}
+    <div class="mt-10 grid gap-5">
+      {% for order in orders %}
+        <article class="merch-card p-6">
+          <div class="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+            <div class="max-w-2xl">
+              <p class="luxury-kicker">Order reference</p>
+              <p class="mt-2 text-xs font-semibold uppercase tracking-[0.3em] text-caramel">{{ order.order_number }}</p>
+              <h2 class="mt-3 text-2xl font-semibold text-cocoa">{{ order.get_status_display }} · {{ order.get_payment_status_display }}</h2>
+              <p class="mt-3 text-sm leading-7 text-cocoa/70">Placed {{ order.placed_at|default:order.created_at }} · {{ order.items.count }} line item{{ order.items.count|pluralize }}</p>
+              <p class="mt-1 text-sm text-cocoa/70">Shipping to {{ order.shipping_city }}, {{ order.shipping_state }}</p>
+              <div class="mt-5 grid gap-3 sm:grid-cols-3">
+                <div class="editorial-note p-4">
+                  <p class="luxury-kicker">Total</p>
+                  <p class="mt-2 font-semibold text-cocoa">{{ order.total|inr }}</p>
+                </div>
+                <div class="editorial-note p-4">
+                  <p class="luxury-kicker">Payment</p>
+                  <p class="mt-2 font-semibold text-cocoa">{{ order.get_payment_status_display }}</p>
+                </div>
+                <div class="editorial-note p-4">
+                  <p class="luxury-kicker">Next step</p>
+                  <p class="mt-2 text-sm leading-6 text-cocoa/72">Revisit summary or tracking whenever you need a fresh status check.</p>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-col gap-3 lg:items-end">
+              <a href="{% url 'checkout:success' order.order_number %}" class="cta-secondary px-5 py-2.5">Open order summary</a>
+              <a href="{% url 'checkout:tracking' order.order_number %}" class="cta-secondary px-5 py-2.5">Track order</a>
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="mt-10 editorial-panel p-10 text-center">
+      <p class="eyebrow-label">No orders yet</p>
+      <h2 class="font-display mt-3 text-4xl font-semibold text-cocoa">No account orders yet.</h2>
+      <p class="mx-auto mt-4 max-w-2xl text-sm leading-7 text-cocoa/70">Once you place an order while signed in, it will appear here with quick access to payment status, summary detail, and tracking.</p>
+      <div class="mx-auto mt-8 grid max-w-3xl gap-4 sm:grid-cols-3">
+        <div class="editorial-note">
+          <p class="luxury-kicker">Shop</p>
+          <p class="mt-2 text-sm leading-7 text-cocoa/72">Start with the signature collection when you’re ready for the next box.</p>
+        </div>
+        <div class="editorial-note">
+          <p class="luxury-kicker">Track</p>
+          <p class="mt-2 text-sm leading-7 text-cocoa/72">Guest orders can still be tracked separately without needing account history.</p>
+        </div>
+        <div class="editorial-note">
+          <p class="luxury-kicker">Return later</p>
+          <p class="mt-2 text-sm leading-7 text-cocoa/72">Future orders will stay organized here for easier re-visits and gifting follow-up.</p>
+        </div>
+      </div>
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <a href="{% url 'catalog:shop' %}" class="cta-primary px-6 py-3">Shop the collection</a>
+        <a href="{{ lookup_url }}" class="cta-secondary px-6 py-3">Find a guest order</a>
+      </div>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

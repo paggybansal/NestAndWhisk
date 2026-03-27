@@ -1,0 +1,131 @@
+{% load currency %}
+<div class="relative z-40" x-data="miniCart({ itemCount: {{ cart_snapshot.item_count|default:0 }}, subtotal: '{{ cart_snapshot.subtotal|default:'0.00' }}' })" @keydown.escape.window="closePanels()">
+<header class="sticky top-0 z-40 border-b border-cocoa/10 bg-cream/95 shadow-[0_18px_48px_-40px_rgba(43,27,24,0.28)] backdrop-blur">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8 lg:py-5">
+    <a href="{% url 'home' %}" class="flex items-center gap-3">
+      <span class="inline-flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-cocoa/8 bg-transparent shadow-[0_16px_35px_-28px_rgba(43,27,24,0.45)] sm:h-12 sm:w-12 lg:h-14 lg:w-14">
+        <img src="{{ brand_logo_url }}" alt="{{ site_settings.site_name|default:'Nest & Whisk' }} logo" class="h-full w-full rounded-full object-cover scale-[1.06] drop-shadow-[0_8px_18px_rgba(43,27,24,0.12)]" loading="eager" decoding="async" />
+      </span>
+      <span>
+        <span class="font-display block text-2xl font-semibold leading-none text-cocoa">{{ site_settings.site_name|default:'Nest & Whisk' }}</span>
+        <span class="text-xs uppercase tracking-[0.35em] text-cocoa/60">Artisan Cookies</span>
+      </span>
+    </a>
+    <nav class="hidden items-center gap-8 rounded-full border border-cocoa/10 bg-white/55 px-6 py-3 text-sm font-medium shadow-[0_18px_44px_-34px_rgba(43,27,24,0.22)] backdrop-blur lg:flex">
+      <a href="{% url 'home' %}" class="luxury-nav-link">Home</a>
+      <a href="{% url 'about' %}" class="luxury-nav-link">Our Story</a>
+      <a href="{% url 'catalog:shop' %}" class="luxury-nav-link">Shop</a>
+      <a href="{% url 'cart:build_a_box' %}" class="luxury-nav-link">Build a Box</a>
+      <a href="{% url 'subscriptions:list' %}" class="luxury-nav-link">Subscriptions</a>
+      <a href="{% url 'blog:list' %}" class="luxury-nav-link">Journal</a>
+      <a href="{% url 'contact' %}" class="luxury-nav-link">Contact</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <button type="button" @click="openMobileNav()" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-cocoa/15 text-cocoa transition hover:border-caramel hover:text-caramel lg:hidden" aria-label="Open navigation menu" :aria-expanded="mobileNavOpen.toString()" aria-controls="mobile-navigation-drawer">
+        <span class="text-xl leading-none">☰</span>
+      </button>
+      {% if request.user.is_authenticated %}
+        <a href="{% url 'account_dashboard' %}" class="hidden rounded-full border border-cocoa/15 bg-white/70 px-4 py-2 text-sm font-medium shadow-[0_16px_34px_-28px_rgba(74,46,42,0.24)] backdrop-blur transition hover:border-caramel hover:text-caramel sm:inline-flex">{{ request.user.first_name|default:'Dashboard' }}</a>
+      {% else %}
+        <a href="{% url 'account_login' %}" class="hidden rounded-full border border-cocoa/15 bg-white/70 px-4 py-2 text-sm font-medium shadow-[0_16px_34px_-28px_rgba(74,46,42,0.24)] backdrop-blur transition hover:border-caramel hover:text-caramel sm:inline-flex">Sign in</a>
+      {% endif %}
+      <a href="{% url 'cart:detail' %}" @click.prevent="open()" class="cta-primary gap-2 px-5 py-2.5" aria-label="Open cart preview" aria-controls="mini-cart-panel" :aria-expanded="miniCartOpen.toString()">
+        <span>Cart</span>
+        <span data-mini-cart-count class="inline-flex min-w-6 items-center justify-center rounded-full bg-cream/15 px-2 py-0.5 text-xs" x-text="itemCount">{{ cart_snapshot.item_count|default:0 }}</span>
+      </a>
+    </div>
+  </div>
+  <div class="border-t border-cocoa/10 bg-warm-beige/80 px-4 py-2 text-center text-xs text-cocoa/70">
+    <span data-mini-cart-announcement x-text="itemCount + ' item' + (itemCount === 1 ? '' : 's') + ' in your cart · Subtotal ' + formattedSubtotal">{{ cart_snapshot.item_count|default:0 }} item{{ cart_snapshot.item_count|default:0|pluralize }} in your cart · Subtotal {{ cart_snapshot.subtotal|default:'0.00'|inr }}</span> · <a href="{% url 'cart:detail' %}" class="font-semibold text-caramel">Review cart</a>
+  </div>
+
+</header>
+  <div x-show="mobileNavOpen" x-transition.opacity class="fixed inset-0 z-50 bg-chocolate/35 backdrop-blur-[2px] lg:hidden" @click="closeMobileNav()" x-cloak></div>
+  <aside id="mobile-navigation-drawer" x-show="mobileNavOpen" x-transition:enter="transition ease-out duration-350" x-transition:enter-start="-translate-x-10 opacity-0" x-transition:enter-end="translate-x-0 opacity-100" x-transition:leave="transition ease-in duration-250" x-transition:leave-start="translate-x-0 opacity-100" x-transition:leave-end="-translate-x-6 opacity-0" class="mobile-drawer-enter fixed inset-y-0 left-0 z-[60] flex w-full max-w-sm flex-col border-r border-cocoa/10 bg-cream shadow-soft lg:hidden" x-cloak>
+    <div class="flex items-center justify-between border-b border-cocoa/10 px-5 py-5">
+      <a href="{% url 'home' %}" class="flex items-center gap-3" @click="closeMobileNav()">
+        <span class="inline-flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-cocoa/8 bg-transparent shadow-[0_16px_35px_-28px_rgba(43,27,24,0.45)]">
+          <img src="{{ brand_logo_url }}" alt="{{ site_settings.site_name|default:'Nest & Whisk' }} logo" class="h-full w-full rounded-full object-cover scale-[1.06] drop-shadow-[0_8px_18px_rgba(43,27,24,0.12)]" loading="eager" decoding="async" />
+        </span>
+        <span>
+          <span class="font-display block text-2xl font-semibold leading-none text-cocoa">{{ site_settings.site_name|default:'Nest & Whisk' }}</span>
+          <span class="mt-1 block text-[0.65rem] uppercase tracking-[0.35em] text-cocoa/60">Artisan Cookies</span>
+        </span>
+      </a>
+      <button type="button" @click="closeMobileNav()" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-cocoa/15 text-cocoa transition hover:border-caramel hover:text-caramel" aria-label="Close navigation menu">×</button>
+    </div>
+    <div class="flex-1 overflow-y-auto px-5 py-6">
+      <div class="rounded-[1.75rem] border border-cocoa/10 bg-white/75 p-5 shadow-soft">
+        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-caramel">Handcrafted with love</p>
+        <p class="mt-3 text-sm leading-7 text-cocoa/70">Explore signature cookie boxes, curated subscriptions, gifting, and warm everyday indulgence.</p>
+      </div>
+      <nav class="mt-6 space-y-2">
+        <a href="{% url 'home' %}" @click="closeMobileNav()" class="flex items-center justify-between rounded-2xl border border-cocoa/10 bg-white/70 px-4 py-3 text-sm font-medium text-cocoa transition hover:border-caramel hover:text-caramel"><span>Home</span><span aria-hidden="true">→</span></a>
+        <a href="{% url 'about' %}" @click="closeMobileNav()" class="flex items-center justify-between rounded-2xl border border-cocoa/10 bg-white/70 px-4 py-3 text-sm font-medium text-cocoa transition hover:border-caramel hover:text-caramel"><span>Our Story</span><span aria-hidden="true">→</span></a>
+        <a href="{% url 'catalog:shop' %}" @click="closeMobileNav()" class="flex items-center justify-between rounded-2xl border border-cocoa/10 bg-white/70 px-4 py-3 text-sm font-medium text-cocoa transition hover:border-caramel hover:text-caramel"><span>Shop</span><span aria-hidden="true">→</span></a>
+        <a href="{% url 'cart:build_a_box' %}" @click="closeMobileNav()" class="flex items-center justify-between rounded-2xl border border-cocoa/10 bg-white/70 px-4 py-3 text-sm font-medium text-cocoa transition hover:border-caramel hover:text-caramel"><span>Build a Box</span><span aria-hidden="true">→</span></a>
+        <a href="{% url 'subscriptions:list' %}" @click="closeMobileNav()" class="flex items-center justify-between rounded-2xl border border-cocoa/10 bg-white/70 px-4 py-3 text-sm font-medium text-cocoa transition hover:border-caramel hover:text-caramel"><span>Subscriptions</span><span aria-hidden="true">→</span></a>
+        <a href="{% url 'blog:list' %}" @click="closeMobileNav()" class="flex items-center justify-between rounded-2xl border border-cocoa/10 bg-white/70 px-4 py-3 text-sm font-medium text-cocoa transition hover:border-caramel hover:text-caramel"><span>Journal</span><span aria-hidden="true">→</span></a>
+        <a href="{% url 'contact' %}" @click="closeMobileNav()" class="flex items-center justify-between rounded-2xl border border-cocoa/10 bg-white/70 px-4 py-3 text-sm font-medium text-cocoa transition hover:border-caramel hover:text-caramel"><span>Contact</span><span aria-hidden="true">→</span></a>
+      </nav>
+    </div>
+    <div class="border-t border-cocoa/10 px-5 py-5">
+      {% if request.user.is_authenticated %}
+        <a href="{% url 'account_dashboard' %}" @click="closeMobileNav()" class="inline-flex w-full items-center justify-center rounded-full border border-cocoa/15 px-5 py-3 text-sm font-semibold text-cocoa transition hover:border-caramel hover:text-caramel">{{ request.user.first_name|default:'Dashboard' }}</a>
+      {% else %}
+        <a href="{% url 'account_login' %}" @click="closeMobileNav()" class="inline-flex w-full items-center justify-center rounded-full border border-cocoa/15 px-5 py-3 text-sm font-semibold text-cocoa transition hover:border-caramel hover:text-caramel">Sign in</a>
+      {% endif %}
+    </div>
+  </aside>
+
+  <div x-show="miniCartOpen" x-transition.opacity class="fixed inset-0 z-[70] bg-chocolate/40 backdrop-blur-[2px]" @click="close()" x-cloak></div>
+  <div x-show="miniCartOpen" class="pointer-events-none fixed inset-0 z-[80] flex items-center justify-end overflow-hidden px-3 py-4 sm:px-5 lg:px-8" x-cloak>
+    <aside id="mini-cart-panel" x-show="miniCartOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="translate-x-10 opacity-0 scale-[0.98]" x-transition:enter-end="translate-x-0 opacity-100 scale-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-x-0 opacity-100 scale-100" x-transition:leave-end="translate-x-8 opacity-0 scale-[0.98]" @click.stop class="pointer-events-auto ml-auto flex h-[min(46rem,calc(100vh-2rem))] w-full max-w-[min(35rem,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-[2rem] border border-cocoa/10 bg-cream shadow-[0_30px_90px_-34px_rgba(43,27,24,0.52)] sm:h-[min(46rem,calc(100vh-2.5rem))] sm:max-w-[min(35rem,calc(100vw-2.5rem))] lg:max-w-[min(36rem,calc(100vw-4rem))]" x-cloak>
+      <div class="flex items-center justify-between border-b border-cocoa/10 px-6 py-5">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-caramel">Mini cart</p>
+          <h2 class="font-display mt-2 text-3xl font-semibold text-cocoa">Your box preview</h2>
+        </div>
+        <button type="button" @click="close()" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-cocoa/15 text-cocoa transition hover:border-caramel hover:text-caramel" aria-label="Close cart preview">×</button>
+      </div>
+      <div class="flex items-center justify-between gap-4 border-b border-cocoa/10 bg-white/55 px-6 py-4 text-sm text-cocoa/70">
+        <span data-mini-cart-summary x-text="itemCount + ' item' + (itemCount === 1 ? '' : 's') + ' ready for checkout'">{{ cart_snapshot.item_count|default:0 }} item{{ cart_snapshot.item_count|default:0|pluralize }} ready for checkout</span>
+        <a href="{% url 'cart:detail' %}" class="shrink-0 font-semibold text-caramel transition hover:text-cocoa">View full cart</a>
+      </div>
+      <div class="min-h-0 flex-1 overflow-y-auto overscroll-contain px-6 py-6">
+        {% if cart_snapshot.preview_items %}
+          <div class="space-y-4">
+            {% for item in cart_snapshot.preview_items %}
+              <article class="rounded-[1.25rem] border border-cocoa/10 bg-white/80 p-4 shadow-soft transition duration-300 hover:-translate-y-0.5">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <h3 class="text-base font-semibold text-cocoa">{{ item.product.name }}</h3>
+                    {% if item.variant %}<p class="mt-1 text-sm text-cocoa/60">{{ item.variant.name }}</p>{% endif %}
+                    <p class="mt-2 text-sm text-cocoa/70">Qty {{ item.quantity }}</p>
+                  </div>
+                  <p class="text-sm font-semibold text-cocoa">{{ item.line_total|inr }}</p>
+                </div>
+              </article>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="rounded-[1.5rem] border border-dashed border-cocoa/20 bg-white/70 p-8 text-center shadow-soft transition duration-300">
+            <div class="mx-auto inline-flex h-14 w-14 items-center justify-center rounded-full bg-cocoa/5 text-2xl text-cocoa/70">🍪</div>
+            <h3 class="font-display mt-4 text-3xl font-semibold text-cocoa">Your cart is empty.</h3>
+            <p class="mt-3 text-sm leading-7 text-cocoa/70">Browse handcrafted favorites or build a custom cookie box to get started.</p>
+          </div>
+        {% endif %}
+      </div>
+      <div class="border-t border-cocoa/10 bg-cream px-6 py-6">
+        <div class="flex items-center justify-between text-sm text-cocoa/70">
+          <span>Subtotal</span>
+          <span data-mini-cart-subtotal class="font-semibold text-cocoa" x-text="formattedSubtotal">{{ cart_snapshot.subtotal|default:'0.00'|inr }}</span>
+        </div>
+        <div class="mt-4 grid gap-3">
+          <a href="{% url 'cart:detail' %}" class="inline-flex items-center justify-center rounded-full bg-cocoa px-6 py-3 text-sm font-semibold text-cream transition hover:bg-chocolate">Review cart</a>
+          <a href="{% url 'catalog:shop' %}" class="inline-flex items-center justify-center rounded-full border border-cocoa/15 px-6 py-3 text-sm font-semibold text-cocoa transition hover:border-caramel hover:text-caramel">Keep shopping</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>

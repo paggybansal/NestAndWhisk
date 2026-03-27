@@ -1,0 +1,96 @@
+{% load currency %}
+<article class="merch-card p-6 transition duration-300 hover:-translate-y-0.5">
+  <div class="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+    <div class="max-w-2xl">
+      <p class="luxury-kicker">In your box</p>
+      <h2 class="mt-2 text-2xl font-semibold text-cocoa">{{ item.product.name }}</h2>
+      {% if item.variant %}<p class="mt-1 text-sm text-cocoa/65">{{ item.variant.name }}</p>{% endif %}
+      <p class="mt-3 text-sm leading-7 text-cocoa/72">A curated cookie pick ready to move into packaging, gifting notes, and final delivery details at checkout.</p>
+
+      <div class="mt-4 flex flex-wrap gap-2">
+        {% if item.packaging_option %}<span class="soft-chip">Packaging: {{ item.packaging_option }}</span>{% endif %}
+        {% if item.gift_message %}<span class="soft-chip">Gift note included</span>{% endif %}
+        {% if item.build_a_box_payload.flavors %}<span class="soft-chip">Custom assortment</span>{% endif %}
+      </div>
+
+      {% if item.build_a_box_payload.flavors %}
+        <div class="mt-4 editorial-note p-4">
+          <p class="luxury-kicker">Selected flavours</p>
+          <p class="mt-2 text-sm leading-7 text-cocoa/72">{% for flavor in item.build_a_box_payload.flavors %}{{ flavor.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+        </div>
+      {% endif %}
+
+      {% if item.gift_message or item.packaging_option %}
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          {% if item.gift_message %}
+            <div class="editorial-note p-4">
+              <p class="luxury-kicker">Gift message</p>
+              <p class="mt-2 text-sm leading-7 text-cocoa/72">{{ item.gift_message }}</p>
+            </div>
+          {% endif %}
+          {% if item.packaging_option %}
+            <div class="editorial-note p-4">
+              <p class="luxury-kicker">Packaging preference</p>
+              <p class="mt-2 text-sm leading-7 text-cocoa/72">{{ item.packaging_option }}</p>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <p class="mt-4 text-xs uppercase tracking-[0.25em] text-cocoa/45">Ready to refresh instantly</p>
+    </div>
+
+    <div class="min-w-[12rem] rounded-[1.35rem] border border-cocoa/10 bg-white/60 px-5 py-4 text-left lg:text-right">
+      <p class="text-sm text-cocoa/65">Unit price</p>
+      <p class="mt-1 text-lg font-semibold text-cocoa">{{ item.unit_price|inr }}</p>
+      <p class="mt-3 text-sm text-cocoa/60">Line total {{ item.line_total|inr }}</p>
+      <p class="mt-3 text-xs leading-6 text-cocoa/55">Quantity, notes, and packaging can still be adjusted before the order is created.</p>
+    </div>
+  </div>
+
+  <div class="mt-6 flex flex-wrap items-end justify-between gap-4 border-t border-cocoa/8 pt-5">
+    <div class="flex items-end gap-3">
+      <div>
+        <label class="mb-2 block text-sm font-medium text-cocoa">Quantity</label>
+        <div class="flex items-center gap-2">
+          <form method="post" action="{% url 'cart:update_step' item.pk %}" hx-post="{% url 'cart:update_step' item.pk %}" hx-target="#cart-content" hx-swap="outerHTML" hx-indicator="#cart-feedback-{{ item.pk }}">
+            {% csrf_token %}
+            <input type="hidden" name="delta" value="-1">
+            <button type="submit" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-cocoa/15 text-lg font-semibold text-cocoa transition hover:border-caramel hover:text-caramel">−</button>
+          </form>
+          <form
+            method="post"
+            action="{% url 'cart:update' item.pk %}"
+            hx-post="{% url 'cart:update' item.pk %}"
+            hx-target="#cart-content"
+            hx-swap="outerHTML"
+            hx-indicator="#cart-feedback-{{ item.pk }}"
+            class="flex items-center gap-2"
+          >
+            {% csrf_token %}
+            <label for="cart-quantity-{{ item.pk }}" class="sr-only">Quantity for {{ item.product.name }}</label>
+            <input id="cart-quantity-{{ item.pk }}" type="number" name="quantity" min="1" value="{{ item.quantity }}" class="w-24 rounded-2xl border border-cocoa/15 bg-white px-4 py-3 text-center text-sm text-cocoa">
+            <button type="submit" class="cta-secondary px-4 py-3">Update</button>
+          </form>
+          <form method="post" action="{% url 'cart:update_step' item.pk %}" hx-post="{% url 'cart:update_step' item.pk %}" hx-target="#cart-content" hx-swap="outerHTML" hx-indicator="#cart-feedback-{{ item.pk }}">
+            {% csrf_token %}
+            <input type="hidden" name="delta" value="1">
+            <button type="submit" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-cocoa/15 text-lg font-semibold text-cocoa transition hover:border-caramel hover:text-caramel">+</button>
+          </form>
+        </div>
+        <p id="cart-feedback-{{ item.pk }}" class="htmx-indicator mt-3 text-xs text-caramel">Updating your box…</p>
+      </div>
+    </div>
+    <form
+      method="post"
+      action="{% url 'cart:remove' item.pk %}"
+      hx-post="{% url 'cart:remove' item.pk %}"
+      hx-target="#cart-content"
+      hx-swap="outerHTML"
+      hx-indicator="#cart-feedback-{{ item.pk }}"
+    >
+      {% csrf_token %}
+      <button type="submit" class="text-sm font-semibold text-dusty-rose">Remove</button>
+    </form>
+  </div>
+</article>

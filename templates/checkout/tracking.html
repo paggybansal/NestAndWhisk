@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load currency %}
+
+{% block title %}Track Order | Nest & Whisk{% endblock %}
+
+{% block content %}
+<section class="container-shell py-16 lg:py-24">
+  <div class="grid gap-8 lg:grid-cols-[320px_1fr]">
+    <aside class="editorial-panel p-8">
+      <p class="eyebrow-label">Lookup order</p>
+      <h2 class="font-display mt-3 text-3xl font-semibold text-cocoa">Find your order status</h2>
+      <p class="mt-3 text-sm leading-7 text-cocoa/70">{{ lookup_help }}</p>
+      <form method="post" action="{% url 'checkout:lookup' %}" class="mt-6 space-y-4 immersive-input">
+        {% csrf_token %}
+        {% if lookup_form.non_field_errors %}<div class="form-error-list">{{ lookup_form.non_field_errors|join:', ' }}</div>{% endif %}
+        <div>
+          <label class="mb-2 block text-sm font-medium text-cocoa">Order number</label>
+          {{ lookup_form.order_number }}
+        </div>
+        <div>
+          <label class="mb-2 block text-sm font-medium text-cocoa">Email address</label>
+          {{ lookup_form.customer_email }}
+        </div>
+        <button type="submit" class="cta-primary w-full px-6 py-3">Track order</button>
+      </form>
+      {% if lockout_message %}<div class="form-error-list mt-4">{{ lockout_message }}</div>{% endif %}
+      <div class="editorial-note mt-6">
+        <p class="luxury-kicker">Recovery tip</p>
+        <p class="mt-2 text-sm leading-7 text-cocoa/72">{{ lookup_recovery_tip }}</p>
+      </div>
+
+      <div class="mt-8 border-t border-cocoa/10 pt-6">
+        <p class="eyebrow-label">Email me my links</p>
+        <form method="post" action="{% url 'checkout:send_tracking_links' %}" class="mt-4 space-y-4 immersive-input">
+          {% csrf_token %}
+          {% if link_request_form.non_field_errors %}<div class="form-error-list">{{ link_request_form.non_field_errors|join:', ' }}</div>{% endif %}
+          <div>
+            <label class="mb-2 block text-sm font-medium text-cocoa">Checkout email</label>
+            {{ link_request_form.customer_email }}
+          </div>
+          <button type="submit" class="cta-secondary w-full px-6 py-3">Send tracking links</button>
+        </form>
+      </div>
+    </aside>
+
+    {% if order %}
+      <div>
+        <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-end">
+          <div>
+            <p class="eyebrow-label">Order tracking</p>
+            <h1 class="font-display mt-3 text-5xl font-semibold text-cocoa">{{ order.order_number }}</h1>
+            <p class="mt-4 max-w-2xl text-sm leading-7 text-cocoa/72">Track payment progress, order milestones, and delivery readiness in one calm, guest-friendly view.</p>
+          </div>
+          <div class="editorial-panel p-6">
+            <p class="eyebrow-label">Return point</p>
+            <p class="mt-3 text-sm leading-7 text-cocoa/72">Need payment detail instead of milestones? Jump back to the order summary without losing context.</p>
+            <a href="{% url 'checkout:success' order.order_number %}" class="cta-secondary mt-5 px-5 py-2.5">Back to payment summary</a>
+          </div>
+        </div>
+
+        <div class="mt-10 grid gap-8 lg:grid-cols-[1fr_340px]">
+          <div class="editorial-panel p-8">
+            <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p class="eyebrow-label">Tracking timeline</p>
+                <h2 class="mt-3 text-2xl font-semibold text-cocoa">A clearer look at where the order stands.</h2>
+              </div>
+              <span class="soft-chip">Updated from payment + order status</span>
+            </div>
+            <div class="mt-8 space-y-6">
+              {% for item in timeline %}
+                <div class="relative pl-10">
+                  <span class="absolute left-0 top-1.5 inline-flex h-4 w-4 rounded-full bg-caramel shadow-[0_0_0_8px_rgba(201,138,68,0.12)]"></span>
+                  {% if not forloop.last %}<span class="absolute left-[0.45rem] top-6 h-[calc(100%-0.25rem)] w-px bg-cocoa/10"></span>{% endif %}
+                  <p class="text-sm font-semibold text-cocoa">{{ item.label }}</p>
+                  <p class="mt-1 text-xs uppercase tracking-[0.2em] text-cocoa/45">{{ item.value }}</p>
+                  <p class="mt-2 text-sm leading-7 text-cocoa/75">{{ item.detail }}</p>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <aside class="space-y-6">
+            <div class="editorial-panel-dark p-8">
+              <p class="text-xs font-semibold uppercase tracking-[0.35em] text-cream/70">Current status</p>
+              <div class="mt-6 space-y-4 text-sm">
+                <div class="flex items-center justify-between"><span>Order</span><span>{{ order.get_status_display }}</span></div>
+                <div class="flex items-center justify-between"><span>Payment</span><span>{% if payment %}{{ payment.get_status_display }}{% else %}Pending{% endif %}</span></div>
+                <div class="flex items-center justify-between"><span>Total</span><span>{{ order.total|inr }}</span></div>
+              </div>
+              {% if payment and payment.receipt_url %}
+                <a href="{{ payment.receipt_url }}" class="cta-secondary-dark mt-6 w-full bg-cream text-cocoa hover:bg-white">View receipt</a>
+              {% endif %}
+            </div>
+
+            <div class="editorial-panel p-6">
+              <p class="eyebrow-label">White-glove updates</p>
+              <div class="mt-4 space-y-4 text-sm leading-7 text-cocoa/75">
+                <p>Use this page whenever you want one tidy place for payment progress and order movement.</p>
+                <p>If the order is a gift, this timeline keeps the follow-up polished without sending recipients into checkout details.</p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    {% else %}
+      <div class="editorial-panel p-10 text-center">
+        <p class="eyebrow-label">Tracking overview</p>
+        <h2 class="font-display mt-3 text-4xl font-semibold text-cocoa">Track every update in one place.</h2>
+        <p class="mx-auto mt-4 max-w-2xl text-sm leading-7 text-cocoa/70">Enter the order number from your confirmation and the email used at checkout to review payment status, webhook-updated order progress, and receipt access.</p>
+        <div class="mx-auto mt-8 grid max-w-3xl gap-4 sm:grid-cols-3">
+          <div class="editorial-note">
+            <p class="luxury-kicker">Payment</p>
+            <p class="mt-2 text-sm leading-7 text-cocoa/72">See whether payment is pending, processing, paid, or ready for a secure retry.</p>
+          </div>
+          <div class="editorial-note">
+            <p class="luxury-kicker">Order state</p>
+            <p class="mt-2 text-sm leading-7 text-cocoa/72">Follow the order from creation to fulfillment in a single timeline.</p>
+          </div>
+          <div class="editorial-note">
+            <p class="luxury-kicker">Receipt access</p>
+            <p class="mt-2 text-sm leading-7 text-cocoa/72">Return to payment references and receipt links whenever they become available.</p>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

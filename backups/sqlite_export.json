@@ -1,0 +1,3983 @@
+[
+{
+  "model": "sites.site",
+  "pk": 1,
+  "fields": {
+    "domain": "example.com",
+    "name": "example.com"
+  }
+},
+{
+  "model": "account.emailaddress",
+  "pk": 1,
+  "fields": {
+    "user": 5,
+    "email": "logout-page-debug@example.com",
+    "verified": true,
+    "primary": true
+  }
+},
+{
+  "model": "core.sitesettings",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T14:15:10.593Z",
+    "updated_at": "2026-03-19T15:42:03.086Z",
+    "site_name": "Nest & Whisk",
+    "tag_line": "Premium handcrafted cookies delivered with warmth, elegance, and delight.",
+    "meta_title": "Nest & Whisk | Premium Artisan Cookie Gifting",
+    "meta_description": "Small-batch artisan cookies, curated gifting boxes, subscriptions, and custom cookie assortments from Nest & Whisk.",
+    "announcement_bar_text": "Free nationwide shipping on curated gift boxes over Γé╣2,500.",
+    "support_email": "hello@nestandwhisk.com",
+    "support_phone": "+1 (212) 555-0188",
+    "instagram_url": "https://instagram.com/nestandwhisk",
+    "tiktok_url": "https://tiktok.com/@nestandwhisk",
+    "pinterest_url": "https://pinterest.com/nestandwhisk",
+    "footer_blurb": "Nest & Whisk blends the comfort of home baking with the elegance of handcrafted gifting. Every box is baked in small batches, wrapped beautifully, and meant to feel like a small celebration."
+  }
+},
+{
+  "model": "core.homepagecontent",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T14:15:10.604Z",
+    "updated_at": "2026-03-19T15:42:03.094Z",
+    "eyebrow": "Premium handcrafted cookies",
+    "hero_title": "Delivered with warmth, elegance, and delight.",
+    "hero_body": "Thoughtfully baked in small batches, beautifully packed for gifting, and made to turn ordinary moments into something worth savoring.",
+    "primary_cta_label": "Shop Now",
+    "primary_cta_url": "/shop/",
+    "secondary_cta_label": "Build a Box",
+    "secondary_cta_url": "/cart/build-a-box/",
+    "tertiary_cta_label": "Subscribe",
+    "tertiary_cta_url": "/subscriptions/",
+    "feature_one_label": "Bestseller",
+    "feature_one_title": "Sea Salt Caramel",
+    "feature_one_body": "Buttery centers, caramel notes, and a delicate salt finish that feels instantly gift-worthy.",
+    "feature_two_label": "Seasonal",
+    "feature_two_title": "Pistachio Rose",
+    "feature_two_body": "A softly floral, elegant cookie with toasted pistachio crunch and a refined finish.",
+    "feature_banner_label": "Curated gifting",
+    "feature_banner_body": "Luxury packaging, personal gift notes, and recurring boxes that arrive with bakery-fresh polish.",
+    "quality_title": "Small-batch quality",
+    "quality_body_left": "Premium chocolate, cultured butter, fragrant vanilla, and thoughtful finishing touches in every box.",
+    "quality_body_right": "Build-your-own assortments, subscription rituals, and polished gifting moments crafted to feel personal."
+  }
+},
+{
+  "model": "core.policypage",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.163Z",
+    "updated_at": "2026-03-19T15:42:03.097Z",
+    "title": "Shipping Policy",
+    "slug": "shipping-policy",
+    "summary": "Delivery windows, packaging standards, and transit timing.",
+    "body": "We bake to order in small batches and dispatch most curated boxes within two business days. Seasonal drops and custom orders may require additional lead time, and tracking details are sent as soon as each parcel leaves our studio.",
+    "is_published": true,
+    "seo_title": "",
+    "seo_description": "",
+    "sort_order": 1
+  }
+},
+{
+  "model": "core.policypage",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.164Z",
+    "updated_at": "2026-03-19T15:42:03.098Z",
+    "title": "Refund Policy",
+    "slug": "refund-policy",
+    "summary": "How Nest & Whisk handles quality concerns and damaged deliveries.",
+    "body": "Because our cookies are handcrafted and perishable, refunds are handled case by case. If your order arrives damaged or below standard, contact us within 48 hours and our team will make it right with a replacement, credit, or refund where appropriate.",
+    "is_published": true,
+    "seo_title": "",
+    "seo_description": "",
+    "sort_order": 2
+  }
+},
+{
+  "model": "core.policypage",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.165Z",
+    "updated_at": "2026-03-19T15:42:03.099Z",
+    "title": "Privacy Policy",
+    "slug": "privacy-policy",
+    "summary": "How we handle customer information and store communications.",
+    "body": "We collect only the information needed to fulfill orders, personalize gifting, and send opted-in marketing communications. Customer data is never sold, and account preferences can be updated or removed upon request.",
+    "is_published": true,
+    "seo_title": "",
+    "seo_description": "",
+    "sort_order": 3
+  }
+},
+{
+  "model": "core.policypage",
+  "pk": 4,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.166Z",
+    "updated_at": "2026-03-19T15:42:03.100Z",
+    "title": "Terms & Conditions",
+    "slug": "terms-and-conditions",
+    "summary": "Ordering, fulfillment, and website usage terms.",
+    "body": "By placing an order with Nest & Whisk, you agree to our fulfillment timelines, ingredient disclosures, and limited liability for circumstances outside normal shipping control. We reserve the right to update product assortments, pricing, and promotional terms as needed.",
+    "is_published": true,
+    "seo_title": "",
+    "seo_description": "",
+    "sort_order": 4
+  }
+},
+{
+  "model": "core.faq",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.167Z",
+    "updated_at": "2026-03-19T15:42:03.101Z",
+    "question": "How fresh are your cookies when they arrive?",
+    "answer": "Every Nest & Whisk order is baked in small batches and packed shortly before dispatch so your cookies arrive fresh, fragrant, and ready to enjoy.",
+    "category": "Freshness",
+    "is_published": true,
+    "sort_order": 1
+  }
+},
+{
+  "model": "core.faq",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.167Z",
+    "updated_at": "2026-03-19T15:42:03.102Z",
+    "question": "Can I choose my own flavors in a gift box?",
+    "answer": "Yes. Our build-a-box experience lets you choose your box size, curate the flavor mix, and include a gift message before checkout.",
+    "category": "Ordering",
+    "is_published": true,
+    "sort_order": 2
+  }
+},
+{
+  "model": "core.faq",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.168Z",
+    "updated_at": "2026-03-19T15:42:03.103Z",
+    "question": "Do you offer recurring subscription boxes?",
+    "answer": "We offer weekly, biweekly, and monthly plans with flexible renewal timing and customer-controlled flavor preferences.",
+    "category": "Subscriptions",
+    "is_published": true,
+    "sort_order": 3
+  }
+},
+{
+  "model": "core.faq",
+  "pk": 4,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.169Z",
+    "updated_at": "2026-03-19T15:42:03.103Z",
+    "question": "Do you handle corporate gifting and event orders?",
+    "answer": "Absolutely. We can help with client gifting, event favors, and larger custom assortments with polished packaging and delivery coordination.",
+    "category": "Corporate",
+    "is_published": true,
+    "sort_order": 4
+  }
+},
+{
+  "model": "core.faq",
+  "pk": 5,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.169Z",
+    "updated_at": "2026-03-19T15:42:03.104Z",
+    "question": "Do your cookies contain allergens?",
+    "answer": "Many of our cookies contain wheat, dairy, and eggs, and some flavors include nuts. Each product page includes ingredients and allergen notes for easy review.",
+    "category": "Ingredients",
+    "is_published": true,
+    "sort_order": 5
+  }
+},
+{
+  "model": "core.testimonial",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.170Z",
+    "updated_at": "2026-03-19T15:42:03.105Z",
+    "customer_name": "Ariana Chen",
+    "customer_title": "Creative director",
+    "quote": "The packaging felt as thoughtful as the cookies themselves ΓÇö polished, warm, and impossibly delicious.",
+    "rating": 5,
+    "is_featured": true,
+    "sort_order": 1
+  }
+},
+{
+  "model": "core.testimonial",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.171Z",
+    "updated_at": "2026-03-19T15:42:03.105Z",
+    "customer_name": "Marcus Hale",
+    "customer_title": "Corporate gifting client",
+    "quote": "We sent Nest & Whisk boxes to our top clients and every single one reached out to ask where they could order more.",
+    "rating": 5,
+    "is_featured": true,
+    "sort_order": 2
+  }
+},
+{
+  "model": "core.testimonial",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.172Z",
+    "updated_at": "2026-03-19T15:42:03.106Z",
+    "customer_name": "Sofia Bennett",
+    "customer_title": "Monthly subscriber",
+    "quote": "It feels like receiving a small celebration at my door. The seasonal flavors are especially memorable.",
+    "rating": 5,
+    "is_featured": true,
+    "sort_order": 3
+  }
+},
+{
+  "model": "core.contactsettings",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.161Z",
+    "updated_at": "2026-03-19T15:42:03.096Z",
+    "page_title": "WeΓÇÖd love to help you plan something delicious.",
+    "intro": "Questions about gifting, events, custom assortments, or recurring cookie deliveries? Our studio team is here to help.",
+    "inquiry_email": "hello@nestandwhisk.com",
+    "business_hours": "MonΓÇôSat ┬╖ 9amΓÇô6pm EST",
+    "studio_location": "New York City studio kitchen",
+    "contact_card_body": "Tell us what youΓÇÖre celebrating and weΓÇÖll guide you toward a thoughtful cookie moment that feels beautifully personal."
+  }
+},
+{
+  "model": "core.newslettersignup",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.173Z",
+    "updated_at": "2026-03-19T15:42:03.107Z",
+    "email": "amelia@nwandfriends.test",
+    "first_name": "Amelia",
+    "source": "homepage",
+    "is_active": true,
+    "confirmed_at": "2026-03-19T15:42:03.106Z"
+  }
+},
+{
+  "model": "core.newslettersignup",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.173Z",
+    "updated_at": "2026-03-19T15:42:03.108Z",
+    "email": "jules@giftingcircle.test",
+    "first_name": "Jules",
+    "source": "footer",
+    "is_active": true,
+    "confirmed_at": "2026-03-19T15:42:03.108Z"
+  }
+},
+{
+  "model": "core.newslettersignup",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.174Z",
+    "updated_at": "2026-03-19T15:42:03.109Z",
+    "email": "lena@editorialtaste.test",
+    "first_name": "Lena",
+    "source": "seasonal-launch",
+    "is_active": true,
+    "confirmed_at": "2026-03-19T15:42:03.109Z"
+  }
+},
+{
+  "model": "core.newslettersignup",
+  "pk": 4,
+  "fields": {
+    "created_at": "2026-03-19T13:56:08.830Z",
+    "updated_at": "2026-03-19T13:56:08.830Z",
+    "email": "paragbansal.bansal@gmail.com",
+    "first_name": "parag",
+    "source": "homepage",
+    "is_active": true,
+    "confirmed_at": null
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 1,
+  "fields": {
+    "password": "!ppvELvEnlrLmAExfz7pE438igSuCi2m66DOcKJRW",
+    "last_login": null,
+    "is_superuser": false,
+    "email": "claire.holloway@nestandwhisk.test",
+    "first_name": "Claire",
+    "last_name": "Holloway",
+    "phone_number": "+1 (646) 555-0142",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-18T14:40:50.250Z",
+    "marketing_opt_in": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$B5OZonboRBGqrQTbORH356$aoC3+cvWlQVXhLAbNUPgaW7PP5mHNl2EslWjS6KBlGk=",
+    "last_login": "2026-03-22T18:39:27.717Z",
+    "is_superuser": true,
+    "email": "admin@nestandwhisk.com",
+    "first_name": "Nest",
+    "last_name": "Admin",
+    "phone_number": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-03-18T14:41:00.896Z",
+    "marketing_opt_in": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$gukCK5LXzyPt3FW2LTijmQ$pxbBm8UOBELv6+RyZTksdXxaT9h3agI7kna+mI7AWdc=",
+    "last_login": "2026-03-19T07:32:30.962Z",
+    "is_superuser": true,
+    "email": "admin@example.com",
+    "first_name": "",
+    "last_name": "",
+    "phone_number": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-03-18T15:45:36.090Z",
+    "marketing_opt_in": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$ODwBid9A8jGFiYT9st6RNj$Uz58U8SMyD4O+SUItPV9tOn1pk6bUfgB5R29ahJmmWI=",
+    "last_login": "2026-03-19T08:29:38.346Z",
+    "is_superuser": false,
+    "email": "logout-check@example.com",
+    "first_name": "",
+    "last_name": "",
+    "phone_number": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-19T08:29:37.653Z",
+    "marketing_opt_in": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$KDrb5JiQ8gxyGJRidTJTUI$fvqudcUdFgtV4xIo8wea0XeEZ2U+6oDCOCLiusd8xo4=",
+    "last_login": null,
+    "is_superuser": false,
+    "email": "logout-page-debug@example.com",
+    "first_name": "Nest",
+    "last_name": "",
+    "phone_number": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-19T08:37:46.911Z",
+    "marketing_opt_in": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "catalog.productcategory",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.175Z",
+    "updated_at": "2026-03-19T15:42:03.123Z",
+    "name": "Signature Collection",
+    "slug": "signature-collection",
+    "description": "Small-batch signature cookies designed for gifting, sharing, and repeat cravings.",
+    "short_description": "Our everyday favorites with a premium bakery finish.",
+    "image": "",
+    "is_active": true,
+    "sort_order": 1,
+    "seo_title": "",
+    "seo_description": ""
+  }
+},
+{
+  "model": "catalog.productcategory",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.177Z",
+    "updated_at": "2026-03-19T15:42:03.124Z",
+    "name": "Seasonal Editions",
+    "slug": "seasonal-editions",
+    "description": "Limited-batch seasonal cookies with cozy ingredients and event-ready charm.",
+    "short_description": "Rotating flavors inspired by the season and special occasions.",
+    "image": "",
+    "is_active": true,
+    "sort_order": 2,
+    "seo_title": "",
+    "seo_description": ""
+  }
+},
+{
+  "model": "catalog.productcategory",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.177Z",
+    "updated_at": "2026-03-19T15:42:03.125Z",
+    "name": "Build-a-Box",
+    "slug": "build-a-box",
+    "description": "Choose your box size, curate your flavor mix, and create a custom Nest & Whisk gift box.",
+    "short_description": "Custom assortment builders with flexible pack sizes.",
+    "image": "",
+    "is_active": true,
+    "sort_order": 3,
+    "seo_title": "",
+    "seo_description": ""
+  }
+},
+{
+  "model": "catalog.producttag",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.178Z",
+    "updated_at": "2026-03-19T15:42:03.125Z",
+    "name": "Bestseller",
+    "slug": "bestseller"
+  }
+},
+{
+  "model": "catalog.producttag",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.179Z",
+    "updated_at": "2026-03-19T15:42:03.126Z",
+    "name": "Gifting Favorite",
+    "slug": "gifting-favorite"
+  }
+},
+{
+  "model": "catalog.producttag",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.180Z",
+    "updated_at": "2026-03-19T15:42:03.126Z",
+    "name": "Seasonal",
+    "slug": "seasonal"
+  }
+},
+{
+  "model": "catalog.producttag",
+  "pk": 4,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.180Z",
+    "updated_at": "2026-03-19T15:42:03.127Z",
+    "name": "Staff Pick",
+    "slug": "staff-pick"
+  }
+},
+{
+  "model": "catalog.producttag",
+  "pk": 5,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.181Z",
+    "updated_at": "2026-03-19T15:42:03.128Z",
+    "name": "Limited Edition",
+    "slug": "limited-edition"
+  }
+},
+{
+  "model": "catalog.dietaryattribute",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.182Z",
+    "updated_at": "2026-03-19T15:42:03.128Z",
+    "name": "Vegetarian",
+    "slug": "vegetarian",
+    "badge_label": "Vegetarian",
+    "description": "Made without meat-based ingredients."
+  }
+},
+{
+  "model": "catalog.dietaryattribute",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.183Z",
+    "updated_at": "2026-03-19T15:42:03.129Z",
+    "name": "Egg-Free",
+    "slug": "egg-free",
+    "badge_label": "Egg-free",
+    "description": "Suitable for customers avoiding eggs."
+  }
+},
+{
+  "model": "catalog.dietaryattribute",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.183Z",
+    "updated_at": "2026-03-19T15:42:03.130Z",
+    "name": "Seasonal Favorite",
+    "slug": "seasonal-favorite",
+    "badge_label": "Seasonal",
+    "description": "A limited seasonal release."
+  }
+},
+{
+  "model": "catalog.dietaryattribute",
+  "pk": 4,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.184Z",
+    "updated_at": "2026-03-19T15:42:03.130Z",
+    "name": "Gift-Ready",
+    "slug": "gift-ready",
+    "badge_label": "Gift-ready",
+    "description": "Especially popular for gifting and celebrations."
+  }
+},
+{
+  "model": "catalog.product",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.185Z",
+    "updated_at": "2026-03-19T15:42:03.132Z",
+    "category": 1,
+    "name": "Classic Chocolate Chip",
+    "slug": "classic-chocolate-chip",
+    "short_description": "Golden edges, soft vanilla centers, and generous dark chocolate puddles.",
+    "description": "Our signature bakery cookie: richly buttery, deeply comforting, and designed to feel like the very best version of a classic.",
+    "ingredients": "Flour, cultured butter, dark chocolate, brown sugar, vanilla, sea salt.",
+    "ingredient_highlights": "",
+    "allergen_information": "Contains wheat, milk, and soy. Produced in a kitchen that also handles tree nuts.",
+    "nutritional_notes": "Rich, indulgent, and best enjoyed slightly warm.",
+    "care_instructions": "Store airtight and enjoy within 5 days, or freeze for later gifting moments.",
+    "texture_chewy": 0,
+    "texture_crunchy": 0,
+    "texture_gooey": 0,
+    "pairing_notes": "",
+    "shelf_life_days": null,
+    "storage_guidance": "",
+    "video_url": "",
+    "video_caption": "",
+    "featured_label": "Signature",
+    "is_active": true,
+    "is_featured": true,
+    "is_seasonal": false,
+    "allows_build_a_box": true,
+    "sort_order": 1,
+    "meta_title": "Classic Chocolate Chip Cookies | Nest & Whisk",
+    "meta_description": "Soft, bakery-style classic chocolate chip cookies with a premium artisan finish.",
+    "tags": [
+      1,
+      2
+    ],
+    "dietary_attributes": [
+      1
+    ]
+  }
+},
+{
+  "model": "catalog.product",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.193Z",
+    "updated_at": "2026-03-19T15:42:03.140Z",
+    "category": 1,
+    "name": "Sea Salt Caramel",
+    "slug": "sea-salt-caramel",
+    "short_description": "A luxurious caramel-centered cookie with a delicate salty finish.",
+    "description": "Brown sugar dough, buttery caramel notes, and a whisper of sea salt create a refined cookie that feels instantly celebratory.",
+    "ingredients": "Flour, butter, caramel pieces, brown sugar, vanilla, sea salt.",
+    "ingredient_highlights": "",
+    "allergen_information": "Contains wheat, milk, and soy.",
+    "nutritional_notes": "Balanced sweetness with a savory finish.",
+    "care_instructions": "Warm gently for a softer caramel center.",
+    "texture_chewy": 0,
+    "texture_crunchy": 0,
+    "texture_gooey": 0,
+    "pairing_notes": "",
+    "shelf_life_days": null,
+    "storage_guidance": "",
+    "video_url": "",
+    "video_caption": "",
+    "featured_label": "Bestseller",
+    "is_active": true,
+    "is_featured": true,
+    "is_seasonal": false,
+    "allows_build_a_box": true,
+    "sort_order": 2,
+    "meta_title": "Sea Salt Caramel Cookies | Nest & Whisk",
+    "meta_description": "Premium caramel cookies with buttery centers and a delicate sea salt finish.",
+    "tags": [
+      1,
+      4
+    ],
+    "dietary_attributes": [
+      4,
+      1
+    ]
+  }
+},
+{
+  "model": "catalog.product",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.197Z",
+    "updated_at": "2026-03-19T15:42:03.145Z",
+    "category": 1,
+    "name": "Double Dark Chocolate",
+    "slug": "double-dark-chocolate",
+    "short_description": "Deep cocoa dough with bittersweet chocolate throughout.",
+    "description": "For devoted chocolate lovers, this cookie layers Dutch cocoa, bittersweet chunks, and a bakery-style soft center.",
+    "ingredients": "Flour, cocoa powder, butter, dark chocolate, brown sugar, sea salt.",
+    "ingredient_highlights": "",
+    "allergen_information": "Contains wheat, milk, and soy.",
+    "nutritional_notes": "Bold cocoa profile with a soft, rich finish.",
+    "care_instructions": "Pairs beautifully with coffee or a glass of cold milk.",
+    "texture_chewy": 0,
+    "texture_crunchy": 0,
+    "texture_gooey": 0,
+    "pairing_notes": "",
+    "shelf_life_days": null,
+    "storage_guidance": "",
+    "video_url": "",
+    "video_caption": "",
+    "featured_label": "Chocolate lover",
+    "is_active": true,
+    "is_featured": true,
+    "is_seasonal": false,
+    "allows_build_a_box": true,
+    "sort_order": 3,
+    "meta_title": "Double Dark Chocolate Cookies | Nest & Whisk",
+    "meta_description": "Deep, bakery-style double dark chocolate cookies for serious chocolate lovers.",
+    "tags": [
+      4
+    ],
+    "dietary_attributes": [
+      1
+    ]
+  }
+},
+{
+  "model": "catalog.product",
+  "pk": 4,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.201Z",
+    "updated_at": "2026-03-19T15:42:03.150Z",
+    "category": 1,
+    "name": "Red Velvet Crumble",
+    "slug": "red-velvet-crumble",
+    "short_description": "Festive cocoa crumb with cream-cheese inspired notes.",
+    "description": "A playful yet polished cookie with velvet cocoa dough, vanilla lift, and a softly tangy bakery finish.",
+    "ingredients": "Flour, butter, cocoa, vanilla, cream-cheese style chips, sugar.",
+    "ingredient_highlights": "",
+    "allergen_information": "Contains wheat, milk, and soy.",
+    "nutritional_notes": "Celebratory and dessert-forward with a soft center.",
+    "care_instructions": "Perfect for gifting and celebration tables.",
+    "texture_chewy": 0,
+    "texture_crunchy": 0,
+    "texture_gooey": 0,
+    "pairing_notes": "",
+    "shelf_life_days": null,
+    "storage_guidance": "",
+    "video_url": "",
+    "video_caption": "",
+    "featured_label": "Celebration",
+    "is_active": true,
+    "is_featured": false,
+    "is_seasonal": false,
+    "allows_build_a_box": true,
+    "sort_order": 4,
+    "meta_title": "Red Velvet Crumble Cookies | Nest & Whisk",
+    "meta_description": "Festive red velvet artisan cookies with refined cocoa notes.",
+    "tags": [
+      2
+    ],
+    "dietary_attributes": [
+      4,
+      1
+    ]
+  }
+},
+{
+  "model": "catalog.product",
+  "pk": 5,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.207Z",
+    "updated_at": "2026-03-19T15:42:03.154Z",
+    "category": 1,
+    "name": "Pistachio Rose",
+    "slug": "pistachio-rose",
+    "short_description": "Toasted pistachio and soft floral notes in a refined bakery cookie.",
+    "description": "Elegant and softly aromatic, Pistachio Rose layers nutty crunch with a delicate floral finish that feels made for premium gifting.",
+    "ingredients": "Flour, butter, pistachios, rose water, white chocolate, sugar.",
+    "ingredient_highlights": "",
+    "allergen_information": "Contains wheat, milk, soy, and tree nuts.",
+    "nutritional_notes": "Fragrant, lightly sweet, and ideal for afternoon gifting spreads.",
+    "care_instructions": "Serve at room temperature for the most expressive flavor.",
+    "texture_chewy": 0,
+    "texture_crunchy": 0,
+    "texture_gooey": 0,
+    "pairing_notes": "",
+    "shelf_life_days": null,
+    "storage_guidance": "",
+    "video_url": "",
+    "video_caption": "",
+    "featured_label": "Elegant favorite",
+    "is_active": true,
+    "is_featured": true,
+    "is_seasonal": false,
+    "allows_build_a_box": true,
+    "sort_order": 5,
+    "meta_title": "Pistachio Rose Cookies | Nest & Whisk",
+    "meta_description": "Elegant pistachio rose artisan cookies with floral bakery notes.",
+    "tags": [
+      2,
+      4
+    ],
+    "dietary_attributes": [
+      4,
+      1
+    ]
+  }
+},
+{
+  "model": "catalog.product",
+  "pk": 6,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.213Z",
+    "updated_at": "2026-03-19T15:42:03.158Z",
+    "category": 1,
+    "name": "Oatmeal Cinnamon",
+    "slug": "oatmeal-cinnamon",
+    "short_description": "Toasty oats, warm cinnamon, and a cozy bakery chew.",
+    "description": "Comforting and gently spiced, this cookie brings nostalgic warmth with a polished Nest & Whisk finish.",
+    "ingredients": "Flour, rolled oats, butter, cinnamon, brown sugar, vanilla.",
+    "ingredient_highlights": "",
+    "allergen_information": "Contains wheat, milk, and gluten.",
+    "nutritional_notes": "Soft, warmly spiced, and perfect for cozy gifting moments.",
+    "care_instructions": "Lovely with tea and warm cider.",
+    "texture_chewy": 0,
+    "texture_crunchy": 0,
+    "texture_gooey": 0,
+    "pairing_notes": "",
+    "shelf_life_days": null,
+    "storage_guidance": "",
+    "video_url": "",
+    "video_caption": "",
+    "featured_label": "Cozy classic",
+    "is_active": true,
+    "is_featured": false,
+    "is_seasonal": false,
+    "allows_build_a_box": true,
+    "sort_order": 6,
+    "meta_title": "Oatmeal Cinnamon Cookies | Nest & Whisk",
+    "meta_description": "Warm, comforting oatmeal cinnamon artisan cookies with a bakery-soft texture.",
+    "tags": [
+      4
+    ],
+    "dietary_attributes": [
+      1
+    ]
+  }
+},
+{
+  "model": "catalog.product",
+  "pk": 7,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.217Z",
+    "updated_at": "2026-03-19T15:42:03.162Z",
+    "category": 1,
+    "name": "SΓÇÖmores Stuffed",
+    "slug": "smores-stuffed",
+    "short_description": "Chocolate cookie dough with marshmallow pockets and graham crunch.",
+    "description": "A playful crowd-pleaser with toasted marshmallow notes, melty chocolate, and a nostalgic fireside finish.",
+    "ingredients": "Flour, butter, cocoa, marshmallow, graham crumbs, dark chocolate.",
+    "ingredient_highlights": "",
+    "allergen_information": "Contains wheat, milk, soy, and gelatin.",
+    "nutritional_notes": "Indulgent and dessert-like with a soft, gooey center.",
+    "care_instructions": "Warm briefly before serving for the most dramatic center.",
+    "texture_chewy": 0,
+    "texture_crunchy": 0,
+    "texture_gooey": 0,
+    "pairing_notes": "",
+    "shelf_life_days": null,
+    "storage_guidance": "",
+    "video_url": "",
+    "video_caption": "",
+    "featured_label": "Crowd favorite",
+    "is_active": true,
+    "is_featured": false,
+    "is_seasonal": false,
+    "allows_build_a_box": true,
+    "sort_order": 7,
+    "meta_title": "SΓÇÖmores Stuffed Cookies | Nest & Whisk",
+    "meta_description": "Playful stuffed sΓÇÖmores cookies with rich chocolate and marshmallow pockets.",
+    "tags": [
+      2
+    ],
+    "dietary_attributes": [
+      4,
+      1
+    ]
+  }
+},
+{
+  "model": "catalog.product",
+  "pk": 8,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.223Z",
+    "updated_at": "2026-03-19T15:42:03.168Z",
+    "category": 1,
+    "name": "White Chocolate Macadamia",
+    "slug": "white-chocolate-macadamia",
+    "short_description": "Buttery macadamia crunch and silky white chocolate in every bite.",
+    "description": "Smooth white chocolate and toasted macadamia nuts create a polished, luxurious cookie with a bright finish.",
+    "ingredients": "Flour, butter, white chocolate, macadamia nuts, brown sugar, vanilla.",
+    "ingredient_highlights": "",
+    "allergen_information": "Contains wheat, milk, soy, and tree nuts.",
+    "nutritional_notes": "Buttery and rich with satisfying crunch.",
+    "care_instructions": "Serve slightly warm to soften the white chocolate.",
+    "texture_chewy": 0,
+    "texture_crunchy": 0,
+    "texture_gooey": 0,
+    "pairing_notes": "",
+    "shelf_life_days": null,
+    "storage_guidance": "",
+    "video_url": "",
+    "video_caption": "",
+    "featured_label": "Luxury bite",
+    "is_active": true,
+    "is_featured": false,
+    "is_seasonal": false,
+    "allows_build_a_box": true,
+    "sort_order": 8,
+    "meta_title": "White Chocolate Macadamia Cookies | Nest & Whisk",
+    "meta_description": "Luxurious white chocolate macadamia artisan cookies with buttery crunch.",
+    "tags": [
+      2
+    ],
+    "dietary_attributes": [
+      4,
+      1
+    ]
+  }
+},
+{
+  "model": "catalog.product",
+  "pk": 9,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.228Z",
+    "updated_at": "2026-03-19T15:42:03.174Z",
+    "category": 1,
+    "name": "Birthday Sprinkle",
+    "slug": "birthday-sprinkle",
+    "short_description": "Vanilla celebration cookies finished with cheerful rainbow sprinkles.",
+    "description": "A joyful gifting favorite with buttery vanilla dough, white chocolate sweetness, and festive color in every box.",
+    "ingredients": "Flour, butter, vanilla, white chocolate, sprinkles, sugar.",
+    "ingredient_highlights": "",
+    "allergen_information": "Contains wheat, milk, and soy.",
+    "nutritional_notes": "Playful, sweet, and perfect for celebrations.",
+    "care_instructions": "Ideal for party favors, birthdays, and thank-you gifting.",
+    "texture_chewy": 0,
+    "texture_crunchy": 0,
+    "texture_gooey": 0,
+    "pairing_notes": "",
+    "shelf_life_days": null,
+    "storage_guidance": "",
+    "video_url": "",
+    "video_caption": "",
+    "featured_label": "Party-ready",
+    "is_active": true,
+    "is_featured": false,
+    "is_seasonal": false,
+    "allows_build_a_box": true,
+    "sort_order": 9,
+    "meta_title": "Birthday Sprinkle Cookies | Nest & Whisk",
+    "meta_description": "Festive birthday sprinkle artisan cookies for joyful gifting moments.",
+    "tags": [
+      2
+    ],
+    "dietary_attributes": [
+      4,
+      1
+    ]
+  }
+},
+{
+  "model": "catalog.product",
+  "pk": 10,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.232Z",
+    "updated_at": "2026-03-19T15:42:03.180Z",
+    "category": 2,
+    "name": "Seasonal Pumpkin Spice",
+    "slug": "seasonal-pumpkin-spice",
+    "short_description": "Brown sugar warmth, autumn spice, and a soft bakery center.",
+    "description": "Our seasonal pumpkin spice cookie is deeply cozy with brown butter notes, warming spice, and a mellow pumpkin finish.",
+    "ingredients": "Flour, butter, pumpkin puree, cinnamon, nutmeg, clove, brown sugar.",
+    "ingredient_highlights": "",
+    "allergen_information": "Contains wheat and milk.",
+    "nutritional_notes": "Seasonal, warmly spiced, and ideal for fall gifting.",
+    "care_instructions": "Serve with chai, coffee, or a warm autumn table.",
+    "texture_chewy": 0,
+    "texture_crunchy": 0,
+    "texture_gooey": 0,
+    "pairing_notes": "",
+    "shelf_life_days": null,
+    "storage_guidance": "",
+    "video_url": "",
+    "video_caption": "",
+    "featured_label": "Limited batch",
+    "is_active": true,
+    "is_featured": true,
+    "is_seasonal": true,
+    "allows_build_a_box": true,
+    "sort_order": 10,
+    "meta_title": "Seasonal Pumpkin Spice Cookies | Nest & Whisk",
+    "meta_description": "Limited seasonal pumpkin spice artisan cookies with cozy autumn flavor.",
+    "tags": [
+      5,
+      3
+    ],
+    "dietary_attributes": [
+      3,
+      1
+    ]
+  }
+},
+{
+  "model": "catalog.product",
+  "pk": 11,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.237Z",
+    "updated_at": "2026-03-19T15:42:03.185Z",
+    "category": 3,
+    "name": "Signature Build-a-Box",
+    "slug": "signature-build-a-box",
+    "short_description": "Choose your box size, curate your flavors, and send a polished cookie gift.",
+    "description": "Our signature build-a-box format lets you create a custom Nest & Whisk assortment with flexible sizing, refined packaging, and a personal note.",
+    "ingredients": "A rotating assortment selected from our active flavor collection.",
+    "ingredient_highlights": "",
+    "allergen_information": "Allergens vary by selected flavors. See each flavor page for complete details.",
+    "nutritional_notes": "Totals vary according to the selected assortment.",
+    "care_instructions": "Ideal for gifting, celebrations, and curated sharing boxes.",
+    "texture_chewy": 0,
+    "texture_crunchy": 0,
+    "texture_gooey": 0,
+    "pairing_notes": "",
+    "shelf_life_days": null,
+    "storage_guidance": "",
+    "video_url": "",
+    "video_caption": "",
+    "featured_label": "Custom gifting",
+    "is_active": true,
+    "is_featured": true,
+    "is_seasonal": false,
+    "allows_build_a_box": true,
+    "sort_order": 11,
+    "meta_title": "Build Your Own Cookie Box | Nest & Whisk",
+    "meta_description": "Create a custom artisan cookie assortment with Nest & Whisk build-a-box gifting.",
+    "tags": [
+      2
+    ],
+    "dietary_attributes": [
+      4
+    ]
+  }
+},
+{
+  "model": "catalog.productimage",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.189Z",
+    "updated_at": "2026-03-19T15:42:03.137Z",
+    "product": 1,
+    "image": "catalog/products/classic-chip.svg",
+    "alt_text": "Classic Chocolate Chip",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "catalog.productimage",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.195Z",
+    "updated_at": "2026-03-19T15:42:03.142Z",
+    "product": 2,
+    "image": "catalog/products/sea-salt-caramel.svg",
+    "alt_text": "Sea Salt Caramel",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "catalog.productimage",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.199Z",
+    "updated_at": "2026-03-19T15:42:03.146Z",
+    "product": 3,
+    "image": "catalog/products/double-dark.svg",
+    "alt_text": "Double Dark Chocolate",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "catalog.productimage",
+  "pk": 4,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.204Z",
+    "updated_at": "2026-03-19T15:42:03.152Z",
+    "product": 4,
+    "image": "catalog/products/red-velvet.svg",
+    "alt_text": "Red Velvet Crumble",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "catalog.productimage",
+  "pk": 5,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.210Z",
+    "updated_at": "2026-03-19T15:42:03.156Z",
+    "product": 5,
+    "image": "catalog/products/pistachio-rose.svg",
+    "alt_text": "Pistachio Rose",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "catalog.productimage",
+  "pk": 6,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.215Z",
+    "updated_at": "2026-03-19T15:42:03.160Z",
+    "product": 6,
+    "image": "catalog/products/classic-chip.svg",
+    "alt_text": "Oatmeal Cinnamon",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "catalog.productimage",
+  "pk": 7,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.219Z",
+    "updated_at": "2026-03-19T15:42:03.165Z",
+    "product": 7,
+    "image": "catalog/products/double-dark.svg",
+    "alt_text": "SΓÇÖmores Stuffed",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "catalog.productimage",
+  "pk": 8,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.225Z",
+    "updated_at": "2026-03-19T15:42:03.170Z",
+    "product": 8,
+    "image": "catalog/products/pistachio-rose.svg",
+    "alt_text": "White Chocolate Macadamia",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "catalog.productimage",
+  "pk": 9,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.230Z",
+    "updated_at": "2026-03-19T15:42:03.175Z",
+    "product": 9,
+    "image": "catalog/products/red-velvet.svg",
+    "alt_text": "Birthday Sprinkle",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "catalog.productimage",
+  "pk": 10,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.234Z",
+    "updated_at": "2026-03-19T15:42:03.182Z",
+    "product": 10,
+    "image": "catalog/products/pumpkin-spice.svg",
+    "alt_text": "Seasonal Pumpkin Spice",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "catalog.productimage",
+  "pk": 11,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.239Z",
+    "updated_at": "2026-03-19T15:42:03.187Z",
+    "product": 11,
+    "image": "catalog/products/signature-box.svg",
+    "alt_text": "Signature Build-a-Box",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "catalog.productvariant",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.190Z",
+    "updated_at": "2026-03-19T15:42:03.138Z",
+    "product": 1,
+    "name": "6-cookie box",
+    "sku": "NW-CCHIP-06",
+    "pack_size": 6,
+    "price": "18.00",
+    "compare_at_price": "20.00",
+    "inventory_quantity": 36,
+    "low_stock_threshold": 6,
+    "weight_grams": 408,
+    "is_default": true,
+    "is_active": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "catalog.productvariant",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.192Z",
+    "updated_at": "2026-03-19T15:42:03.140Z",
+    "product": 1,
+    "name": "12-cookie box",
+    "sku": "NW-CCHIP-12",
+    "pack_size": 12,
+    "price": "34.00",
+    "compare_at_price": "38.00",
+    "inventory_quantity": 52,
+    "low_stock_threshold": 6,
+    "weight_grams": 816,
+    "is_default": false,
+    "is_active": true,
+    "sort_order": 1
+  }
+},
+{
+  "model": "catalog.productvariant",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.196Z",
+    "updated_at": "2026-03-19T15:42:03.143Z",
+    "product": 2,
+    "name": "6-cookie box",
+    "sku": "NW-SSC-06",
+    "pack_size": 6,
+    "price": "19.00",
+    "compare_at_price": "22.00",
+    "inventory_quantity": 28,
+    "low_stock_threshold": 6,
+    "weight_grams": 408,
+    "is_default": true,
+    "is_active": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "catalog.productvariant",
+  "pk": 4,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.196Z",
+    "updated_at": "2026-03-19T15:42:03.144Z",
+    "product": 2,
+    "name": "12-cookie box",
+    "sku": "NW-SSC-12",
+    "pack_size": 12,
+    "price": "36.00",
+    "compare_at_price": "40.00",
+    "inventory_quantity": 40,
+    "low_stock_threshold": 6,
+    "weight_grams": 816,
+    "is_default": false,
+    "is_active": true,
+    "sort_order": 1
+  }
+},
+{
+  "model": "catalog.productvariant",
+  "pk": 5,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.200Z",
+    "updated_at": "2026-03-19T15:42:03.147Z",
+    "product": 3,
+    "name": "6-cookie box",
+    "sku": "NW-DDC-06",
+    "pack_size": 6,
+    "price": "19.00",
+    "compare_at_price": "22.00",
+    "inventory_quantity": 24,
+    "low_stock_threshold": 6,
+    "weight_grams": 408,
+    "is_default": true,
+    "is_active": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "catalog.productvariant",
+  "pk": 6,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.200Z",
+    "updated_at": "2026-03-19T15:42:03.149Z",
+    "product": 3,
+    "name": "12-cookie box",
+    "sku": "NW-DDC-12",
+    "pack_size": 12,
+    "price": "36.00",
+    "compare_at_price": "40.00",
+    "inventory_quantity": 34,
+    "low_stock_threshold": 6,
+    "weight_grams": 816,
+    "is_default": false,
+    "is_active": true,
+    "sort_order": 1
+  }
+},
+{
+  "model": "catalog.productvariant",
+  "pk": 7,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.205Z",
+    "updated_at": "2026-03-19T15:42:03.152Z",
+    "product": 4,
+    "name": "6-cookie box",
+    "sku": "NW-RVC-06",
+    "pack_size": 6,
+    "price": "20.00",
+    "compare_at_price": "22.00",
+    "inventory_quantity": 18,
+    "low_stock_threshold": 6,
+    "weight_grams": 408,
+    "is_default": true,
+    "is_active": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "catalog.productvariant",
+  "pk": 8,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.206Z",
+    "updated_at": "2026-03-19T15:42:03.153Z",
+    "product": 4,
+    "name": "12-cookie box",
+    "sku": "NW-RVC-12",
+    "pack_size": 12,
+    "price": "38.00",
+    "compare_at_price": "42.00",
+    "inventory_quantity": 26,
+    "low_stock_threshold": 6,
+    "weight_grams": 816,
+    "is_default": false,
+    "is_active": true,
+    "sort_order": 1
+  }
+},
+{
+  "model": "catalog.productvariant",
+  "pk": 9,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.211Z",
+    "updated_at": "2026-03-19T15:42:03.156Z",
+    "product": 5,
+    "name": "6-cookie box",
+    "sku": "NW-PRS-06",
+    "pack_size": 6,
+    "price": "22.00",
+    "compare_at_price": "24.00",
+    "inventory_quantity": 16,
+    "low_stock_threshold": 6,
+    "weight_grams": 408,
+    "is_default": true,
+    "is_active": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "catalog.productvariant",
+  "pk": 10,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.212Z",
+    "updated_at": "2026-03-19T15:42:03.157Z",
+    "product": 5,
+    "name": "12-cookie box",
+    "sku": "NW-PRS-12",
+    "pack_size": 12,
+    "price": "42.00",
+    "compare_at_price": "46.00",
+    "inventory_quantity": 22,
+    "low_stock_threshold": 6,
+    "weight_grams": 816,
+    "is_default": false,
+    "is_active": true,
+    "sort_order": 1
+  }
+},
+{
+  "model": "catalog.productvariant",
+  "pk": 11,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.216Z",
+    "updated_at": "2026-03-19T15:42:03.161Z",
+    "product": 6,
+    "name": "6-cookie box",
+    "sku": "NW-OTC-06",
+    "pack_size": 6,
+    "price": "18.00",
+    "compare_at_price": "20.00",
+    "inventory_quantity": 20,
+    "low_stock_threshold": 6,
+    "weight_grams": 408,
+    "is_default": true,
+    "is_active": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "catalog.productvariant",
+  "pk": 12,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.217Z",
+    "updated_at": "2026-03-19T15:42:03.161Z",
+    "product": 6,
+    "name": "12-cookie box",
+    "sku": "NW-OTC-12",
+    "pack_size": 12,
+    "price": "34.00",
+    "compare_at_price": "37.00",
+    "inventory_quantity": 30,
+    "low_stock_threshold": 6,
+    "weight_grams": 816,
+    "is_default": false,
+    "is_active": true,
+    "sort_order": 1
+  }
+},
+{
+  "model": "catalog.productvariant",
+  "pk": 13,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.220Z",
+    "updated_at": "2026-03-19T15:42:03.166Z",
+    "product": 7,
+    "name": "6-cookie box",
+    "sku": "NW-SMS-06",
+    "pack_size": 6,
+    "price": "21.00",
+    "compare_at_price": "24.00",
+    "inventory_quantity": 18,
+    "low_stock_threshold": 6,
+    "weight_grams": 408,
+    "is_default": true,
+    "is_active": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "catalog.productvariant",
+  "pk": 14,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.221Z",
+    "updated_at": "2026-03-19T15:42:03.167Z",
+    "product": 7,
+    "name": "12-cookie box",
+    "sku": "NW-SMS-12",
+    "pack_size": 12,
+    "price": "40.00",
+    "compare_at_price": "45.00",
+    "inventory_quantity": 24,
+    "low_stock_threshold": 6,
+    "weight_grams": 816,
+    "is_default": false,
+    "is_active": true,
+    "sort_order": 1
+  }
+},
+{
+  "model": "catalog.productvariant",
+  "pk": 15,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.226Z",
+    "updated_at": "2026-03-19T15:42:03.171Z",
+    "product": 8,
+    "name": "6-cookie box",
+    "sku": "NW-WCM-06",
+    "pack_size": 6,
+    "price": "21.00",
+    "compare_at_price": "23.00",
+    "inventory_quantity": 18,
+    "low_stock_threshold": 6,
+    "weight_grams": 408,
+    "is_default": true,
+    "is_active": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "catalog.productvariant",
+  "pk": 16,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.227Z",
+    "updated_at": "2026-03-19T15:42:03.172Z",
+    "product": 8,
+    "name": "12-cookie box",
+    "sku": "NW-WCM-12",
+    "pack_size": 12,
+    "price": "40.00",
+    "compare_at_price": "44.00",
+    "inventory_quantity": 24,
+    "low_stock_threshold": 6,
+    "weight_grams": 816,
+    "is_default": false,
+    "is_active": true,
+    "sort_order": 1
+  }
+},
+{
+  "model": "catalog.productvariant",
+  "pk": 17,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.231Z",
+    "updated_at": "2026-03-19T15:42:03.177Z",
+    "product": 9,
+    "name": "6-cookie box",
+    "sku": "NW-BDS-06",
+    "pack_size": 6,
+    "price": "19.00",
+    "compare_at_price": "21.00",
+    "inventory_quantity": 22,
+    "low_stock_threshold": 6,
+    "weight_grams": 408,
+    "is_default": true,
+    "is_active": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "catalog.productvariant",
+  "pk": 18,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.232Z",
+    "updated_at": "2026-03-19T15:42:03.178Z",
+    "product": 9,
+    "name": "12-cookie box",
+    "sku": "NW-BDS-12",
+    "pack_size": 12,
+    "price": "36.00",
+    "compare_at_price": "40.00",
+    "inventory_quantity": 28,
+    "low_stock_threshold": 6,
+    "weight_grams": 816,
+    "is_default": false,
+    "is_active": true,
+    "sort_order": 1
+  }
+},
+{
+  "model": "catalog.productvariant",
+  "pk": 19,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.235Z",
+    "updated_at": "2026-03-19T15:42:03.183Z",
+    "product": 10,
+    "name": "6-cookie box",
+    "sku": "NW-PMK-06",
+    "pack_size": 6,
+    "price": "20.00",
+    "compare_at_price": "22.00",
+    "inventory_quantity": 20,
+    "low_stock_threshold": 6,
+    "weight_grams": 408,
+    "is_default": true,
+    "is_active": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "catalog.productvariant",
+  "pk": 20,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.236Z",
+    "updated_at": "2026-03-19T15:42:03.184Z",
+    "product": 10,
+    "name": "12-cookie box",
+    "sku": "NW-PMK-12",
+    "pack_size": 12,
+    "price": "38.00",
+    "compare_at_price": "42.00",
+    "inventory_quantity": 26,
+    "low_stock_threshold": 6,
+    "weight_grams": 816,
+    "is_default": false,
+    "is_active": true,
+    "sort_order": 1
+  }
+},
+{
+  "model": "catalog.productvariant",
+  "pk": 21,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.240Z",
+    "updated_at": "2026-03-19T15:42:03.188Z",
+    "product": 11,
+    "name": "6-cookie custom box",
+    "sku": "NW-BUILD-06",
+    "pack_size": 6,
+    "price": "18.00",
+    "compare_at_price": "20.00",
+    "inventory_quantity": 40,
+    "low_stock_threshold": 6,
+    "weight_grams": 408,
+    "is_default": true,
+    "is_active": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "catalog.productvariant",
+  "pk": 22,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.242Z",
+    "updated_at": "2026-03-19T15:42:03.189Z",
+    "product": 11,
+    "name": "12-cookie custom box",
+    "sku": "NW-BUILD-12",
+    "pack_size": 12,
+    "price": "34.00",
+    "compare_at_price": "38.00",
+    "inventory_quantity": 40,
+    "low_stock_threshold": 6,
+    "weight_grams": 816,
+    "is_default": false,
+    "is_active": true,
+    "sort_order": 1
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T14:15:10.685Z",
+    "updated_at": "2026-03-18T14:15:10.685Z",
+    "user": null,
+    "session_key": "av8hf8ywippuqhk3xq0p2g1ym3e4v0ca",
+    "token": "62e95bcb-c60b-4b56-9118-2b5aa09fe449",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-18T14:22:13.747Z",
+    "updated_at": "2026-03-18T14:22:13.747Z",
+    "user": null,
+    "session_key": "qxfe7olfcg604sz2fpocezo487uqolkn",
+    "token": "e84a1214-ff39-42bc-ae16-2960f2cc521b",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-03-18T14:42:53.718Z",
+    "updated_at": "2026-03-18T14:42:53.718Z",
+    "user": null,
+    "session_key": "wu7wmqd589uatd618ie0cd4ku7m50new",
+    "token": "1217c458-3297-4701-9aae-b56e5988b586",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 4,
+  "fields": {
+    "created_at": "2026-03-18T14:43:34.327Z",
+    "updated_at": "2026-03-18T14:43:34.327Z",
+    "user": null,
+    "session_key": "hpenhie8vb6wpf68okz1ni6hzklnnk5n",
+    "token": "019b8788-c925-47e5-94ca-2b761b81b1a2",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 5,
+  "fields": {
+    "created_at": "2026-03-18T14:43:34.497Z",
+    "updated_at": "2026-03-18T14:43:34.497Z",
+    "user": null,
+    "session_key": "dfomeqm1huv5ecrqujz2r48pkpuqgde0",
+    "token": "61852335-2614-4205-916d-d5e86ba2277c",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 6,
+  "fields": {
+    "created_at": "2026-03-18T14:43:35.497Z",
+    "updated_at": "2026-03-18T14:43:35.497Z",
+    "user": null,
+    "session_key": "kum4la8ps8hwms3r9jl6gei8wpqhodzp",
+    "token": "26b41363-b891-4acf-bce1-fc411a2f279d",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 7,
+  "fields": {
+    "created_at": "2026-03-18T14:43:35.766Z",
+    "updated_at": "2026-03-18T14:43:35.766Z",
+    "user": null,
+    "session_key": "rbrv9c5xxuvp9hon8t5wli7sw6bmboq1",
+    "token": "d42ac3a0-deb3-4e20-9ff6-6ff13837eb41",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 8,
+  "fields": {
+    "created_at": "2026-03-18T14:43:36.012Z",
+    "updated_at": "2026-03-18T14:43:36.012Z",
+    "user": null,
+    "session_key": "5sfkh7n3jkoeveuw4ukn5arzd6so0d22",
+    "token": "1fa62915-afec-4403-aa10-94a40111b3f0",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 9,
+  "fields": {
+    "created_at": "2026-03-18T14:46:05.359Z",
+    "updated_at": "2026-03-18T14:46:05.359Z",
+    "user": null,
+    "session_key": "guemdb8r7szrj7o5ysqrxr156i3t6a4b",
+    "token": "8db4d879-aed4-4c83-85f4-a46eddc433a6",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 10,
+  "fields": {
+    "created_at": "2026-03-18T14:46:41.151Z",
+    "updated_at": "2026-03-18T14:46:41.151Z",
+    "user": null,
+    "session_key": "bmhkpslmatz7gg31spkr4tf76jftl10k",
+    "token": "2c523134-129a-459d-b40e-6e6f4df6bcea",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 11,
+  "fields": {
+    "created_at": "2026-03-18T14:46:41.573Z",
+    "updated_at": "2026-03-18T14:46:41.573Z",
+    "user": null,
+    "session_key": "stef6897zi5dypw2ijhs1aj99sz5xl1j",
+    "token": "040d11d1-11dc-4650-9191-cb237f3d6149",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 12,
+  "fields": {
+    "created_at": "2026-03-18T14:46:43.315Z",
+    "updated_at": "2026-03-18T14:46:43.315Z",
+    "user": null,
+    "session_key": "xbcp1s2yjnewef2q02ffrujrs9ovljt0",
+    "token": "ea7971e4-cda2-4315-844a-63d041b018d8",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 13,
+  "fields": {
+    "created_at": "2026-03-18T14:46:43.813Z",
+    "updated_at": "2026-03-18T14:46:43.814Z",
+    "user": null,
+    "session_key": "foo70lqwsylgusrwmchlemjr1hcndwdw",
+    "token": "c77db090-b2c4-4996-a198-b537bd132abb",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 14,
+  "fields": {
+    "created_at": "2026-03-18T14:46:44.151Z",
+    "updated_at": "2026-03-18T14:46:44.151Z",
+    "user": null,
+    "session_key": "60nu2f2hhv9eik87mufsxm4l8gy4hzqv",
+    "token": "a25b5dfd-01d1-470d-acd2-41100c8e4113",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 15,
+  "fields": {
+    "created_at": "2026-03-18T14:47:23.983Z",
+    "updated_at": "2026-03-18T14:47:23.983Z",
+    "user": null,
+    "session_key": "lw3y88i3rllu3dik061crg9xzjg3m41h",
+    "token": "8df865fb-8f59-4e68-83c4-b8faa86fa981",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 16,
+  "fields": {
+    "created_at": "2026-03-18T14:47:24.084Z",
+    "updated_at": "2026-03-18T14:47:24.084Z",
+    "user": null,
+    "session_key": "funp1svuog0losrct4jaxlaj17bqyfea",
+    "token": "42c76f2b-252f-46e7-b7fd-48d3dc44b62e",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 17,
+  "fields": {
+    "created_at": "2026-03-18T14:47:24.546Z",
+    "updated_at": "2026-03-18T14:47:24.547Z",
+    "user": null,
+    "session_key": "fvxy99lh0qo6itwl84bb3n8jwgesl7h9",
+    "token": "291d94b1-c6a8-4370-8360-dac94f2502fe",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 18,
+  "fields": {
+    "created_at": "2026-03-18T14:47:24.750Z",
+    "updated_at": "2026-03-18T14:47:24.750Z",
+    "user": null,
+    "session_key": "g2gg3ue60m9hb51yhqw6pyinxubpxno4",
+    "token": "ee79ae07-52c2-4e85-8fa8-4a6399b5c815",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 19,
+  "fields": {
+    "created_at": "2026-03-18T14:52:47.045Z",
+    "updated_at": "2026-03-18T14:52:47.046Z",
+    "user": null,
+    "session_key": "gvhio0f46hntdiys95y16v6vglge2epm",
+    "token": "685078b9-9ebb-436b-a196-349eee31ea01",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 20,
+  "fields": {
+    "created_at": "2026-03-18T14:53:16.499Z",
+    "updated_at": "2026-03-18T14:53:16.499Z",
+    "user": null,
+    "session_key": "lezypqmdtpjqskpohmlud9uarvz5neok",
+    "token": "1b31d269-1800-443a-b1cc-cd69c4e31fef",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 21,
+  "fields": {
+    "created_at": "2026-03-18T14:54:32.407Z",
+    "updated_at": "2026-03-18T14:54:32.407Z",
+    "user": null,
+    "session_key": "ul8nemwrokrx2sygr23tqzytkyqgyts0",
+    "token": "25ff0d6a-e069-4834-8d9b-b892c600125e",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 22,
+  "fields": {
+    "created_at": "2026-03-18T14:54:32.499Z",
+    "updated_at": "2026-03-18T14:54:32.499Z",
+    "user": null,
+    "session_key": "7s64uzo8iu5jm9b4ja0leon2m1oyu7m4",
+    "token": "a0fc874f-9cee-4260-9b33-c9be580d8a9c",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 23,
+  "fields": {
+    "created_at": "2026-03-18T14:55:30.707Z",
+    "updated_at": "2026-03-19T08:36:27.702Z",
+    "user": 2,
+    "session_key": "rcm9zyc5hukeoxa9u4d0yhge54v44s4l",
+    "token": "b994b5b3-a354-41a8-a252-958bf1bf16c1",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": false
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 24,
+  "fields": {
+    "created_at": "2026-03-18T15:13:15.034Z",
+    "updated_at": "2026-03-18T15:13:15.034Z",
+    "user": null,
+    "session_key": "9768icroldqhtido1qi4pbiwn61qb9nk",
+    "token": "bfcb230e-abd1-4b8c-8c3f-5868372c3625",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 25,
+  "fields": {
+    "created_at": "2026-03-18T15:15:22.979Z",
+    "updated_at": "2026-03-18T15:15:22.979Z",
+    "user": null,
+    "session_key": "tua4hgsygckjjb3bk6sq21jg4tst99jz",
+    "token": "b2f6e451-b6e3-42bc-81c6-9a833ea5d6e1",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 26,
+  "fields": {
+    "created_at": "2026-03-18T15:15:23.138Z",
+    "updated_at": "2026-03-18T15:15:23.138Z",
+    "user": null,
+    "session_key": "2ws34dpfie949a0ryk3w4cbro63rwbvs",
+    "token": "c2909cc3-21e4-4937-a096-0d19546784c9",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 27,
+  "fields": {
+    "created_at": "2026-03-18T15:15:23.223Z",
+    "updated_at": "2026-03-18T15:15:23.223Z",
+    "user": null,
+    "session_key": "y9vluchwbpimx0h4a43zgi60dzumg3w7",
+    "token": "4a1bef8e-3e48-49f3-bc63-26219ee091ad",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 28,
+  "fields": {
+    "created_at": "2026-03-18T15:15:23.330Z",
+    "updated_at": "2026-03-18T15:15:23.330Z",
+    "user": null,
+    "session_key": "jhg5twix7o5lggr24mzyxk2fy13x101l",
+    "token": "6e59f2da-6f7f-429d-a5c0-08b5a23ddc07",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 29,
+  "fields": {
+    "created_at": "2026-03-18T15:15:23.411Z",
+    "updated_at": "2026-03-18T15:15:23.411Z",
+    "user": null,
+    "session_key": "jts7fj7xb5jtow4ocx50rbddw0spzv53",
+    "token": "63a83e36-6792-4051-8af7-9951747e7445",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 30,
+  "fields": {
+    "created_at": "2026-03-18T15:15:23.480Z",
+    "updated_at": "2026-03-18T15:15:23.480Z",
+    "user": null,
+    "session_key": "68gv7lh0stxxcten7y13sw7v1bkp5or0",
+    "token": "62aaf7bf-f774-4e1e-883a-b05ebe84813b",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 31,
+  "fields": {
+    "created_at": "2026-03-18T15:16:06.655Z",
+    "updated_at": "2026-03-18T15:16:06.655Z",
+    "user": null,
+    "session_key": "xi2vgpsqly84edd2u88gay8yf8byz2h5",
+    "token": "a802673e-fe98-4ba0-adbb-b6454466f163",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 32,
+  "fields": {
+    "created_at": "2026-03-18T15:16:07.135Z",
+    "updated_at": "2026-03-18T15:16:07.135Z",
+    "user": null,
+    "session_key": "4xqoty1sli3nzjh5mj00ck3clm6bgorr",
+    "token": "4a411eaf-18d2-4b1c-a544-05172a9d570f",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 33,
+  "fields": {
+    "created_at": "2026-03-18T15:16:07.474Z",
+    "updated_at": "2026-03-18T15:16:07.474Z",
+    "user": null,
+    "session_key": "mmja4q4u0km2kyqskvn1o3771u9b13bw",
+    "token": "1947fda7-fd1a-4aee-aace-17c740696c22",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 34,
+  "fields": {
+    "created_at": "2026-03-18T15:16:07.631Z",
+    "updated_at": "2026-03-18T15:16:07.632Z",
+    "user": null,
+    "session_key": "hqqy2ijlivgzgno2ho5i1g2d7jqn7oaw",
+    "token": "ecf930ec-20b3-43b9-a709-83f6bb5577ee",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 35,
+  "fields": {
+    "created_at": "2026-03-18T15:16:07.803Z",
+    "updated_at": "2026-03-18T15:16:07.803Z",
+    "user": null,
+    "session_key": "eblrj04icc9z6h3xw9gzo2f268adrv4a",
+    "token": "52fd079e-2fe1-41b1-bbe3-77f90225269e",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 36,
+  "fields": {
+    "created_at": "2026-03-18T15:16:40.025Z",
+    "updated_at": "2026-03-18T15:16:40.025Z",
+    "user": null,
+    "session_key": "i8yq7se5csr6p7pui76lmn135injf3tr",
+    "token": "754d2c78-28fc-46c0-8932-cda127913368",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 37,
+  "fields": {
+    "created_at": "2026-03-18T15:18:02.573Z",
+    "updated_at": "2026-03-18T15:18:02.574Z",
+    "user": null,
+    "session_key": "v8kt4fnr4ti5a0nlrew7ja9dpkksq2ev",
+    "token": "f9b00f5b-17eb-4aa4-ac63-3ce079ad0b13",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 38,
+  "fields": {
+    "created_at": "2026-03-18T15:18:11.340Z",
+    "updated_at": "2026-03-18T15:18:11.340Z",
+    "user": null,
+    "session_key": "8wrnmmg1zhhfuqdwbm6m7a4rma85bskg",
+    "token": "2630db34-9fe3-4efc-ba1f-d2c23712faf3",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 39,
+  "fields": {
+    "created_at": "2026-03-18T15:22:30.874Z",
+    "updated_at": "2026-03-18T15:22:30.874Z",
+    "user": null,
+    "session_key": "n0l0v55r44qihm0t1v925ro4o2bflox8",
+    "token": "0df1bb33-8e07-48cf-819e-a6cce609993b",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 40,
+  "fields": {
+    "created_at": "2026-03-18T15:22:30.976Z",
+    "updated_at": "2026-03-18T15:22:30.976Z",
+    "user": null,
+    "session_key": "mr3rp67jztubhudfpg7vemxl2v2p28zo",
+    "token": "24885bfb-7244-41f8-8982-d7619e083be7",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 41,
+  "fields": {
+    "created_at": "2026-03-18T15:22:31.084Z",
+    "updated_at": "2026-03-18T15:22:31.084Z",
+    "user": null,
+    "session_key": "p6efkz65cbmflyhmn68vqmvngltrxnxk",
+    "token": "f0314d4b-c0cf-4d16-9a18-189ffac7a516",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 42,
+  "fields": {
+    "created_at": "2026-03-18T15:22:31.165Z",
+    "updated_at": "2026-03-18T15:22:31.165Z",
+    "user": null,
+    "session_key": "6w3umzvel3maut17vkxgzy766rxnxe4u",
+    "token": "8dd55109-e8a6-404a-b3f5-fef81aa491fb",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 43,
+  "fields": {
+    "created_at": "2026-03-18T15:27:45.735Z",
+    "updated_at": "2026-03-18T15:27:45.735Z",
+    "user": null,
+    "session_key": "ck37jgclmwy3kt5amlgy8ler7ji5yjyh",
+    "token": "f689d3f9-0219-4b2a-8a74-aababf9714fc",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 44,
+  "fields": {
+    "created_at": "2026-03-18T15:28:11.922Z",
+    "updated_at": "2026-03-18T15:28:11.922Z",
+    "user": null,
+    "session_key": "6g5kx7ot6e4erti3993m7awo4gjzj74a",
+    "token": "26225347-3c6b-4b04-ab64-46915308d0fa",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 45,
+  "fields": {
+    "created_at": "2026-03-18T15:39:04.480Z",
+    "updated_at": "2026-03-18T15:39:04.480Z",
+    "user": null,
+    "session_key": "ng0i4hh6148g5fovaezh25js7k0av6vd",
+    "token": "05922f4f-2af6-4a4b-bbaf-65bfa375c46a",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 46,
+  "fields": {
+    "created_at": "2026-03-18T15:46:16.869Z",
+    "updated_at": "2026-03-18T15:46:16.869Z",
+    "user": 3,
+    "session_key": "woha5n43rabxsqjc6vmi8o1zlp0emkor",
+    "token": "204596d6-6c70-41cb-90b8-e2bc137d363f",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 47,
+  "fields": {
+    "created_at": "2026-03-18T15:46:51.482Z",
+    "updated_at": "2026-03-18T15:46:51.482Z",
+    "user": null,
+    "session_key": "borloopjrir36rvwtwge11c21cmybaka",
+    "token": "28141814-806b-4e03-86a7-6d5cb6b68a53",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 48,
+  "fields": {
+    "created_at": "2026-03-18T15:47:09.887Z",
+    "updated_at": "2026-03-18T15:47:09.887Z",
+    "user": null,
+    "session_key": "662ggbih5qkzc30hwgk9oluy88e1yziu",
+    "token": "b0c59c0b-6b19-4314-a4ff-2cf5f927abd7",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 49,
+  "fields": {
+    "created_at": "2026-03-18T15:48:18.367Z",
+    "updated_at": "2026-03-18T15:48:18.367Z",
+    "user": null,
+    "session_key": "vh3ljihrgki4hacl3hvxmxt2h6ock6r5",
+    "token": "e6f3a6cf-dc59-40cd-bb05-f6585eae23c8",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 50,
+  "fields": {
+    "created_at": "2026-03-18T15:53:16.963Z",
+    "updated_at": "2026-03-18T15:53:16.963Z",
+    "user": null,
+    "session_key": "4or4g90dcpjrbolj0kxpmf56s2wim47x",
+    "token": "7ec9ab3c-6ae3-44aa-ae0f-9a06189c76e6",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 51,
+  "fields": {
+    "created_at": "2026-03-18T17:22:39.464Z",
+    "updated_at": "2026-03-18T17:22:39.464Z",
+    "user": null,
+    "session_key": "bml93qoktvqa2zsnv4zug1k8rdfxokqv",
+    "token": "526e851a-8e46-446e-aa48-1fbe65ff8e5e",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 52,
+  "fields": {
+    "created_at": "2026-03-18T17:23:24.029Z",
+    "updated_at": "2026-03-18T17:23:24.029Z",
+    "user": null,
+    "session_key": "szajj8swq3fg7u9bwevbhf5cuxkcw16y",
+    "token": "f9d2d713-a732-440e-a170-383dbd55ec4d",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 53,
+  "fields": {
+    "created_at": "2026-03-19T07:16:55.890Z",
+    "updated_at": "2026-03-19T07:16:55.890Z",
+    "user": null,
+    "session_key": "q59frbebh8z0eu0r5zfqgddwefa4plsg",
+    "token": "5e6803c3-fb64-450f-aa96-efa71237d500",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 54,
+  "fields": {
+    "created_at": "2026-03-19T07:22:04.235Z",
+    "updated_at": "2026-03-19T07:22:04.235Z",
+    "user": null,
+    "session_key": "cdepehsfncyx45l4vwhpc3yq8su47er1",
+    "token": "920f37fc-b79d-46bf-9e3b-e99a1d03dbd4",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 55,
+  "fields": {
+    "created_at": "2026-03-19T07:32:30.461Z",
+    "updated_at": "2026-03-19T07:32:30.461Z",
+    "user": null,
+    "session_key": "dwxz30wc4p48p87e6k8s4145bpxdjcm0",
+    "token": "e924e5d5-72f1-47c7-b8ed-df2a13543f02",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 56,
+  "fields": {
+    "created_at": "2026-03-19T07:48:53.378Z",
+    "updated_at": "2026-03-19T07:48:53.378Z",
+    "user": null,
+    "session_key": "lyll65agp5s9u7xbaoksv3hhbfdklpdy",
+    "token": "162204dc-71cb-40c4-84cc-4d2df823486a",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 57,
+  "fields": {
+    "created_at": "2026-03-19T07:50:32.931Z",
+    "updated_at": "2026-03-19T07:50:32.931Z",
+    "user": null,
+    "session_key": "xwhg9xx43itfgs5b33fu3obv09icjhkr",
+    "token": "e7775d13-a73e-4374-af07-753451d4d0d5",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 58,
+  "fields": {
+    "created_at": "2026-03-19T07:52:06.675Z",
+    "updated_at": "2026-03-19T07:52:06.675Z",
+    "user": null,
+    "session_key": "e5v2g5oyvtznxi2wb73yzp8by890s63h",
+    "token": "c319ece2-9e72-4231-bd56-344b41d1feaa",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 59,
+  "fields": {
+    "created_at": "2026-03-19T08:29:40.078Z",
+    "updated_at": "2026-03-19T08:29:40.078Z",
+    "user": 4,
+    "session_key": "zxaqce1m4jxb0yzhsw3m2u77s0lray5h",
+    "token": "20f1d3d6-3d95-4396-96ca-e0f6f86463e9",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 60,
+  "fields": {
+    "created_at": "2026-03-19T08:36:27.791Z",
+    "updated_at": "2026-03-19T13:49:11.051Z",
+    "user": 2,
+    "session_key": "w7ko2ceewyikkum298w24kqca6ll4lv0",
+    "token": "d958c18c-fdc9-4dc3-b839-10f568a662ba",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": false
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 61,
+  "fields": {
+    "created_at": "2026-03-19T08:37:12.547Z",
+    "updated_at": "2026-03-19T08:37:12.547Z",
+    "user": null,
+    "session_key": "rov3lz6lzc1z72assbctfwf1bworcms1",
+    "token": "4c4e90a4-0f44-4f78-aaa2-4cdde022f38e",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 62,
+  "fields": {
+    "created_at": "2026-03-19T08:37:48.586Z",
+    "updated_at": "2026-03-19T08:37:48.586Z",
+    "user": 5,
+    "session_key": "uzb3quwx46ve0js4mszn0524e674w2ro",
+    "token": "a8182153-cecd-4ec9-8795-b6f022e08189",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 63,
+  "fields": {
+    "created_at": "2026-03-19T09:35:46.873Z",
+    "updated_at": "2026-03-19T09:35:46.873Z",
+    "user": null,
+    "session_key": "njp250elmcatxfn0uu5tioy38wko0pru",
+    "token": "5516f9fe-5f85-4bfe-aed3-2a60d98ba14a",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 64,
+  "fields": {
+    "created_at": "2026-03-19T09:37:32.070Z",
+    "updated_at": "2026-03-19T09:37:32.070Z",
+    "user": null,
+    "session_key": "uwoo0w4bxtf9gf6l6qf1q31i5f47nxkb",
+    "token": "fd77d53b-ef25-446b-b10e-50ad17b139a5",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 65,
+  "fields": {
+    "created_at": "2026-03-19T10:43:28.591Z",
+    "updated_at": "2026-03-19T10:43:28.591Z",
+    "user": null,
+    "session_key": "9p4lfhtrcsot12kuhr94kzr6cx7aartf",
+    "token": "183272b6-6f5e-4b5b-ac5d-a901f06bbd3e",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 66,
+  "fields": {
+    "created_at": "2026-03-19T10:43:47.948Z",
+    "updated_at": "2026-03-19T10:43:47.948Z",
+    "user": null,
+    "session_key": "wb5xc2duu4ephynp5hls74cikj7jbltj",
+    "token": "60bd5454-21f0-4fc2-b102-8e352cd7621c",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 67,
+  "fields": {
+    "created_at": "2026-03-19T10:48:12.684Z",
+    "updated_at": "2026-03-19T10:48:12.684Z",
+    "user": null,
+    "session_key": "s1l3ssv78m2nocjsduf96fttio434xrt",
+    "token": "34a3b97e-3ccd-4851-a91d-8250d8b188cf",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 68,
+  "fields": {
+    "created_at": "2026-03-19T12:20:52.828Z",
+    "updated_at": "2026-03-19T12:20:52.829Z",
+    "user": null,
+    "session_key": "vehzpm78gc9zaot1nuqbxvc3sn8cg6fa",
+    "token": "50202b1a-97e3-44db-bae5-9b02aa93c63e",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 69,
+  "fields": {
+    "created_at": "2026-03-19T12:21:01.822Z",
+    "updated_at": "2026-03-19T12:21:01.822Z",
+    "user": null,
+    "session_key": "1xlsyb6cw1rt4fceoc8ja9xwsn024ai5",
+    "token": "99a379ed-3520-40fc-9a06-b039697e3ea8",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 70,
+  "fields": {
+    "created_at": "2026-03-19T12:30:03.841Z",
+    "updated_at": "2026-03-19T12:30:03.841Z",
+    "user": null,
+    "session_key": "ku5g7e4vyauwtwfr1577nu5hkeptjhz6",
+    "token": "51a429d9-f420-408a-b735-a64f708322f1",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 71,
+  "fields": {
+    "created_at": "2026-03-19T12:30:07.855Z",
+    "updated_at": "2026-03-19T12:30:07.855Z",
+    "user": null,
+    "session_key": "u3p07tssi52jq7hlxwh9r4b106t7lh49",
+    "token": "687a3659-aeca-4cfa-87f6-d0eb5b4f8d17",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 72,
+  "fields": {
+    "created_at": "2026-03-19T12:55:37.614Z",
+    "updated_at": "2026-03-19T12:55:37.614Z",
+    "user": null,
+    "session_key": "tdpd657sjfomi3vvhykbge227np6jr5t",
+    "token": "b60874c4-917b-4f93-a479-93a909e70251",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 73,
+  "fields": {
+    "created_at": "2026-03-19T12:57:08.092Z",
+    "updated_at": "2026-03-19T12:57:08.092Z",
+    "user": null,
+    "session_key": "uxmm9e3umx11c3vlnwqggmewgrrfp4q7",
+    "token": "a1709332-87e8-4668-99cc-d93d9f7d4c68",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 74,
+  "fields": {
+    "created_at": "2026-03-19T13:15:04.642Z",
+    "updated_at": "2026-03-19T13:15:04.642Z",
+    "user": null,
+    "session_key": "4wkavjdu55blc0caar6ov3sopolpycm0",
+    "token": "405097ab-1903-4598-bdef-34877e05b77d",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 75,
+  "fields": {
+    "created_at": "2026-03-19T13:15:09.435Z",
+    "updated_at": "2026-03-19T13:15:09.435Z",
+    "user": null,
+    "session_key": "xbfmzgc8r0dzrphy9zvkswyu6dtf19fj",
+    "token": "edc560db-0f5b-4546-9acc-40af6afc3d5e",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 76,
+  "fields": {
+    "created_at": "2026-03-19T13:47:53.605Z",
+    "updated_at": "2026-03-19T13:47:53.605Z",
+    "user": null,
+    "session_key": "l26vepw4j98ilcscgfy6jvmk12xvuial",
+    "token": "dfa53680-d5d9-48e0-96f0-899e80c64f16",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 77,
+  "fields": {
+    "created_at": "2026-03-19T13:48:08.902Z",
+    "updated_at": "2026-03-19T13:48:08.902Z",
+    "user": null,
+    "session_key": "4hna6j15wjf65z6tgtssf117f2xx6tl0",
+    "token": "9bed763d-ff1e-4147-8a72-0668b37945b4",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 78,
+  "fields": {
+    "created_at": "2026-03-19T13:49:11.133Z",
+    "updated_at": "2026-03-19T15:00:50.840Z",
+    "user": 2,
+    "session_key": "551aax932r3hrt4855lgjntqryodcvw7",
+    "token": "0781fd7d-75e5-4f7b-b53e-bcabead585c0",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": false
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 79,
+  "fields": {
+    "created_at": "2026-03-19T14:08:13.808Z",
+    "updated_at": "2026-03-19T14:08:13.808Z",
+    "user": null,
+    "session_key": "cdlot65k6c7fykivak0rbv0vlwivxexs",
+    "token": "05ccdef5-d380-4c53-9948-4d4cfa1c6dc5",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 80,
+  "fields": {
+    "created_at": "2026-03-19T15:00:50.914Z",
+    "updated_at": "2026-03-19T15:00:50.914Z",
+    "user": 2,
+    "session_key": "e8akxmcyh7ahcpx71o5yse7xnyrdawrn",
+    "token": "179cbcaf-2881-429d-8968-747f86bed4f9",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 81,
+  "fields": {
+    "created_at": "2026-03-19T15:15:19.504Z",
+    "updated_at": "2026-03-19T15:15:19.504Z",
+    "user": null,
+    "session_key": "0ibfzdg12bogefj1iisu04bu53t9o1p3",
+    "token": "c92e4878-e211-4842-8a55-131eeb013cd7",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cartitem",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T14:51:20.514Z",
+    "updated_at": "2026-03-18T14:51:20.514Z",
+    "cart": 1,
+    "product": 1,
+    "variant": 1,
+    "quantity": 1,
+    "unit_price": "18.00",
+    "build_a_box_payload": {},
+    "gift_message": "",
+    "packaging_option": ""
+  }
+},
+{
+  "model": "cart.cartitem",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-19T08:19:35.127Z",
+    "updated_at": "2026-03-19T08:19:46.254Z",
+    "cart": 23,
+    "product": 2,
+    "variant": 3,
+    "quantity": 2,
+    "unit_price": "19.00",
+    "build_a_box_payload": {},
+    "gift_message": "",
+    "packaging_option": ""
+  }
+},
+{
+  "model": "cart.cartitem",
+  "pk": 4,
+  "fields": {
+    "created_at": "2026-03-19T13:48:47.053Z",
+    "updated_at": "2026-03-19T13:48:47.053Z",
+    "cart": 60,
+    "product": 1,
+    "variant": 1,
+    "quantity": 1,
+    "unit_price": "18.00",
+    "build_a_box_payload": {},
+    "gift_message": "",
+    "packaging_option": ""
+  }
+},
+{
+  "model": "cart.cartitem",
+  "pk": 5,
+  "fields": {
+    "created_at": "2026-03-19T15:00:14.666Z",
+    "updated_at": "2026-03-19T15:00:14.666Z",
+    "cart": 78,
+    "product": 1,
+    "variant": 1,
+    "quantity": 1,
+    "unit_price": "18.00",
+    "build_a_box_payload": {},
+    "gift_message": "",
+    "packaging_option": ""
+  }
+},
+{
+  "model": "cart.cartitem",
+  "pk": 7,
+  "fields": {
+    "created_at": "2026-03-19T15:15:23.279Z",
+    "updated_at": "2026-03-19T15:15:23.279Z",
+    "cart": 81,
+    "product": 2,
+    "variant": 3,
+    "quantity": 1,
+    "unit_price": "19.00",
+    "build_a_box_payload": {},
+    "gift_message": "",
+    "packaging_option": ""
+  }
+},
+{
+  "model": "cart.wishlist",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-19T10:51:33.044Z",
+    "updated_at": "2026-03-19T10:51:33.045Z",
+    "user": 2
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.254Z",
+    "updated_at": "2026-03-19T15:42:03.199Z",
+    "user": 1,
+    "cart": null,
+    "order_number": "NWDEMO1001",
+    "token": "1de9ea5d-3fa6-45eb-995f-2c712da7d21c",
+    "status": "paid",
+    "payment_status": "paid",
+    "customer_email": "claire.holloway@nestandwhisk.test",
+    "customer_first_name": "Claire",
+    "customer_last_name": "Holloway",
+    "customer_phone": "+1 (646) 555-0142",
+    "shipping_address_line_1": "112 Mercer Street",
+    "shipping_address_line_2": "Apartment 4B",
+    "shipping_city": "New York",
+    "shipping_state": "NY",
+    "shipping_postal_code": "10012",
+    "shipping_country": "United States",
+    "delivery_notes": "Leave with concierge if unavailable.",
+    "gift_note": "Thank you for hosting such a beautiful evening.",
+    "is_gift_wrapped": true,
+    "preferred_delivery_date": "2026-03-24",
+    "subtotal": "19.00",
+    "discount_total": "0.00",
+    "shipping_total": "0.00",
+    "total": "19.00",
+    "currency": "INR",
+    "provider": "stripe",
+    "provider_payment_id": "pi_demo_paid_1001",
+    "provider_checkout_id": "cs_demo_paid_1001",
+    "placed_at": "2026-03-17T15:42:03.199Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.260Z",
+    "updated_at": "2026-03-19T15:42:03.205Z",
+    "user": 1,
+    "cart": null,
+    "order_number": "NWDEMO1002",
+    "token": "2b3154fd-526e-4f41-a822-acd32d1e260c",
+    "status": "pending",
+    "payment_status": "processing",
+    "customer_email": "claire.holloway@nestandwhisk.test",
+    "customer_first_name": "Claire",
+    "customer_last_name": "Holloway",
+    "customer_phone": "+1 (646) 555-0142",
+    "shipping_address_line_1": "112 Mercer Street",
+    "shipping_address_line_2": "Apartment 4B",
+    "shipping_city": "New York",
+    "shipping_state": "NY",
+    "shipping_postal_code": "10012",
+    "shipping_country": "United States",
+    "delivery_notes": "Ring bell once.",
+    "gift_note": "A little autumn treat.",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": "2026-03-28",
+    "subtotal": "20.00",
+    "discount_total": "0.00",
+    "shipping_total": "6.00",
+    "total": "26.00",
+    "currency": "INR",
+    "provider": "stripe",
+    "provider_payment_id": "pi_demo_processing_1002",
+    "provider_checkout_id": "cs_demo_processing_1002",
+    "placed_at": "2026-03-18T21:42:03.204Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-03-18T14:52:20.821Z",
+    "updated_at": "2026-03-18T14:52:20.830Z",
+    "user": null,
+    "cart": 1,
+    "order_number": "NWE5FFA36D10",
+    "token": "e0ae0dd6-00d0-4b65-9855-dae4c3bbcf6c",
+    "status": "pending",
+    "payment_status": "unpaid",
+    "customer_email": "hgdFH@gmail.com",
+    "customer_first_name": "sgg",
+    "customer_last_name": "sg",
+    "customer_phone": "gSGs",
+    "shipping_address_line_1": "gsG",
+    "shipping_address_line_2": "sdgg",
+    "shipping_city": "sdgg",
+    "shipping_state": "gSD",
+    "shipping_postal_code": "gsd",
+    "shipping_country": "India",
+    "delivery_notes": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "subtotal": "18.00",
+    "discount_total": "0.00",
+    "shipping_total": "0.00",
+    "total": "18.00",
+    "currency": "INR",
+    "provider": "stripe",
+    "provider_payment_id": "",
+    "provider_checkout_id": "",
+    "placed_at": "2026-03-18T14:52:20.821Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 4,
+  "fields": {
+    "created_at": "2026-03-19T08:20:00.936Z",
+    "updated_at": "2026-03-19T08:20:00.943Z",
+    "user": 2,
+    "cart": 23,
+    "order_number": "NWE570BD589C",
+    "token": "4b42fd12-fd6f-4c01-9152-5b20f1c819e0",
+    "status": "pending",
+    "payment_status": "unpaid",
+    "customer_email": "admin@nestandwhisk.com",
+    "customer_first_name": "Nest",
+    "customer_last_name": "Admin",
+    "customer_phone": "08802112416",
+    "shipping_address_line_1": "D-8, Indra Enclave, Kardam Farm, near Tanki wala shiv mandir and Johri Enclave metro station",
+    "shipping_address_line_2": "",
+    "shipping_city": "Delhi East",
+    "shipping_state": "Delhi",
+    "shipping_postal_code": "110094",
+    "shipping_country": "India",
+    "delivery_notes": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "subtotal": "38.00",
+    "discount_total": "0.00",
+    "shipping_total": "0.00",
+    "total": "38.00",
+    "currency": "USD",
+    "provider": "stripe",
+    "provider_payment_id": "",
+    "provider_checkout_id": "",
+    "placed_at": "2026-03-19T08:20:00.935Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 5,
+  "fields": {
+    "created_at": "2026-03-19T08:36:27.694Z",
+    "updated_at": "2026-03-19T08:36:27.701Z",
+    "user": 2,
+    "cart": 23,
+    "order_number": "NW461C326580",
+    "token": "0214b377-1876-4648-bedb-7e2d784a4222",
+    "status": "pending",
+    "payment_status": "unpaid",
+    "customer_email": "admin@nestandwhisk.com",
+    "customer_first_name": "Nest",
+    "customer_last_name": "Admin",
+    "customer_phone": "08802112416",
+    "shipping_address_line_1": "D-8, Indra Enclave, Kardam Farm, near Tanki wala shiv mandir and Johri Enclave metro station",
+    "shipping_address_line_2": "",
+    "shipping_city": "Delhi East",
+    "shipping_state": "Delhi",
+    "shipping_postal_code": "110094",
+    "shipping_country": "India",
+    "delivery_notes": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "subtotal": "38.00",
+    "discount_total": "0.00",
+    "shipping_total": "0.00",
+    "total": "38.00",
+    "currency": "USD",
+    "provider": "stripe",
+    "provider_payment_id": "",
+    "provider_checkout_id": "",
+    "placed_at": "2026-03-19T08:36:27.694Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 6,
+  "fields": {
+    "created_at": "2026-03-19T13:49:11.042Z",
+    "updated_at": "2026-03-19T13:49:29.040Z",
+    "user": 2,
+    "cart": 60,
+    "order_number": "NWABF3C95567",
+    "token": "da823495-289f-42cf-a392-7611dd35a21e",
+    "status": "paid",
+    "payment_status": "paid",
+    "customer_email": "admin@nestandwhisk.com",
+    "customer_first_name": "Nest",
+    "customer_last_name": "Admin",
+    "customer_phone": "08802112416",
+    "shipping_address_line_1": "D-8, Indra Enclave, Kardam Farm, near Tanki wala shiv mandir and Johri Enclave metro station",
+    "shipping_address_line_2": "",
+    "shipping_city": "Delhi East",
+    "shipping_state": "Delhi",
+    "shipping_postal_code": "110094",
+    "shipping_country": "India",
+    "delivery_notes": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "subtotal": "18.00",
+    "discount_total": "0.00",
+    "shipping_total": "0.00",
+    "total": "18.00",
+    "currency": "INR",
+    "provider": "mock",
+    "provider_payment_id": "",
+    "provider_checkout_id": "",
+    "placed_at": "2026-03-19T13:49:11.041Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 7,
+  "fields": {
+    "created_at": "2026-03-19T15:00:50.832Z",
+    "updated_at": "2026-03-19T15:00:50.839Z",
+    "user": 2,
+    "cart": 78,
+    "order_number": "NW86235D4315",
+    "token": "161dedaf-d139-4528-a376-c603c1b94838",
+    "status": "pending",
+    "payment_status": "unpaid",
+    "customer_email": "admin@nestandwhisk.com",
+    "customer_first_name": "Nest",
+    "customer_last_name": "Admin",
+    "customer_phone": "08802112416",
+    "shipping_address_line_1": "D-8, Indra Enclave, Kardam Farm, near Tanki wala shiv mandir and Johri Enclave metro station",
+    "shipping_address_line_2": "",
+    "shipping_city": "Delhi",
+    "shipping_state": "Delhi",
+    "shipping_postal_code": "110001",
+    "shipping_country": "India",
+    "delivery_notes": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "subtotal": "18.00",
+    "discount_total": "0.00",
+    "shipping_total": "0.00",
+    "total": "18.00",
+    "currency": "INR",
+    "provider": "stripe",
+    "provider_payment_id": "",
+    "provider_checkout_id": "",
+    "placed_at": "2026-03-19T15:00:50.831Z"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.256Z",
+    "updated_at": "2026-03-19T15:42:03.202Z",
+    "order": 1,
+    "product": 2,
+    "variant": 3,
+    "product_name": "Sea Salt Caramel",
+    "variant_name": "6-cookie box",
+    "sku": "NW-SSC-06",
+    "quantity": 1,
+    "unit_price": "19.00",
+    "line_total": "19.00",
+    "build_a_box_payload": {},
+    "gift_message": "With love, Claire",
+    "packaging_option": "Ribbon-ready signature wrap"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.261Z",
+    "updated_at": "2026-03-19T15:42:03.206Z",
+    "order": 2,
+    "product": 10,
+    "variant": 19,
+    "product_name": "Seasonal Pumpkin Spice",
+    "variant_name": "6-cookie box",
+    "sku": "NW-PMK-06",
+    "quantity": 1,
+    "unit_price": "20.00",
+    "line_total": "20.00",
+    "build_a_box_payload": {},
+    "gift_message": "Hope this brightens your week.",
+    "packaging_option": "Minimal seasonal wrap"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-03-18T14:52:20.827Z",
+    "updated_at": "2026-03-18T14:52:20.827Z",
+    "order": 3,
+    "product": 1,
+    "variant": 1,
+    "product_name": "Classic Chocolate Chip",
+    "variant_name": "6-cookie box",
+    "sku": "NW-CCHIP-06",
+    "quantity": 1,
+    "unit_price": "18.00",
+    "line_total": "18.00",
+    "build_a_box_payload": {},
+    "gift_message": "",
+    "packaging_option": ""
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 4,
+  "fields": {
+    "created_at": "2026-03-19T08:20:00.941Z",
+    "updated_at": "2026-03-19T08:20:00.941Z",
+    "order": 4,
+    "product": 2,
+    "variant": 3,
+    "product_name": "Sea Salt Caramel",
+    "variant_name": "6-cookie box",
+    "sku": "NW-SSC-06",
+    "quantity": 2,
+    "unit_price": "19.00",
+    "line_total": "38.00",
+    "build_a_box_payload": {},
+    "gift_message": "",
+    "packaging_option": ""
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 5,
+  "fields": {
+    "created_at": "2026-03-19T08:36:27.699Z",
+    "updated_at": "2026-03-19T08:36:27.699Z",
+    "order": 5,
+    "product": 2,
+    "variant": 3,
+    "product_name": "Sea Salt Caramel",
+    "variant_name": "6-cookie box",
+    "sku": "NW-SSC-06",
+    "quantity": 2,
+    "unit_price": "19.00",
+    "line_total": "38.00",
+    "build_a_box_payload": {},
+    "gift_message": "",
+    "packaging_option": ""
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 6,
+  "fields": {
+    "created_at": "2026-03-19T13:49:11.047Z",
+    "updated_at": "2026-03-19T13:49:11.047Z",
+    "order": 6,
+    "product": 1,
+    "variant": 1,
+    "product_name": "Classic Chocolate Chip",
+    "variant_name": "6-cookie box",
+    "sku": "NW-CCHIP-06",
+    "quantity": 1,
+    "unit_price": "18.00",
+    "line_total": "18.00",
+    "build_a_box_payload": {},
+    "gift_message": "",
+    "packaging_option": ""
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 7,
+  "fields": {
+    "created_at": "2026-03-19T15:00:50.837Z",
+    "updated_at": "2026-03-19T15:00:50.837Z",
+    "order": 7,
+    "product": 1,
+    "variant": 1,
+    "product_name": "Classic Chocolate Chip",
+    "variant_name": "6-cookie box",
+    "sku": "NW-CCHIP-06",
+    "quantity": 1,
+    "unit_price": "18.00",
+    "line_total": "18.00",
+    "build_a_box_payload": {},
+    "gift_message": "",
+    "packaging_option": ""
+  }
+},
+{
+  "model": "orders.payment",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.258Z",
+    "updated_at": "2026-03-19T15:42:03.203Z",
+    "order": 1,
+    "amount": "19.00",
+    "currency": "INR",
+    "provider": "stripe",
+    "provider_payment_id": "pi_demo_paid_1001",
+    "provider_checkout_id": "cs_demo_paid_1001",
+    "status": "succeeded",
+    "provider_reference": "demo-payment-paid-1001",
+    "receipt_url": "https://payments.example.test/receipt/demo-payment-paid-1001",
+    "raw_response": {
+      "demo": true,
+      "kind": "seeded-payment"
+    },
+    "paid_at": "2026-03-17T15:42:03.202Z"
+  }
+},
+{
+  "model": "orders.payment",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.263Z",
+    "updated_at": "2026-03-19T15:42:03.207Z",
+    "order": 2,
+    "amount": "26.00",
+    "currency": "INR",
+    "provider": "stripe",
+    "provider_payment_id": "pi_demo_processing_1002",
+    "provider_checkout_id": "cs_demo_processing_1002",
+    "status": "pending",
+    "provider_reference": "demo-payment-processing-1002",
+    "receipt_url": "",
+    "raw_response": {
+      "demo": true,
+      "kind": "seeded-processing-payment"
+    },
+    "paid_at": null
+  }
+},
+{
+  "model": "orders.payment",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-03-18T14:52:20.829Z",
+    "updated_at": "2026-03-18T14:52:20.829Z",
+    "order": 3,
+    "amount": "18.00",
+    "currency": "INR",
+    "provider": "stripe",
+    "provider_payment_id": "",
+    "provider_checkout_id": "",
+    "status": "pending",
+    "provider_reference": "",
+    "receipt_url": "",
+    "raw_response": {},
+    "paid_at": null
+  }
+},
+{
+  "model": "orders.payment",
+  "pk": 4,
+  "fields": {
+    "created_at": "2026-03-19T08:20:00.942Z",
+    "updated_at": "2026-03-19T08:20:00.942Z",
+    "order": 4,
+    "amount": "38.00",
+    "currency": "USD",
+    "provider": "stripe",
+    "provider_payment_id": "",
+    "provider_checkout_id": "",
+    "status": "pending",
+    "provider_reference": "",
+    "receipt_url": "",
+    "raw_response": {},
+    "paid_at": null
+  }
+},
+{
+  "model": "orders.payment",
+  "pk": 5,
+  "fields": {
+    "created_at": "2026-03-19T08:36:27.700Z",
+    "updated_at": "2026-03-19T08:36:27.700Z",
+    "order": 5,
+    "amount": "38.00",
+    "currency": "USD",
+    "provider": "stripe",
+    "provider_payment_id": "",
+    "provider_checkout_id": "",
+    "status": "pending",
+    "provider_reference": "",
+    "receipt_url": "",
+    "raw_response": {},
+    "paid_at": null
+  }
+},
+{
+  "model": "orders.payment",
+  "pk": 6,
+  "fields": {
+    "created_at": "2026-03-19T13:49:11.049Z",
+    "updated_at": "2026-03-19T13:49:29.036Z",
+    "order": 6,
+    "amount": "18.00",
+    "currency": "INR",
+    "provider": "mock",
+    "provider_payment_id": "",
+    "provider_checkout_id": "",
+    "status": "succeeded",
+    "provider_reference": "mock_success",
+    "receipt_url": "",
+    "raw_response": {
+      "checkout_preferences": {
+        "payment_provider": "mock",
+        "payment_preference": "upi",
+        "currency": "INR"
+      },
+      "mock_payment": {
+        "outcome": "success",
+        "applied_at": "2026-03-19T13:49:29.036365+00:00"
+      }
+    },
+    "paid_at": "2026-03-19T13:49:29.036Z"
+  }
+},
+{
+  "model": "orders.payment",
+  "pk": 7,
+  "fields": {
+    "created_at": "2026-03-19T15:00:50.838Z",
+    "updated_at": "2026-03-19T15:00:50.838Z",
+    "order": 7,
+    "amount": "18.00",
+    "currency": "INR",
+    "provider": "stripe",
+    "provider_payment_id": "",
+    "provider_checkout_id": "",
+    "status": "pending",
+    "provider_reference": "",
+    "receipt_url": "",
+    "raw_response": {
+      "checkout_preferences": {
+        "payment_provider": "stripe",
+        "payment_preference": "flexible",
+        "currency": "INR"
+      }
+    },
+    "paid_at": null
+  }
+},
+{
+  "model": "orders.paymentevent",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-19T13:49:29.041Z",
+    "updated_at": "2026-03-19T13:49:29.041Z",
+    "payment": 6,
+    "event_type": "mock.payment.succeeded",
+    "provider_reference": "mock_success",
+    "amount": "18.00",
+    "currency": "INR",
+    "payload": {
+      "id": "mock_success",
+      "provider": "mock",
+      "status": "success"
+    },
+    "occurred_at": "2026-03-19T13:49:29.040Z"
+  }
+},
+{
+  "model": "subscriptions.subscriptionplan",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.247Z",
+    "updated_at": "2026-03-19T15:42:03.194Z",
+    "name": "Weekly Signature Box",
+    "slug": "weekly-signature-box",
+    "headline": "A dependable weekly ritual for cookie lovers who never want to run out.",
+    "description": "A rotating assortment of our signature favorites delivered every week in a premium gift-ready format.",
+    "billing_interval": "weekly",
+    "cadence_days": 7,
+    "shipment_offset_days": 3,
+    "box_size": "12-cookie curated box",
+    "price": "34.00",
+    "compare_at_price": "38.00",
+    "stripe_price_id": "",
+    "is_featured": false,
+    "is_active": true,
+    "sort_order": 1
+  }
+},
+{
+  "model": "subscriptions.subscriptionplan",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.248Z",
+    "updated_at": "2026-03-19T15:42:03.195Z",
+    "name": "Biweekly Hostess Edit",
+    "slug": "biweekly-hostess-edit",
+    "headline": "A polished gifting rhythm for dinner parties, thank-yous, and thoughtful touchpoints.",
+    "description": "A balanced biweekly cookie edit designed for sharing, gifting, and keeping something beautiful on hand.",
+    "billing_interval": "biweekly",
+    "cadence_days": 14,
+    "shipment_offset_days": 5,
+    "box_size": "12-cookie curated box",
+    "price": "36.00",
+    "compare_at_price": "40.00",
+    "stripe_price_id": "",
+    "is_featured": true,
+    "is_active": true,
+    "sort_order": 2
+  }
+},
+{
+  "model": "subscriptions.subscriptionplan",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.249Z",
+    "updated_at": "2026-03-19T15:42:03.196Z",
+    "name": "Monthly FounderΓÇÖs Box",
+    "slug": "monthly-founders-box",
+    "headline": "A monthly delivery with signature favorites and a seasonal surprise.",
+    "description": "Our most giftable recurring plan ΓÇö part signature collection, part seasonal reveal, and always packed with editorial polish.",
+    "billing_interval": "monthly",
+    "cadence_days": 30,
+    "shipment_offset_days": 8,
+    "box_size": "18-cookie premium box",
+    "price": "52.00",
+    "compare_at_price": "58.00",
+    "stripe_price_id": "",
+    "is_featured": false,
+    "is_active": true,
+    "sort_order": 3
+  }
+},
+{
+  "model": "subscriptions.usersubscription",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.264Z",
+    "updated_at": "2026-03-19T15:42:03.212Z",
+    "user": 1,
+    "plan": 2,
+    "latest_order": 1,
+    "status": "active",
+    "stripe_subscription_id": "",
+    "stripe_customer_id": "",
+    "flavor_preferences": [
+      "Sea Salt Caramel",
+      "Classic Chocolate Chip",
+      "Pistachio Rose"
+    ],
+    "renewal_day": 19,
+    "next_renewal_date": "2026-03-19",
+    "next_shipment_date": "2026-03-24",
+    "paused_from": null,
+    "cancelled_at": null,
+    "admin_notes": "Seeded local subscription for admin preview."
+  }
+},
+{
+  "model": "subscriptions.usersubscription",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-19T14:40:13.715Z",
+    "updated_at": "2026-03-19T14:40:13.716Z",
+    "user": 2,
+    "plan": 2,
+    "latest_order": null,
+    "status": "active",
+    "stripe_subscription_id": "",
+    "stripe_customer_id": "",
+    "flavor_preferences": [],
+    "renewal_day": 1,
+    "next_renewal_date": "2026-04-01",
+    "next_shipment_date": "2026-04-06",
+    "paused_from": null,
+    "cancelled_at": null,
+    "admin_notes": ""
+  }
+},
+{
+  "model": "subscriptions.subscriptionshipment",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.267Z",
+    "updated_at": "2026-03-18T16:09:25.886Z",
+    "subscription": 1,
+    "order": 1,
+    "scheduled_for": "2026-03-23",
+    "status": "upcoming",
+    "tracking_reference": "NW-SHIP-DEMO-1001",
+    "shipment_notes": "Seeded upcoming subscription shipment."
+  }
+},
+{
+  "model": "subscriptions.subscriptionshipment",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-19T09:35:26.967Z",
+    "updated_at": "2026-03-19T15:42:03.213Z",
+    "subscription": 1,
+    "order": 1,
+    "scheduled_for": "2026-03-24",
+    "status": "upcoming",
+    "tracking_reference": "NW-SHIP-DEMO-1001",
+    "shipment_notes": "Seeded upcoming subscription shipment."
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.243Z",
+    "updated_at": "2026-03-19T15:42:03.190Z",
+    "product": 1,
+    "user": null,
+    "customer_name": "Naomi Park",
+    "customer_email": "naomi@classictaste.test",
+    "rating": 5,
+    "title": "A true bakery classic",
+    "body": "Exactly the kind of cookie you hope for in a premium gift box ΓÇö soft, buttery, and packed with chocolate.",
+    "is_approved": true,
+    "is_verified_purchase": true
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.244Z",
+    "updated_at": "2026-03-19T15:42:03.191Z",
+    "product": 2,
+    "user": null,
+    "customer_name": "Daniel Flores",
+    "customer_email": "daniel@caramelclub.test",
+    "rating": 5,
+    "title": "The perfect sweet-salty balance",
+    "body": "These disappeared first from our office tasting box. The caramel flavor is rich without feeling heavy.",
+    "is_approved": true,
+    "is_verified_purchase": true
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.245Z",
+    "updated_at": "2026-03-19T15:42:03.191Z",
+    "product": 5,
+    "user": null,
+    "customer_name": "Ella Sutton",
+    "customer_email": "ella@editselect.test",
+    "rating": 5,
+    "title": "Elegant and memorable",
+    "body": "A beautifully refined cookie with floral notes that still feels warm and comforting.",
+    "is_approved": true,
+    "is_verified_purchase": false
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 4,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.246Z",
+    "updated_at": "2026-03-19T15:42:03.192Z",
+    "product": 10,
+    "user": null,
+    "customer_name": "Mina Kapoor",
+    "customer_email": "mina@seasonaltable.test",
+    "rating": 5,
+    "title": "Autumn in cookie form",
+    "body": "Warm spice, soft texture, and a lovely bakery finish. IΓÇÖd order this every fall.",
+    "is_approved": true,
+    "is_verified_purchase": true
+  }
+},
+{
+  "model": "reviews.review",
+  "pk": 5,
+  "fields": {
+    "created_at": "2026-03-18T14:40:50.247Z",
+    "updated_at": "2026-03-19T15:42:03.193Z",
+    "product": 11,
+    "user": null,
+    "customer_name": "Hugo Bennett",
+    "customer_email": "hugo@gifthost.test",
+    "rating": 5,
+    "title": "Our go-to hostess gift",
+    "body": "The ability to curate flavors made the box feel truly personal ΓÇö and the packaging looked stunning.",
+    "is_approved": true,
+    "is_verified_purchase": true
+  }
+},
+{
+  "model": "blog.blogcategory",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T15:12:05.317Z",
+    "updated_at": "2026-03-19T15:42:03.117Z",
+    "name": "Entertaining",
+    "slug": "entertaining",
+    "description": "Hosting ideas, tablescapes, gifting, and warm gathering rituals.",
+    "is_active": true,
+    "sort_order": 1
+  }
+},
+{
+  "model": "blog.blogcategory",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-18T15:12:05.319Z",
+    "updated_at": "2026-03-19T15:42:03.118Z",
+    "name": "Behind the Bake",
+    "slug": "behind-the-bake",
+    "description": "Ingredient stories, creative process, and Nest & Whisk studio notes.",
+    "is_active": true,
+    "sort_order": 2
+  }
+},
+{
+  "model": "blog.blogcategory",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-03-18T15:12:05.319Z",
+    "updated_at": "2026-03-19T15:42:03.119Z",
+    "name": "Seasonal Notes",
+    "slug": "seasonal-notes",
+    "description": "Limited drops, holiday pairings, and seasonal inspiration.",
+    "is_active": true,
+    "sort_order": 3
+  }
+},
+{
+  "model": "blog.blogpost",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T15:12:05.321Z",
+    "updated_at": "2026-03-19T15:42:03.120Z",
+    "category": 1,
+    "title": "How to build a cookie gift box that feels deeply personal",
+    "slug": "how-to-build-a-cookie-gift-box-that-feels-personal",
+    "excerpt": "A few thoughtful choicesΓÇöflavor balance, packaging tone, and a small handwritten noteΓÇöcan turn a sweet box into a memorable gift.",
+    "body": "A beautiful gift box starts with intention. Begin by choosing a mix of familiar comfort and one unexpected flavor, then think about who you're sending it to and the mood you want the delivery to create.\n\nFor thank-yous, we love a balance of classic chocolate chip, sea salt caramel, and one elegant wildcard like Pistachio Rose. For celebrations, brighter profiles like Birthday Sprinkle or Red Velvet Crumble feel joyful without losing polish.\n\nPackaging matters just as much. Ribbon-ready wrapping, a warm card, and a small note written with specificity can make the moment feel generous before the box is even opened.",
+    "hero_kicker": "Gifting guide",
+    "reading_time_minutes": 4,
+    "is_published": true,
+    "is_featured": true,
+    "published_at": "2026-03-13T15:42:03.119Z",
+    "seo_title": "How to build a personal cookie gift box | Nest & Whisk Journal",
+    "seo_description": "A Nest & Whisk gifting guide to building a premium cookie box that feels personal and memorable."
+  }
+},
+{
+  "model": "blog.blogpost",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-18T15:12:05.322Z",
+    "updated_at": "2026-03-19T15:42:03.121Z",
+    "category": 2,
+    "title": "Why small-batch baking changes the entire cookie experience",
+    "slug": "why-small-batch-baking-makes-a-difference",
+    "excerpt": "From ingredient quality to texture and finishing, small-batch baking gives artisan cookies their warmth, nuance, and consistency.",
+    "body": "Small-batch baking creates room for precision. Dough can rest properly, chocolate can be folded in thoughtfully, and each tray can be baked for the finish we wantΓÇögolden edges, tender centers, and a fragrance that feels unmistakably bakery-fresh.\n\nAt Nest & Whisk, we think that kind of care is visible. It shows up in the shape of the cookie, the balance of salt, and the way every box feels intentionally assembled rather than mass produced.",
+    "hero_kicker": "Behind the bake",
+    "reading_time_minutes": 3,
+    "is_published": true,
+    "is_featured": false,
+    "published_at": "2026-03-07T15:42:03.119Z",
+    "seo_title": "Why small-batch baking matters | Nest & Whisk Journal",
+    "seo_description": "Learn why small-batch baking creates a more premium artisan cookie experience."
+  }
+},
+{
+  "model": "blog.blogpost",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-03-18T15:12:05.322Z",
+    "updated_at": "2026-03-19T15:42:03.122Z",
+    "category": 3,
+    "title": "Hosting notes: styling a cozy table around pumpkin spice season",
+    "slug": "hosting-with-seasonal-pumpkin-spice",
+    "excerpt": "A few tactile detailsΓÇölinen napkins, candlelight, warm ceramics, and softly spiced cookiesΓÇöcreate an effortless autumn table.",
+    "body": "Seasonal hosting doesn't need to feel elaborate to feel beautiful. Start with warm neutrals, one textured floral or branch arrangement, and a serving plate that lets your cookies feel central.\n\nPumpkin Spice works especially well beside caramel tones, soft cream ceramics, and coffee-based pairings. Add one polished dessert fork, a linen napkin, and a handwritten place card and the whole moment feels elevated.",
+    "hero_kicker": "Seasonal notes",
+    "reading_time_minutes": 5,
+    "is_published": true,
+    "is_featured": false,
+    "published_at": "2026-03-17T15:42:03.119Z",
+    "seo_title": "Hosting with pumpkin spice season | Nest & Whisk Journal",
+    "seo_description": "Cozy entertaining inspiration built around Nest & Whisk seasonal pumpkin spice cookies."
+  }
+},
+{
+  "model": "corporate.corporatepagecontent",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T15:12:05.323Z",
+    "updated_at": "2026-03-19T15:42:03.122Z",
+    "eyebrow": "Corporate gifting",
+    "title": "Premium cookie gifting for clients, teams, and memorable moments.",
+    "intro": "From elevated client gifts to launch-day thank-yous and team celebrations, Nest & Whisk creates artisan cookie experiences that feel polished, warm, and unmistakably premium.",
+    "capability_title": "What we can tailor",
+    "capability_body": "Curated assortments, seasonal gifting, personalized notes, premium packaging, and delivery timing planned around launches, milestones, and hosted events.",
+    "lead_time_title": "Typical lead time",
+    "lead_time_body": "Most briefs can be reviewed within one to two business days, with larger or highly customized requests scoped on a more tailored timeline.",
+    "consultation_title": "Why brands choose us",
+    "consultation_body": "Our gifting team pairs boutique hospitality with editorial presentation, so every touchpoint feels thoughtful from the first inquiry through final delivery."
+  }
+},
+{
+  "model": "corporate.corporateinquiry",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T15:12:05.434Z",
+    "updated_at": "2026-03-19T15:42:03.215Z",
+    "user": 1,
+    "source": 3,
+    "campaign": 3,
+    "company_name": "Aster & Pine Interiors",
+    "contact_name": "Ava Reynolds",
+    "email": "events@asterpine.test",
+    "phone_number": "+1 (917) 555-0124",
+    "occasion": "Holiday client gifting",
+    "quantity_estimate": 60,
+    "budget_range": "over_1000",
+    "event_date": "2026-05-03",
+    "delivery_date": "2026-04-28",
+    "gifting_goal": "A premium year-end thank-you that feels warm and design-forward.",
+    "notes": "Interested in a polished neutral palette, ribbon-ready wrapping, and a short printed note tucked inside every box.",
+    "status": "quoted",
+    "admin_notes": "Seeded local lead for pipeline review."
+  }
+},
+{
+  "model": "marketing.marketingsource",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T15:12:05.311Z",
+    "updated_at": "2026-03-19T15:42:03.110Z",
+    "name": "Instagram",
+    "slug": "instagram",
+    "channel": "social",
+    "is_active": true
+  }
+},
+{
+  "model": "marketing.marketingsource",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-18T15:12:05.313Z",
+    "updated_at": "2026-03-19T15:42:03.112Z",
+    "name": "Newsletter",
+    "slug": "newsletter",
+    "channel": "email",
+    "is_active": true
+  }
+},
+{
+  "model": "marketing.marketingsource",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-03-18T15:12:05.314Z",
+    "updated_at": "2026-03-19T15:42:03.112Z",
+    "name": "Corporate Outreach",
+    "slug": "corporate-outreach",
+    "channel": "partnerships",
+    "is_active": true
+  }
+},
+{
+  "model": "marketing.campaignattribution",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-18T15:12:05.315Z",
+    "updated_at": "2026-03-19T15:42:03.113Z",
+    "source": 1,
+    "campaign_name": "Spring gifting editorial",
+    "campaign_code": "SPRING-GIFT-26",
+    "medium": "social",
+    "content_label": "Editorial carousel",
+    "is_active": true
+  }
+},
+{
+  "model": "marketing.campaignattribution",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-18T15:12:05.316Z",
+    "updated_at": "2026-03-19T15:42:03.115Z",
+    "source": 2,
+    "campaign_name": "Founder's box launch",
+    "campaign_code": "FOUNDER-BOX-26",
+    "medium": "email",
+    "content_label": "Founder launch note",
+    "is_active": true
+  }
+},
+{
+  "model": "marketing.campaignattribution",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-03-18T15:12:05.317Z",
+    "updated_at": "2026-03-19T15:42:03.116Z",
+    "source": 3,
+    "campaign_name": "Holiday corporate gifting",
+    "campaign_code": "B2B-HOLIDAY-26",
+    "medium": "outbound",
+    "content_label": "Client gifting one-sheet",
+    "is_active": true
+  }
+}
+]

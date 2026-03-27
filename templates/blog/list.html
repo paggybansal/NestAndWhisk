@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Journal | {{ site_settings.site_name|default:'Nest & Whisk' }}{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+  <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+    <div class="max-w-3xl">
+      <p class="text-xs font-semibold uppercase tracking-[0.35em] text-caramel">Journal</p>
+      <h1 class="font-display mt-4 text-5xl font-semibold text-cocoa">Stories, recipes, gifting ideas, and the moments behind the bake.</h1>
+      <p class="mt-5 text-lg leading-8 text-cocoa/75">Explore the Nest &amp; Whisk journal for seasonal launches, hosting inspiration, cookie care notes, and editorial glimpses into our handcrafted process.</p>
+    </div>
+    {% if featured_post %}
+      <a href="{{ featured_post.get_absolute_url }}" class="inline-flex rounded-full bg-cocoa px-6 py-3 text-sm font-semibold text-cream transition hover:bg-chocolate">Read featured story</a>
+    {% endif %}
+  </div>
+
+  {% if featured_post %}
+    <article class="mt-12 rounded-[2rem] bg-cocoa px-8 py-10 text-cream shadow-soft lg:px-12 lg:py-12">
+      <p class="text-xs font-semibold uppercase tracking-[0.35em] text-cream/70">{{ featured_post.hero_kicker|default:'Featured story' }}</p>
+      <div class="mt-4 grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+        <div>
+          <h2 class="font-display text-4xl font-semibold">{{ featured_post.title }}</h2>
+          <p class="mt-5 max-w-3xl text-base leading-8 text-cream/80">{{ featured_post.excerpt }}</p>
+          <a href="{{ featured_post.get_absolute_url }}" class="mt-6 inline-flex rounded-full bg-cream px-6 py-3 text-sm font-semibold text-cocoa transition hover:bg-white">Continue reading</a>
+        </div>
+        <div class="rounded-[1.5rem] border border-white/10 bg-white/5 p-6 text-sm text-cream/80">
+          {% if featured_post.category %}<p><strong>Category:</strong> {{ featured_post.category.name }}</p>{% endif %}
+          <p class="mt-3"><strong>Reading time:</strong> {{ featured_post.reading_time_minutes }} min</p>
+          {% if featured_post.published_at %}<p class="mt-3"><strong>Published:</strong> {{ featured_post.published_at|date:'F j, Y' }}</p>{% endif %}
+        </div>
+      </div>
+    </article>
+  {% endif %}
+
+  <div class="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+    {% for post in posts %}
+      <article class="rounded-[1.75rem] border border-cocoa/10 bg-white/80 p-7 shadow-soft">
+        <div class="flex items-center justify-between gap-4">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-caramel">{{ post.category.name|default:'Nest & Whisk' }}</p>
+          <span class="text-xs text-cocoa/50">{{ post.reading_time_minutes }} min</span>
+        </div>
+        <h2 class="mt-4 text-2xl font-semibold text-cocoa"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+        <p class="mt-4 text-sm leading-7 text-cocoa/75">{{ post.excerpt }}</p>
+        <div class="mt-6 flex items-center justify-between gap-4 text-sm">
+          <span class="text-cocoa/55">{% if post.published_at %}{{ post.published_at|date:'M j, Y' }}{% endif %}</span>
+          <a href="{{ post.get_absolute_url }}" class="font-semibold text-caramel">Read article</a>
+        </div>
+      </article>
+    {% empty %}
+      <div class="rounded-[1.75rem] border border-dashed border-cocoa/20 bg-white/60 p-10 text-center shadow-soft md:col-span-2 xl:col-span-3">
+        <h2 class="font-display text-4xl font-semibold text-cocoa">Fresh journal entries are on the way.</h2>
+        <p class="mx-auto mt-4 max-w-2xl text-sm leading-7 text-cocoa/70">We’ll be sharing flavor notes, entertaining inspiration, and behind-the-scenes stories here soon.</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
+

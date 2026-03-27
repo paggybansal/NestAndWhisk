@@ -1,0 +1,84 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+  {{ block.super }}
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block content_title %}{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+  <div class="nest-admin-shell">
+    <section class="nest-admin-card">
+      <div class="nest-admin-panel">
+        <div class="nest-admin-brand">
+          <img src="{{ brand_logo_url }}" alt="{{ site_settings.site_name|default:'Nest & Whisk' }} logo" />
+          <div>
+            <div class="brand-name">{{ site_settings.site_name|default:'Nest & Whisk' }}</div>
+            <div class="brand-subtitle">Boutique operations</div>
+          </div>
+        </div>
+        <p class="eyebrow">Admin access</p>
+        <h1>Welcome back to the bakery studio.</h1>
+        <p class="body-copy">Sign in to manage products, orders, subscriptions, editorial content, and the refined customer experience behind Nest & Whisk.</p>
+        <ul class="nest-admin-benefits">
+          <li>Review product launches, inventory movement, and featured collections.</li>
+          <li>Track orders, payments, and gifting operations from one polished dashboard.</li>
+          <li>Keep content, subscriptions, and customer touchpoints feeling beautifully consistent.</li>
+        </ul>
+      </div>
+      <div class="nest-admin-form">
+        <h2>Admin sign in</h2>
+        <p class="form-intro">Use your staff credentials to access the Nest & Whisk operations dashboard.</p>
+        {% if form.errors and not form.non_field_errors %}
+          <p class="errornote">
+            {% if form.errors.items|length == 1 %}{% translate "Please correct the error below." %}{% else %}{% translate "Please correct the errors below." %}{% endif %}
+          </p>
+        {% endif %}
+
+        {% if form.non_field_errors %}
+          {% for error in form.non_field_errors %}
+            <p class="errornote">{{ error }}</p>
+          {% endfor %}
+        {% endif %}
+
+        {% if user.is_authenticated %}
+          <p class="errornote">
+            {% blocktranslate trimmed %}
+              You are authenticated as {{ username }}, but are not authorized to access this page.
+            {% endblocktranslate %}
+          </p>
+        {% endif %}
+
+        <form action="{{ app_path }}" method="post" id="login-form">
+          {% csrf_token %}
+          <div class="form-row">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+          </div>
+          <div class="form-row">
+            {{ form.password.label_tag }}
+            {{ form.password }}
+            <input type="hidden" name="next" value="{{ next }}" />
+          </div>
+          {% url 'admin_password_reset' as password_reset_url %}
+          {% if password_reset_url %}
+            <div class="password-reset-link">
+              <a href="{{ password_reset_url }}">{% translate 'Forgotten your password or username?' %}</a>
+            </div>
+          {% endif %}
+          <div class="submit-row">
+            <input type="submit" value="{% translate 'Log in' %}" />
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+{% endblock %}
+

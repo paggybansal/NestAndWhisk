@@ -1,0 +1,332 @@
+﻿[
+{
+  "model": "sites.site",
+  "pk": 1,
+  "fields": {
+    "domain": "example.com",
+    "name": "example.com"
+  }
+},
+{
+  "model": "core.sitesettings",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-23T10:03:11.443Z",
+    "updated_at": "2026-03-23T10:03:11.443Z",
+    "site_name": "Nest & Whisk",
+    "tag_line": "Premium handcrafted cookies delivered with warmth, elegance, and delight.",
+    "meta_title": "",
+    "meta_description": "",
+    "announcement_bar_text": "Free nationwide shipping on curated gift boxes over Γé╣2,500.",
+    "support_email": "hello@nestandwhisk.com",
+    "support_phone": "",
+    "instagram_url": "",
+    "tiktok_url": "",
+    "pinterest_url": "",
+    "footer_blurb": "Nest & Whisk pairs the comfort of home baking with the elegance of handcrafted giftingΓÇösmall-batch cookies, beautiful presentation, and a warm experience from first click to first bite."
+  }
+},
+{
+  "model": "core.homepagecontent",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-23T10:03:11.450Z",
+    "updated_at": "2026-03-23T10:03:11.450Z",
+    "eyebrow": "Premium handcrafted cookies",
+    "hero_title": "Delivered with warmth, elegance, and delight.",
+    "hero_body": "Thoughtfully baked in small batches, beautifully packed for gifting, and made to turn ordinary moments into something worth savoring.",
+    "primary_cta_label": "Shop Now",
+    "primary_cta_url": "#",
+    "secondary_cta_label": "Build a Box",
+    "secondary_cta_url": "#",
+    "tertiary_cta_label": "Subscribe",
+    "tertiary_cta_url": "#",
+    "feature_one_label": "Bestseller",
+    "feature_one_title": "Sea Salt Caramel",
+    "feature_one_body": "Buttery centers, caramel notes, and a delicate salt finish.",
+    "feature_two_label": "Seasonal",
+    "feature_two_title": "Pistachio Rose",
+    "feature_two_body": "Elegant floral notes with a soft nutty crunch.",
+    "feature_banner_label": "Curated gifting",
+    "feature_banner_body": "Luxury packaging, gift notes, and subscription-ready boxes designed to arrive beautifully.",
+    "quality_title": "Small-batch quality",
+    "quality_body_left": "Premium chocolate, cultured butter, fragrant vanilla, and thoughtful finishing touches.",
+    "quality_body_right": "Build-your-own boxes, curated subscriptions, and gifting experiences crafted to feel personal."
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$MB67sxNTDLwyXfLfKhSCbp$aq/4LwRAzKNBKF2YH9BkgJXVpVcLLnSw3lflzJoSrm8=",
+    "last_login": "2026-03-23T11:07:35.817Z",
+    "is_superuser": true,
+    "email": "admin@nestandwhisk.com",
+    "first_name": "Nest",
+    "last_name": "Admin",
+    "phone_number": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-03-23T11:04:02.483Z",
+    "marketing_opt_in": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-23T10:03:11.533Z",
+    "updated_at": "2026-03-23T10:03:11.533Z",
+    "user": null,
+    "session_key": "tqri65sxfvrakjq6qljtckw07e41qkzm",
+    "token": "0e23f549-c8b2-43d5-b95e-19736c5333e9",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-23T10:03:13.180Z",
+    "updated_at": "2026-03-23T10:03:13.180Z",
+    "user": null,
+    "session_key": "t5e0zb3qsbd14nm12qpu6ain8k2f6c2c",
+    "token": "8d93e15d-2fed-4e0f-bfd1-9cc99558d202",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-03-23T10:03:23.065Z",
+    "updated_at": "2026-03-23T10:03:23.065Z",
+    "user": null,
+    "session_key": "vx6mr1df0ll6t77ti7kfb9dl6m9nqb6g",
+    "token": "f77c6929-6111-4418-8269-3c3f65a54095",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 4,
+  "fields": {
+    "created_at": "2026-03-23T10:18:00.079Z",
+    "updated_at": "2026-03-23T10:18:00.079Z",
+    "user": null,
+    "session_key": "8qg940shzeubv2zbmj9ns7vqy294m30l",
+    "token": "d47a49a4-1736-4770-91e4-91a5a678e853",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 5,
+  "fields": {
+    "created_at": "2026-03-23T10:18:39.266Z",
+    "updated_at": "2026-03-23T10:18:39.266Z",
+    "user": null,
+    "session_key": "mmjnbcee5liiajhcysou65q702u7qar3",
+    "token": "3b48a4ae-a3c7-455a-984f-aee5df5ca67a",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 6,
+  "fields": {
+    "created_at": "2026-03-23T10:22:33.462Z",
+    "updated_at": "2026-03-23T10:22:33.462Z",
+    "user": null,
+    "session_key": "4aukgcn2v6b25d2rz8yirkfentve6ocx",
+    "token": "9d7f7295-62df-462e-a49e-2da0dab419d6",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 7,
+  "fields": {
+    "created_at": "2026-03-23T10:22:47.169Z",
+    "updated_at": "2026-03-23T10:22:47.169Z",
+    "user": null,
+    "session_key": "ljjxrcdghwghn7axmaz473gzbyqfbqc5",
+    "token": "4b6ea378-6dbe-43ef-aec4-ed70c79b0030",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 8,
+  "fields": {
+    "created_at": "2026-03-23T10:24:59.038Z",
+    "updated_at": "2026-03-23T10:24:59.038Z",
+    "user": null,
+    "session_key": "sxiyojxrz5a68qz0df1mnhtxo16djbti",
+    "token": "c083782d-9e77-4648-9f48-ae78cb0412ea",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 9,
+  "fields": {
+    "created_at": "2026-03-23T10:28:21.873Z",
+    "updated_at": "2026-03-23T10:28:21.873Z",
+    "user": null,
+    "session_key": "ijppxs7x48goexlbxmggweelddbp7kn2",
+    "token": "90a8788d-64b9-4c64-a5b6-7ec077292bb6",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 10,
+  "fields": {
+    "created_at": "2026-03-23T10:28:27.884Z",
+    "updated_at": "2026-03-23T10:28:27.884Z",
+    "user": null,
+    "session_key": "vx1slom6r47dvst97zea1jqhohh19dd7",
+    "token": "ba538614-9252-4250-8cf2-adb3ce16d46c",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 11,
+  "fields": {
+    "created_at": "2026-03-23T10:42:46.982Z",
+    "updated_at": "2026-03-23T10:42:46.982Z",
+    "user": null,
+    "session_key": "zips4lmeg3kd9d5aibqpqnzfaq4fngn8",
+    "token": "e8ea87ca-6ab5-4a6e-8dc0-380116e18a44",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 12,
+  "fields": {
+    "created_at": "2026-03-23T10:42:58.878Z",
+    "updated_at": "2026-03-23T10:42:58.878Z",
+    "user": null,
+    "session_key": "0oshygwsxqob7xj6xnmi8792uapr2f09",
+    "token": "fe702d95-0008-4386-b756-e6d6e5ae0d60",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 13,
+  "fields": {
+    "created_at": "2026-03-23T10:45:44.166Z",
+    "updated_at": "2026-03-23T10:45:44.166Z",
+    "user": null,
+    "session_key": "g962o5ppf7bkztye3kc7p1q9upiyfqwg",
+    "token": "3f4cd042-59f3-464a-8627-21a62a378163",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 14,
+  "fields": {
+    "created_at": "2026-03-23T10:54:59.386Z",
+    "updated_at": "2026-03-23T10:54:59.386Z",
+    "user": null,
+    "session_key": "99tctw1s4mqm3pieiq0x31k9ou1ry2yw",
+    "token": "41b3818d-2f81-4fbb-b3db-b405dd8c95d4",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 15,
+  "fields": {
+    "created_at": "2026-03-23T10:58:23.086Z",
+    "updated_at": "2026-03-23T10:58:23.087Z",
+    "user": null,
+    "session_key": "ltdp99cgcyw1tueexjjz9tgjk6tj2o2t",
+    "token": "c5f0caad-fa1f-4441-be7f-506df0724f8e",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 16,
+  "fields": {
+    "created_at": "2026-03-23T11:07:35.930Z",
+    "updated_at": "2026-03-23T11:07:35.930Z",
+    "user": 1,
+    "session_key": "jnldrfsupkk36rmagn0l55p7y5qrbjbu",
+    "token": "80deb6f8-0774-424f-a8c6-4598ce7f1af7",
+    "coupon_code": "",
+    "gift_note": "",
+    "is_gift_wrapped": false,
+    "preferred_delivery_date": null,
+    "is_active": true
+  }
+}
+]

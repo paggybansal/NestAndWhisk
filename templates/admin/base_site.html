@@ -1,0 +1,38 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'admin/nest_and_whisk_admin.css' %}" />
+{% endblock %}
+
+{% block branding %}
+  <div class="nest-admin-branding">
+    <span class="nest-admin-branding__logo-wrap">
+      <img src="{{ brand_logo_url }}" alt="{{ site_settings.site_name|default:'Nest & Whisk' }} logo" class="nest-admin-branding__logo" />
+    </span>
+    <div class="nest-admin-branding__copy">
+      <h1 id="site-name" class="nest-admin-branding__title">
+        <a href="{% url 'admin:index' %}">{{ site_settings.site_name|default:'Nest & Whisk' }} Admin</a>
+      </h1>
+      <p class="nest-admin-branding__subtitle">Boutique operations dashboard</p>
+    </div>
+  </div>
+{% endblock %}
+
+{% block welcome-msg %}
+  <span class="nest-admin-usertools__label">Welcome,</span>
+  <strong>{% firstof user.get_short_name user.get_username %}</strong>
+{% endblock %}
+
+{% block footer %}
+  <div class="nest-admin-footer">
+    <p>Managed with warmth, precision, and a baker’s eye for detail.</p>
+  </div>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+

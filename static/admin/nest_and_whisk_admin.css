@@ -1,0 +1,571 @@
+html {
+  --primary: #4a2e2a;
+  --secondary: #c98a44;
+  --accent: #f3e4d3;
+  --primary-fg: #fff8f0;
+  --body-fg: #2b1b18;
+  --body-quiet-color: rgba(74, 46, 42, 0.72);
+  --body-medium-color: rgba(74, 46, 42, 0.82);
+  --body-bg: #fff8f0;
+  --header-color: #fff8f0;
+  --header-branding-color: #fff8f0;
+  --header-bg: linear-gradient(135deg, #4a2e2a 0%, #2b1b18 100%);
+  --header-link-color: #fff8f0;
+  --breadcrumbs-fg: rgba(255, 248, 240, 0.82);
+  --breadcrumbs-link-fg: #fff8f0;
+  --breadcrumbs-bg: linear-gradient(135deg, #5a3a34 0%, #4a2e2a 100%);
+  --link-fg: #4a2e2a;
+  --link-hover-color: #c98a44;
+  --link-selected-fg: #c98a44;
+  --hairline-color: rgba(74, 46, 42, 0.12);
+  --border-color: rgba(74, 46, 42, 0.14);
+  --error-fg: #8a4251;
+  --message-success-bg: rgba(164, 179, 155, 0.18);
+  --message-warning-bg: rgba(201, 138, 68, 0.18);
+  --message-error-bg: rgba(201, 124, 136, 0.15);
+  --darkened-bg: #f3e4d3;
+  --selected-row: rgba(201, 138, 68, 0.08);
+  --button-fg: #fff8f0;
+  --button-bg: #4a2e2a;
+  --button-hover-bg: #2b1b18;
+  --default-button-bg: #c98a44;
+  --default-button-hover-bg: #b87936;
+  --close-button-bg: #8a4251;
+  --close-button-hover-bg: #743645;
+  --delete-button-bg: #8a4251;
+  --delete-button-hover-bg: #743645;
+  --object-tools-fg: #fff8f0;
+  --object-tools-bg: #4a2e2a;
+  --object-tools-hover-bg: #2b1b18;
+  --font-family-primary: "Inter", system-ui, sans-serif;
+  --font-family-headings: "Cormorant Garamond", Georgia, serif;
+}
+
+body {
+  background: #fff8f0;
+  color: #2b1b18;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+div.breadcrumbs,
+#header,
+.module h2,
+.module caption,
+.inline-group h2,
+#nav-sidebar .current-model,
+#nav-sidebar .section:link,
+#nav-sidebar .section:visited {
+  color: var(--header-color);
+}
+
+#header {
+  background: linear-gradient(135deg, #4a2e2a 0%, #2b1b18 100%);
+  box-shadow: 0 18px 40px -28px rgba(43, 27, 24, 0.45);
+}
+
+#site-name a,
+#site-name a:visited,
+#user-tools,
+#user-tools a,
+#user-tools a:visited {
+  color: #fff8f0;
+}
+
+.nest-admin-branding {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.nest-admin-branding__logo-wrap {
+  display: inline-flex;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: transparent;
+  flex-shrink: 0;
+}
+
+.nest-admin-branding__logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.05);
+}
+
+.nest-admin-branding__copy {
+  min-width: 0;
+  line-height: 1.1;
+}
+
+.nest-admin-branding__title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.nest-admin-branding__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.nest-admin-branding__subtitle {
+  margin: 4px 0 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  opacity: 0.72;
+}
+
+.nest-admin-usertools__label {
+  color: rgba(255, 248, 240, 0.76);
+}
+
+#user-tools {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+#user-tools a,
+#user-tools button {
+  border-radius: 999px;
+}
+
+#user-tools #logout-form button {
+  border: 1px solid rgba(255, 248, 240, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff8f0;
+  padding: 0.35rem 0.85rem;
+}
+
+#user-tools #logout-form button:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+div.breadcrumbs {
+  background: linear-gradient(135deg, #5a3a34 0%, #4a2e2a 100%);
+  border: 0;
+}
+
+#nav-sidebar {
+  background: #f9efe3;
+  border-right: 1px solid rgba(74, 46, 42, 0.08);
+}
+
+#nav-sidebar .current-app .section,
+#nav-sidebar .current-model {
+  background: rgba(201, 138, 68, 0.12);
+  color: #4a2e2a;
+}
+
+#content-related,
+.module,
+.inline-group,
+.submit-row,
+.paginator,
+#changelist-filter,
+#changelist .actions,
+.dashboard #content,
+.results,
+form .aligned fieldset,
+fieldset.module,
+table {
+  border-radius: 20px;
+}
+
+#content-main .module,
+#content-related .module,
+.inline-group,
+fieldset.module,
+#changelist-filter,
+#changelist .actions,
+.submit-row,
+.paginator {
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(74, 46, 42, 0.1);
+  box-shadow: 0 24px 60px -42px rgba(74, 46, 42, 0.26);
+}
+
+.dashboard .module table th,
+.dashboard .module table td,
+#changelist table thead th,
+#changelist table tbody td,
+#result_list tbody tr,
+.form-row,
+.aligned .form-row,
+.selector,
+.selector-available,
+.selector-chosen {
+  border-color: rgba(74, 46, 42, 0.1);
+}
+
+a:link,
+a:visited {
+  color: #4a2e2a;
+}
+
+a:hover,
+a:focus {
+  color: #c98a44;
+}
+
+input,
+textarea,
+select,
+.selector select {
+  border-radius: 14px;
+  border: 1px solid rgba(74, 46, 42, 0.14);
+  background: rgba(255, 248, 240, 0.94);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #c98a44;
+  box-shadow: 0 0 0 3px rgba(201, 138, 68, 0.18);
+}
+
+button,
+input[type="submit"],
+input[type="button"],
+.button,
+a.button,
+.object-tools a {
+  border-radius: 999px;
+}
+
+.button.default,
+input[type="submit"].default,
+.submit-row input.default {
+  background: linear-gradient(135deg, #c98a44 0%, #b87936 100%);
+}
+
+.button.default:hover,
+input[type="submit"].default:hover,
+.submit-row input.default:hover {
+  background: linear-gradient(135deg, #b87936 0%, #a66d30 100%);
+}
+
+tr:nth-child(even),
+.row-form-errors {
+  background: rgba(255, 248, 240, 0.55);
+}
+
+tbody tr:hover,
+#result_list tbody tr:hover {
+  background: rgba(201, 138, 68, 0.08);
+}
+
+.messagelist li,
+ul.messagelist li,
+.success,
+.warning,
+.errornote {
+  border-radius: 16px;
+}
+
+#footer {
+  padding: 1.35rem 1.5rem 2rem;
+}
+
+.nest-admin-footer {
+  border-top: 1px solid rgba(74, 46, 42, 0.08);
+  color: rgba(74, 46, 42, 0.66);
+  font-size: 0.82rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-align: center;
+  padding-top: 1.2rem;
+}
+
+body.login {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(201, 138, 68, 0.14), transparent 32%),
+    radial-gradient(circle at top right, rgba(164, 179, 155, 0.18), transparent 28%),
+    radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.4), transparent 18%),
+    radial-gradient(circle at 82% 18%, rgba(255, 255, 255, 0.28), transparent 14%),
+    linear-gradient(120deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 35%),
+    linear-gradient(180deg, #fff8f0 0%, #f8ede0 48%, #f3e4d3 100%);
+  color: #2b1b18;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body.login::before,
+body.login::after {
+  content: "";
+  position: fixed;
+  inset: auto;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body.login::before {
+  top: 4rem;
+  left: -2rem;
+  width: 18rem;
+  height: 18rem;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at center, rgba(201, 138, 68, 0.14) 0%, rgba(201, 138, 68, 0.02) 52%, transparent 70%),
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.3), transparent 68%);
+  filter: blur(3px);
+}
+
+body.login::after {
+  right: -1rem;
+  bottom: 2rem;
+  width: 20rem;
+  height: 20rem;
+  border-radius: 44% 56% 52% 48% / 45% 43% 57% 55%;
+  background:
+    radial-gradient(circle at 35% 35%, rgba(164, 179, 155, 0.18), transparent 55%),
+    radial-gradient(circle at 62% 58%, rgba(201, 124, 136, 0.1), transparent 45%);
+  filter: blur(2px);
+}
+
+body.login #header,
+body.login .breadcrumbs,
+body.login #nav-sidebar,
+body.login .toggle-nav-sidebar,
+body.login #footer {
+  display: none;
+}
+
+body.login #container {
+  min-height: 100vh;
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+
+body.login #content {
+  padding: 0;
+}
+
+body.login #content-main {
+  float: none;
+  width: 100%;
+}
+
+body.login .nest-admin-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1rem;
+}
+
+body.login .nest-admin-card {
+  width: min(100%, 980px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border-radius: 30px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(74, 46, 42, 0.08);
+  box-shadow: 0 30px 80px -40px rgba(74, 46, 42, 0.3);
+  position: relative;
+}
+
+body.login .nest-admin-panel {
+  background: linear-gradient(160deg, #4a2e2a 0%, #2b1b18 100%);
+  color: #fff8f0;
+  padding: 2.5rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+body.login .nest-admin-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 20%, rgba(255, 255, 255, 0.08), transparent 18%),
+    radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.08), transparent 14%),
+    radial-gradient(circle at 72% 72%, rgba(201, 138, 68, 0.14), transparent 26%);
+  pointer-events: none;
+}
+
+body.login .nest-admin-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+body.login .nest-admin-panel p {
+  margin: 0;
+}
+
+body.login .nest-admin-panel .eyebrow {
+  font-size: 0.74rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  opacity: 0.76;
+}
+
+body.login .nest-admin-panel h1 {
+  margin: 1rem 0 0;
+  font-size: clamp(2rem, 3vw, 3rem);
+  line-height: 1.05;
+  font-family: "Cormorant Garamond", Georgia, serif;
+}
+
+body.login .nest-admin-panel .body-copy {
+  margin-top: 1rem;
+  color: rgba(255, 248, 240, 0.82);
+  font-size: 0.98rem;
+  line-height: 1.8;
+}
+
+body.login .nest-admin-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+body.login .nest-admin-brand img {
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  object-fit: cover;
+  background: transparent;
+  border: 1px solid rgba(255, 248, 240, 0.18);
+  box-shadow: 0 16px 30px -18px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+}
+
+body.login .nest-admin-brand .brand-name {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+body.login .nest-admin-brand .brand-subtitle {
+  margin-top: 0.35rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(255, 248, 240, 0.7);
+}
+
+body.login .nest-admin-benefits {
+  margin-top: 1.75rem;
+  display: grid;
+  gap: 0.85rem;
+}
+
+body.login .nest-admin-benefits li {
+  list-style: none;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 248, 240, 0.08);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.95rem 1rem;
+  color: rgba(255, 248, 240, 0.85);
+}
+
+body.login .nest-admin-form {
+  padding: 2.5rem 2rem;
+}
+
+body.login .nest-admin-form h2 {
+  margin: 0;
+  color: #4a2e2a;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(2rem, 2.3vw, 2.5rem);
+}
+
+body.login .nest-admin-form .form-intro {
+  margin: 0.9rem 0 1.6rem;
+  color: rgba(74, 46, 42, 0.72);
+  line-height: 1.8;
+}
+
+body.login .form-row {
+  margin-bottom: 1rem;
+}
+
+body.login label {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: #4a2e2a;
+  font-weight: 600;
+}
+
+body.login input[type="text"],
+body.login input[type="password"],
+body.login input[type="email"] {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 999px;
+  border: 1px solid rgba(74, 46, 42, 0.16);
+  background: rgba(255, 248, 240, 0.95);
+  padding: 0.95rem 1.05rem;
+  color: #2b1b18;
+  box-shadow: none;
+}
+
+body.login input:focus {
+  outline: 2px solid rgba(201, 138, 68, 0.28);
+  border-color: #c98a44;
+}
+
+body.login .submit-row {
+  padding: 0;
+  margin: 1.35rem 0 0;
+  background: transparent;
+  border: 0;
+}
+
+body.login .submit-row input {
+  width: 100%;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #4a2e2a 0%, #2b1b18 100%);
+  color: #fff8f0;
+  font-weight: 700;
+  padding: 0.95rem 1.25rem;
+  box-shadow: 0 16px 30px -18px rgba(43, 27, 24, 0.5);
+}
+
+body.login .submit-row input:hover {
+  background: linear-gradient(135deg, #5a3a34 0%, #2b1b18 100%);
+}
+
+body.login .errornote,
+body.login .messagelist {
+  border-radius: 18px;
+  border: 1px solid rgba(201, 124, 136, 0.3);
+  background: rgba(201, 124, 136, 0.12);
+  color: #4a2e2a;
+  padding: 0.95rem 1rem;
+}
+
+body.login .password-reset-link {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+body.login .password-reset-link a {
+  color: #c98a44;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+@media (min-width: 900px) {
+  body.login .nest-admin-card {
+    grid-template-columns: minmax(320px, 0.95fr) minmax(0, 1.05fr);
+  }
+
+  body.login .nest-admin-panel,
+  body.login .nest-admin-form {
+    padding: 3rem;
+  }
+}
+

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ policy_page.seo_title|default:policy_page.title }} | {{ site_settings.site_name|default:'Nest & Whisk' }}{% endblock %}
+{% block meta_description %}{{ policy_page.seo_description|default:policy_page.summary|default:site_settings.tag_line }}{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+  <p class="text-xs font-semibold uppercase tracking-[0.35em] text-caramel">Policy</p>
+  <h1 class="font-display mt-4 text-5xl font-semibold text-cocoa">{{ policy_page.title }}</h1>
+  {% if policy_page.summary %}
+    <p class="mt-4 text-lg leading-8 text-cocoa/75">{{ policy_page.summary }}</p>
+  {% endif %}
+  <article class="prose prose-lg mt-10 max-w-none rounded-[1.75rem] border border-cocoa/10 bg-white/70 p-8 text-cocoa/80 shadow-soft">
+    {{ policy_page.body|linebreaks }}
+  </article>
+</section>
+{% endblock %}

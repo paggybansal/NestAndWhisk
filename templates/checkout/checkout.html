@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+{% load currency %}
+
+{% block title %}Checkout | Nest & Whisk{% endblock %}
+
+{% block content %}
+<section class="container-shell py-16 lg:py-24">
+  <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end">
+    <div>
+      <p class="eyebrow-label">Checkout</p>
+      <h1 class="font-display mt-3 text-5xl font-semibold text-cocoa lg:text-6xl">Complete your order.</h1>
+      <p class="mt-4 max-w-2xl text-lg leading-8 text-cocoa/75">A calm, polished checkout designed for gifting confidence, accurate delivery details, and a secure final payment step.</p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <span class="trust-pill">Freshly baked dispatch</span>
+        <span class="trust-pill">Gift notes and packaging preferences</span>
+        <span class="trust-pill">{{ delivery_experience.badge }}</span>
+        <span class="trust-pill">Secure payment handoff</span>
+      </div>
+    </div>
+    <div class="editorial-panel p-6 lg:p-7">
+      <p class="eyebrow-label">Checkout promise</p>
+      <p class="mt-4 text-sm leading-7 text-cocoa/75">Every step is tuned to feel reassuring rather than rushed—clear address checks, gifting details that stay attached, and payment options explained before handoff.</p>
+      <div class="mt-5 space-y-3">
+        <div class="merch-stat">
+          <p class="luxury-kicker">What carries through</p>
+          <p class="mt-2 font-semibold text-cocoa">Packaging notes, gift messages, and delivery context stay with the order.</p>
+        </div>
+        <div class="merch-stat">
+          <p class="luxury-kicker">Secure ending</p>
+          <p class="mt-2 font-semibold text-cocoa">Stripe handles the final payment step while order status updates flow back automatically.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-10 grid gap-8 lg:grid-cols-[1fr_390px]">
+    <form method="post" class="editorial-panel space-y-6 p-8 immersive-input">
+      {% csrf_token %}
+
+      {% if form.non_field_errors %}
+        <div class="form-error-list">{{ form.non_field_errors|join:', ' }}</div>
+      {% endif %}
+
+      <div class="checkout-module">
+        <div class="flex items-start gap-4">
+          <span class="checkout-step-badge">1</span>
+          <div class="flex-1">
+            <p class="eyebrow-label">Contact</p>
+            <h2 class="mt-2 text-xl font-semibold text-cocoa">Where should we send updates?</h2>
+            <p class="mt-2 text-sm leading-7 text-cocoa/70">Use the best email and phone number for delivery updates, gifting coordination, and payment confirmations.</p>
+            <div class="mt-5 grid gap-5 sm:grid-cols-2">
+              <div>
+                <label for="{{ form.customer_email.id_for_label }}" class="mb-2 block text-sm font-medium text-cocoa">Email</label>
+                {{ form.customer_email }}
+                {% if form.customer_email.errors %}<p class="mt-2 text-sm text-dusty-rose">{{ form.customer_email.errors|join:', ' }}</p>{% endif %}
+              </div>
+              <div>
+                <label for="{{ form.customer_phone.id_for_label }}" class="mb-2 block text-sm font-medium text-cocoa">Phone</label>
+                {{ form.customer_phone }}
+                {% if form.customer_phone.errors %}<p class="mt-2 text-sm text-dusty-rose">{{ form.customer_phone.errors|join:', ' }}</p>{% endif %}
+              </div>
+              <div>
+                <label for="{{ form.customer_first_name.id_for_label }}" class="mb-2 block text-sm font-medium text-cocoa">First name</label>
+                {{ form.customer_first_name }}
+                {% if form.customer_first_name.errors %}<p class="mt-2 text-sm text-dusty-rose">{{ form.customer_first_name.errors|join:', ' }}</p>{% endif %}
+              </div>
+              <div>
+                <label for="{{ form.customer_last_name.id_for_label }}" class="mb-2 block text-sm font-medium text-cocoa">Last name</label>
+                {{ form.customer_last_name }}
+                {% if form.customer_last_name.errors %}<p class="mt-2 text-sm text-dusty-rose">{{ form.customer_last_name.errors|join:', ' }}</p>{% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="checkout-module">
+        <div class="flex items-start gap-4">
+          <span class="checkout-step-badge">2</span>
+          <div class="flex-1">
+            <p class="eyebrow-label">Delivery</p>
+            <h2 class="mt-2 text-xl font-semibold text-cocoa">Tell us where this box is headed.</h2>
+            <p class="mt-2 text-sm leading-7 text-cocoa/70">We keep the address flow detailed enough for reliable fulfillment without making the form feel heavy.</p>
+            <div class="mt-5 space-y-5">
+              <div>
+                <label for="{{ form.shipping_address_line_1.id_for_label }}" class="mb-2 block text-sm font-medium text-cocoa">Address line 1</label>
+                {{ form.shipping_address_line_1 }}
+                {% if form.shipping_address_line_1.errors %}<p class="mt-2 text-sm text-dusty-rose">{{ form.shipping_address_line_1.errors|join:', ' }}</p>{% endif %}
+              </div>
+              <div>
+                <label for="{{ form.shipping_address_line_2.id_for_label }}" class="mb-2 block text-sm font-medium text-cocoa">Address line 2</label>
+                {{ form.shipping_address_line_2 }}
+                {% if form.shipping_address_line_2.errors %}<p class="mt-2 text-sm text-dusty-rose">{{ form.shipping_address_line_2.errors|join:', ' }}</p>{% endif %}
+              </div>
+              <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                <div>
+                  <label for="{{ form.shipping_city.id_for_label }}" class="mb-2 block text-sm font-medium text-cocoa">City</label>
+                  {{ form.shipping_city }}
+                  {% if form.shipping_city.errors %}<p class="mt-2 text-sm text-dusty-rose">{{ form.shipping_city.errors|join:', ' }}</p>{% endif %}
+                  <p class="mt-2 text-xs leading-6 text-cocoa/55">Coverage commonly includes Delhi, Gurugram, Noida, Greater Noida, Ghaziabad, and Faridabad.</p>
+                </div>
+                <div>
+                  <label for="{{ form.shipping_state.id_for_label }}" class="mb-2 block text-sm font-medium text-cocoa">State</label>
+                  {{ form.shipping_state }}
+                  {% if form.shipping_state.errors %}<p class="mt-2 text-sm text-dusty-rose">{{ form.shipping_state.errors|join:', ' }}</p>{% endif %}
+                </div>
+                <div>
+                  <label for="{{ form.shipping_postal_code.id_for_label }}" class="mb-2 block text-sm font-medium text-cocoa">Postal code</label>
+                  {{ form.shipping_postal_code }}
+                  {% if form.shipping_postal_code.errors %}<p class="mt-2 text-sm text-dusty-rose">{{ form.shipping_postal_code.errors|join:', ' }}</p>{% endif %}
+                  <p class="mt-2 text-xs leading-6 text-cocoa/55">Try a Delhi NCR pincode like {{ delivery_experience.sample_postal_codes }} for local-delivery guidance.</p>
+                </div>
+                <div>
+                  <label for="{{ form.shipping_country.id_for_label }}" class="mb-2 block text-sm font-medium text-cocoa">Country</label>
+                  {{ form.shipping_country }}
+                  {% if form.shipping_country.errors %}<p class="mt-2 text-sm text-dusty-rose">{{ form.shipping_country.errors|join:', ' }}</p>{% endif %}
+                </div>
+              </div>
+              <div
+                data-delivery-lookup
+                data-endpoint="{% url 'checkout:delivery_lookup' %}"
+                class="rounded-[1.5rem] border px-5 py-5 {% if delivery_experience.live_eta_available or delivery_experience.is_express_zone %}border-sage/30 bg-sage/10{% elif delivery_experience.status == 'outside' or delivery_experience.status == 'city_conflict' or delivery_experience.status == 'live_unavailable' %}border-cocoa/12 bg-white/70{% else %}border-caramel/20 bg-caramel/5{% endif %}"
+              >
+                <p class="eyebrow-label">Delhi NCR delivery</p>
+                <div class="mt-3 flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em]">
+                  <span data-delivery-badge class="rounded-full bg-white/80 px-3 py-1 text-cocoa/75">{{ delivery_experience.badge }}</span>
+                  <span data-delivery-source class="text-cocoa/55">{{ delivery_experience.status_note }}</span>
+                </div>
+                <h3 data-delivery-headline class="mt-3 text-lg font-semibold text-cocoa">{{ delivery_experience.headline }}</h3>
+                <p data-delivery-body class="mt-3 text-sm leading-7 text-cocoa/75">{{ delivery_experience.body }}</p>
+                <p data-delivery-eta class="mt-3 text-xs leading-6 text-cocoa/60">{{ delivery_experience.eta }}</p>
+                <p data-delivery-meta class="mt-2 text-xs leading-6 text-cocoa/55">
+                  {% if delivery_experience.provider == 'shiprocket' and delivery_experience.courier_name %}
+                    Courier: {{ delivery_experience.courier_name }}{% if delivery_experience.courier_count %} · {{ delivery_experience.courier_count }} option{{ delivery_experience.courier_count|pluralize }} checked{% endif %}
+                  {% elif delivery_experience.shiprocket_available %}
+                    Live ETA becomes available once a valid 6-digit postal code is entered.
+                  {% else %}
+                    Live Shiprocket ETA is optional and falls back to our built-in delivery guidance when not configured.
+                  {% endif %}
+                </p>
+              </div>
+              <div>
+                <label for="{{ form.delivery_notes.id_for_label }}" class="mb-2 block text-sm font-medium text-cocoa">Delivery notes</label>
+                {{ form.delivery_notes }}
+                {% if form.delivery_notes.errors %}<p class="mt-2 text-sm text-dusty-rose">{{ form.delivery_notes.errors|join:', ' }}</p>{% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="checkout-module">
+        <div class="flex items-start gap-4">
+          <span class="checkout-step-badge">3</span>
+          <div class="flex-1 space-y-5">
+            <div>
+              <p class="eyebrow-label">Payment mode</p>
+              <h2 class="mt-2 text-xl font-semibold text-cocoa">Choose how you want to finish checkout.</h2>
+              <p class="mt-2 text-sm leading-7 text-cocoa/75">Stripe test mode keeps the real hosted payment journey. Mock payment mode lets you test the same order states locally without leaving the site.</p>
+              {% if form.payment_provider.errors %}<p class="mt-3 text-sm text-dusty-rose">{{ form.payment_provider.errors|join:', ' }}</p>{% endif %}
+              <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                {% for choice in form.payment_provider %}
+                  <label class="radio-choice-card">
+                    {{ choice.tag }}
+                    <span>
+                      <span class="block font-semibold text-cocoa">{{ choice.choice_label }}</span>
+                      <span class="mt-1 block text-xs leading-6 text-cocoa/60">
+                        {% if choice.choice_label == 'Mock payment simulator' %}
+                          Best for local development when you want to simulate success, failure, and retry flows quickly.
+                        {% else %}
+                          Uses the real Stripe test checkout flow, including cards and{% if upi_enabled %} supported UPI options{% else %} supported payment methods{% endif %}.
+                        {% endif %}
+                      </span>
+                    </span>
+                  </label>
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="rounded-[1.35rem] bg-warm-beige/60 p-5">
+              <p class="eyebrow-label">Payment preference</p>
+              <h3 class="mt-2 text-lg font-semibold text-cocoa">Choose how you'd like to pay on Stripe.</h3>
+              <p class="mt-2 text-sm leading-7 text-cocoa/75">
+                {% if upi_enabled %}
+                  Indian checkout is configured for cards and supported UPI apps. The final payment happens securely on Stripe.
+                {% else %}
+                  Your final payment happens securely on Stripe with card support enabled.
+                {% endif %}
+              </p>
+              {% if form.payment_preference.errors %}<p class="mt-3 text-sm text-dusty-rose">{{ form.payment_preference.errors|join:', ' }}</p>{% endif %}
+              <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                {% for choice in form.payment_preference %}
+                  <label class="radio-choice-card radio-choice-card-light">
+                    {{ choice.tag }}
+                    <span>
+                      <span class="block font-semibold text-cocoa">{{ choice.choice_label }}</span>
+                      <span class="mt-1 block text-xs leading-6 text-cocoa/60">Choose your preferred payment direction before the secure handoff.</span>
+                    </span>
+                  </label>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4 border-t border-cocoa/8 pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <div class="editorial-note max-w-2xl">
+          <p class="luxury-kicker">Before you place the order</p>
+          <p class="mt-2 text-sm leading-7 text-cocoa/72">You can still return to cart after creating the order, and payment is only finalized once the secure provider confirms the transaction.</p>
+        </div>
+        <button type="submit" class="cta-primary px-6 py-3">Create order</button>
+      </div>
+    </form>
+
+    <aside class="editorial-panel-dark p-8">
+      <p class="text-xs font-semibold uppercase tracking-[0.35em] text-cream/70">Order summary</p>
+      <div class="mt-6 space-y-4 border-b border-white/10 pb-6 text-sm text-cream/80">
+        {% for item in cart.items.all %}
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p class="font-semibold text-cream">{{ item.product.name }}</p>
+              {% if item.variant %}<p class="mt-1 text-xs uppercase tracking-[0.2em] text-cream/55">{{ item.variant.name }}</p>{% endif %}
+              <p class="mt-1 text-xs text-cream/55">Qty {{ item.quantity }}</p>
+            </div>
+            <p class="font-semibold text-cream">{{ item.line_total|inr }}</p>
+          </div>
+        {% empty %}
+          <p>No items are currently in this cart.</p>
+        {% endfor %}
+      </div>
+      <div class="mt-6 space-y-4 text-sm text-cream/85">
+        <div class="flex items-center justify-between"><span>Items</span><span>{{ cart.item_count }}</span></div>
+        <div class="flex items-center justify-between"><span>Subtotal</span><span>{{ cart.subtotal|inr }}</span></div>
+      </div>
+      <div class="mt-6 checkout-aside-card">
+        {% if mock_payment_enabled %}
+          You can use Stripe test mode for real gateway testing, or the local mock simulator to test payment states without leaving the site.
+        {% elif upi_enabled %}
+          Secure Stripe checkout supports cards and UPI for {{ store_currency }} orders, with webhook updates syncing payment results back to your order.
+        {% else %}
+          Secure Stripe checkout is enabled for this order, and webhook updates sync payment results back to your order.
+        {% endif %}
+      </div>
+      <div class="mt-4 checkout-aside-card">
+        <p class="font-semibold text-cream">{{ delivery_experience.badge }}</p>
+        <p class="mt-2">{{ delivery_experience.eta }}</p>
+        <p class="mt-2 text-xs leading-6 text-cream/65">{{ delivery_experience.coverage_summary }}</p>
+        <p class="mt-2 text-xs leading-6 text-cream/55">
+          {% if delivery_experience.provider == 'shiprocket' %}
+            Live lookup source: Shiprocket{% if delivery_experience.courier_name %} · {{ delivery_experience.courier_name }}{% endif %}
+          {% else %}
+            Live ETA can be enabled with Shiprocket credentials while this fallback guidance remains available.
+          {% endif %}
+        </p>
+      </div>
+      <div class="mt-4 checkout-aside-card">
+        <p class="font-semibold text-cream">Luxury details</p>
+        <div class="mt-3 space-y-3 text-sm text-cream/75">
+          <p>• Gift notes and packaging preferences stay attached to the order.</p>
+          <p>• Delhi NCR shoppers may see same-day or next-day local-delivery guidance for select pincodes.</p>
+          <p>• Stripe keeps the final payment step secure and familiar.</p>
+          <p>• You can return to cart any time before creating the order.</p>
+        </div>
+      </div>
+      <div class="mt-6">
+        <a href="{% url 'cart:detail' %}" class="cta-secondary-dark w-full">Back to cart</a>
+      </div>
+    </aside>
+  </div>
+</section>
+{% endblock %}
+

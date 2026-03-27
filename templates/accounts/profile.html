@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile | Nest & Whisk{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+  <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-[0.35em] text-caramel">Profile</p>
+      <h1 class="font-display mt-3 text-4xl font-semibold text-cocoa">Update your account details.</h1>
+      <p class="mt-4 max-w-2xl text-sm leading-7 text-cocoa/70">Keep your contact details ready for smoother checkouts, gifting, and support.</p>
+    </div>
+    <a href="{% url 'account_dashboard' %}" class="rounded-full border border-cocoa/15 px-5 py-2.5 text-sm font-semibold text-cocoa transition hover:border-caramel hover:text-caramel">Back to dashboard</a>
+  </div>
+  <div class="mt-10 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+    <form method="post" class="rounded-[1.75rem] border border-cocoa/10 bg-white/80 p-8 shadow-soft">
+      {% csrf_token %}
+      <div class="grid gap-5 sm:grid-cols-2">
+        <div class="space-y-2">
+          <span class="text-sm font-medium text-cocoa">First name</span>
+          {{ form.first_name }}
+        </div>
+        <div class="space-y-2">
+          <span class="text-sm font-medium text-cocoa">Last name</span>
+          {{ form.last_name }}
+        </div>
+      </div>
+      <div class="mt-5 space-y-2">
+        <span class="text-sm font-medium text-cocoa">Email address</span>
+        {{ form.email }}
+      </div>
+      <div class="mt-5 space-y-2">
+        <span class="text-sm font-medium text-cocoa">Phone number</span>
+        {{ form.phone_number }}
+      </div>
+      <label class="mt-5 flex items-start gap-3 rounded-2xl bg-warm-beige/70 px-4 py-4 text-sm text-cocoa/75">{{ form.marketing_opt_in }} <span>{{ form.marketing_opt_in.label }}</span></label>
+      <button type="submit" class="mt-6 inline-flex rounded-full bg-cocoa px-6 py-3.5 text-sm font-semibold text-cream transition hover:bg-chocolate">Save changes</button>
+    </form>
+    <aside class="rounded-[1.75rem] bg-cocoa p-8 text-cream shadow-soft">
+      <p class="text-xs font-semibold uppercase tracking-[0.35em] text-cream/70">Account tools</p>
+      <div class="mt-6 space-y-4 text-sm">
+        <a href="{% url 'account_change_password' %}" class="block rounded-2xl border border-white/10 bg-white/5 px-5 py-4 transition hover:bg-white/10">Change password</a>
+        <a href="{% url 'account_email' %}" class="block rounded-2xl border border-white/10 bg-white/5 px-5 py-4 transition hover:bg-white/10">Manage email addresses</a>
+      </div>
+    </aside>
+  </div>
+</section>
+{% endblock %}

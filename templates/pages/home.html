@@ -1,0 +1,300 @@
+{% extends 'base.html' %}
+{% load currency %}
+
+{% block title %}{{ site_settings.site_name|default:'Nest & Whisk' }} | {{ homepage.hero_title|default:'Premium Artisan Cookies' }}{% endblock %}
+{% block meta_description %}{{ site_settings.tag_line|default:homepage.hero_body }}{% endblock %}
+
+{% block content %}
+<section class="relative overflow-hidden">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_10%_18%,rgba(201,138,68,0.16),transparent_24%),radial-gradient(circle_at_92%_12%,rgba(164,179,155,0.16),transparent_20%),linear-gradient(180deg,rgba(255,248,240,0.9)_0%,rgba(255,248,240,0.65)_48%,rgba(249,239,227,0.2)_100%)]"></div>
+  <div class="container-shell grid gap-12 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:py-24">
+    <div class="max-w-2xl">
+      <p class="eyebrow-label">{{ homepage.eyebrow }}</p>
+      <h1 class="font-display mt-6 text-5xl font-semibold leading-[0.98] text-cocoa sm:text-6xl lg:text-[4.5rem]">{{ homepage.hero_title }}</h1>
+      <p class="mt-6 max-w-xl text-lg leading-8 text-cocoa/75">{{ homepage.hero_body }}</p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="{% url 'catalog:shop' %}" class="cta-primary">{{ homepage.primary_cta_label }}</a>
+        <a href="{% url 'cart:build_a_box' %}" class="cta-secondary">{{ homepage.secondary_cta_label }}</a>
+        <a href="{{ homepage.tertiary_cta_url }}" class="cta-secondary">{{ homepage.tertiary_cta_label }}</a>
+      </div>
+      <div class="mt-10 flex flex-wrap gap-3">
+        <span class="trust-pill">Freshly baked to order</span>
+        <span class="trust-pill">Gift-ready presentation</span>
+        <span class="trust-pill">UPI-ready checkout</span>
+      </div>
+      <div class="mt-10 grid gap-4 sm:grid-cols-3">
+        <div class="editorial-panel px-5 py-5">
+          <p class="eyebrow-label">Small-batch</p>
+          <p class="mt-3 text-sm leading-7 text-cocoa/75">Measured, mixed, and baked in intimate runs for softness, structure, and beautiful finish.</p>
+        </div>
+        <div class="editorial-panel px-5 py-5">
+          <p class="eyebrow-label">Warm gifting</p>
+          <p class="mt-3 text-sm leading-7 text-cocoa/75">Elegant boxing, handwritten notes, and just-right details from doorstep to first bite.</p>
+        </div>
+        <div class="editorial-panel px-5 py-5">
+          <p class="eyebrow-label">Recurring joy</p>
+          <p class="mt-3 text-sm leading-7 text-cocoa/75">Curated subscription boxes and custom assortments that feel like a monthly celebration.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative">
+      <div class="editorial-panel overflow-hidden bg-warm-beige/70 p-5 sm:p-6">
+        <div class="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
+          <div class="relative overflow-hidden rounded-[2rem] bg-cocoa text-cream shadow-[0_30px_90px_-34px_rgba(43,27,24,0.52)]">
+            {% if hero_rotator_products %}
+              <div x-data="heroRotator({ total: {{ hero_rotator_products|length }}, interval: 6400 })" x-init="start()" class="hero-cookie-rotator relative min-h-[24rem]" @mouseenter="pause()" @mouseleave="resume()">
+                {% for product in hero_rotator_products %}
+                  <a
+                    href="{{ product.get_absolute_url }}"
+                    x-show="active === {{ forloop.counter0 }}"
+                    x-transition:enter="transition ease-out duration-[1200ms]"
+                    x-transition:enter-start="opacity-0 translate-y-3 scale-[0.992]"
+                    x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                    x-transition:leave="transition ease-in duration-[900ms]"
+                    x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                    x-transition:leave-end="opacity-0 -translate-y-2 scale-[1.01]"
+                    class="absolute inset-0 block"
+                    x-cloak
+                    aria-label="View {{ product.name }}"
+                  >
+                    <img src="{{ product.primary_image.image.url }}" alt="{{ product.primary_image.alt_text|default:product.name }}" class="h-full min-h-[24rem] w-full object-cover hero-cookie-rotator-image" loading="eager" decoding="async">
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-chocolate/80 via-chocolate/20 to-transparent p-6 sm:p-7">
+                      <p class="text-xs uppercase tracking-[0.35em] text-cream/70">{{ product.featured_label|default:'Signature cookie' }}</p>
+                      <h2 class="font-display mt-3 text-3xl sm:text-[2.2rem]">{{ product.name }}</h2>
+                      <p class="mt-3 max-w-sm text-sm leading-7 text-cream/80">{{ product.short_description }}</p>
+                      <div class="mt-5 flex items-center justify-between gap-4 text-sm">
+                        <span>From {{ product.price_from|inr }}</span>
+                        <span class="font-semibold text-cream underline decoration-cream/40 underline-offset-4">View details</span>
+                      </div>
+                    </div>
+                  </a>
+                {% endfor %}
+
+                <div class="absolute left-6 top-6 z-20 inline-flex items-center gap-2 rounded-full border border-cream/15 bg-cream/10 px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-cream/80 backdrop-blur sm:left-7 sm:top-7">
+                  <span class="h-2 w-2 rounded-full bg-caramel"></span>
+                  Baked fresh for gifting
+                </div>
+
+                <div class="absolute bottom-5 left-6 z-20 inline-flex items-center gap-2 rounded-full bg-cream/10 px-3 py-2 backdrop-blur sm:left-7">
+                  {% for product in hero_rotator_products %}
+                    <button
+                      type="button"
+                      @click="goTo({{ forloop.counter0 }})"
+                      class="hero-cookie-dot"
+                      :class="active === {{ forloop.counter0 }} ? 'hero-cookie-dot-active' : 'hero-cookie-dot-inactive'"
+                      aria-label="Show {{ product.name }}"
+                    ></button>
+                  {% endfor %}
+                </div>
+              </div>
+            {% else %}
+              <div class="flex min-h-[24rem] flex-col justify-end p-6">
+                <p class="text-xs uppercase tracking-[0.35em] text-cream/70">{{ homepage.feature_one_label }}</p>
+                <h2 class="font-display mt-3 text-3xl">{{ homepage.feature_one_title }}</h2>
+                <p class="mt-3 max-w-sm text-sm leading-7 text-cream/80">{{ homepage.feature_one_body }}</p>
+              </div>
+            {% endif %}
+          </div>
+          <div class="grid gap-4">
+            <div class="rounded-[1.75rem] border border-cocoa/10 bg-white/80 p-6 shadow-[0_20px_50px_-32px_rgba(43,27,24,0.22)] backdrop-blur">
+              <p class="eyebrow-label">{{ homepage.feature_two_label }}</p>
+              <h2 class="font-display mt-3 text-3xl text-cocoa">{{ homepage.feature_two_title }}</h2>
+              <p class="mt-3 text-sm leading-7 text-cocoa/75">{{ homepage.feature_two_body }}</p>
+              <div class="mt-5 flex flex-wrap gap-2">
+                <span class="soft-chip">Hand-packed</span>
+                <span class="soft-chip">Limited drops</span>
+              </div>
+            </div>
+            <div class="rounded-[1.75rem] border border-dusty-rose/20 bg-dusty-rose/15 p-6 shadow-[0_20px_50px_-32px_rgba(43,27,24,0.16)]">
+              <p class="eyebrow-label">{{ homepage.feature_banner_label }}</p>
+              <p class="mt-3 text-lg leading-8 text-cocoa/80">{{ homepage.feature_banner_body }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container-shell py-8 lg:py-12">
+  <div class="editorial-panel-dark grid gap-6 px-8 py-10 lg:grid-cols-[0.9fr_1.1fr_1fr]">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-[0.35em] text-cream/65">Our promise</p>
+      <h2 class="font-display mt-4 text-4xl">{{ homepage.quality_title }}</h2>
+    </div>
+    <p class="text-sm leading-7 text-cream/80">{{ homepage.quality_body_left }}</p>
+    <p class="text-sm leading-7 text-cream/80">{{ homepage.quality_body_right }}</p>
+  </div>
+</section>
+
+<section class="container-shell py-8 lg:py-12">
+  <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+    <div class="max-w-2xl">
+      <p class="eyebrow-label">Shop by moment</p>
+      <h2 class="section-heading font-display mt-3 text-4xl font-semibold text-cocoa">A storefront that feels as curated as the box that arrives at the door.</h2>
+    </div>
+    <p class="max-w-xl text-sm leading-7 text-cocoa/70">Whether you are sending a thoughtful gift, building a warm weekend assortment, or subscribing for recurring delight, each path is designed to feel editorial and easy.</p>
+  </div>
+  <div class="mt-10 grid gap-6 lg:grid-cols-3">
+    <article class="merch-card merch-card-hover p-8">
+      <p class="eyebrow-label">For gifting</p>
+      <h3 class="font-display mt-3 text-3xl text-cocoa">Signature collections</h3>
+      <p class="mt-4 text-sm leading-7 text-cocoa/75">Elegant bestsellers and polished presentations for birthdays, thank-yous, and small celebrations.</p>
+      <a href="{% url 'catalog:shop' %}" class="mt-6 inline-flex rounded-full bg-cocoa px-5 py-3 text-sm font-semibold text-cream transition hover:bg-chocolate">Shop gifting favorites</a>
+    </article>
+    <article class="merch-card merch-card-hover bg-warm-beige/75 p-8">
+      <p class="eyebrow-label">For personal curation</p>
+      <h3 class="font-display mt-3 text-3xl text-cocoa">Build your own box</h3>
+      <p class="mt-4 text-sm leading-7 text-cocoa/75">Choose your preferred box size, assemble a bespoke flavor edit, and add gifting touches with ease.</p>
+      <a href="{% url 'cart:build_a_box' %}" class="mt-6 inline-flex rounded-full border border-cocoa/15 px-5 py-3 text-sm font-semibold text-cocoa transition hover:border-caramel hover:text-caramel">Start building</a>
+    </article>
+    <article class="merch-card merch-card-hover p-8">
+      <p class="eyebrow-label">For recurring delight</p>
+      <h3 class="font-display mt-3 text-3xl text-cocoa">Subscription ritual</h3>
+      <p class="mt-4 text-sm leading-7 text-cocoa/75">Flexible recurring assortments with signature flavors and seasonal surprises, timed to arrive beautifully.</p>
+      <a href="{% url 'subscriptions:list' %}" class="mt-6 inline-flex rounded-full border border-cocoa/15 px-5 py-3 text-sm font-semibold text-cocoa transition hover:border-caramel hover:text-caramel">Explore subscriptions</a>
+    </article>
+  </div>
+</section>
+
+<section class="container-shell py-8 lg:py-12">
+  <div class="flex items-end justify-between gap-6">
+    <div>
+      <p class="eyebrow-label">Featured collection</p>
+      <h2 class="section-heading font-display mt-3 text-4xl font-semibold text-cocoa">Signature cookies chosen for gifting, sharing, and repeat cravings.</h2>
+    </div>
+    <a href="{% url 'catalog:shop' %}" class="text-sm font-semibold text-caramel">Shop the full collection</a>
+  </div>
+  <div class="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+    {% for product in featured_products %}
+      <article class="group merch-card merch-card-hover">
+        <div class="product-card-image">
+          {% if product.primary_image %}
+            <img src="{{ product.primary_image.image.url }}" alt="{{ product.primary_image.alt_text|default:product.name }}" loading="lazy">
+          {% else %}
+            <div class="flex h-full items-center justify-center text-sm text-cocoa/45">Product image coming soon</div>
+          {% endif %}
+        </div>
+        <div class="p-6">
+          <div class="flex flex-wrap items-center gap-2">
+            {% if product.featured_label %}<span class="soft-chip">{{ product.featured_label }}</span>{% endif %}
+            <span class="soft-chip">{{ product.category.name }}</span>
+            {% if product.is_seasonal %}<span class="soft-chip">Seasonal</span>{% endif %}
+          </div>
+          <h3 class="mt-4 text-2xl font-semibold text-cocoa"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
+          <p class="mt-3 text-sm leading-7 text-cocoa/75">{{ product.short_description }}</p>
+          <div class="mt-5 flex flex-wrap gap-2">
+            {% for attribute in product.dietary_attributes.all|slice:':2' %}
+              <span class="rounded-full bg-sage/15 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-sage-ink">{{ attribute.badge_label }}</span>
+            {% endfor %}
+          </div>
+          <div class="mt-6 flex items-center justify-between gap-4">
+            <span class="text-sm font-semibold text-cocoa">From {{ product.price_from|inr }}</span>
+            <a href="{{ product.get_absolute_url }}" class="text-sm font-semibold text-caramel">View details</a>
+          </div>
+        </div>
+      </article>
+    {% empty %}
+      <div class="rounded-[1.75rem] border border-dashed border-cocoa/20 bg-white/60 p-8 md:col-span-2 xl:col-span-4">
+        <p class="text-sm leading-7 text-cocoa/70">Featured products will appear here once they’re added.</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="container-shell py-8 lg:py-12">
+  <div class="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+    <div class="editorial-panel overflow-hidden px-8 py-10">
+      <p class="eyebrow-label">Subscription spotlight</p>
+      {% if featured_plan %}
+        <h2 class="font-display mt-3 text-4xl font-semibold text-cocoa">{{ featured_plan.name }}</h2>
+        <p class="mt-4 max-w-2xl text-lg leading-8 text-cocoa/75">{{ featured_plan.headline|default:featured_plan.description }}</p>
+        <div class="mt-6 flex flex-wrap gap-3 text-sm text-cocoa/75">
+          <span class="trust-pill">{{ featured_plan.get_billing_interval_display }}</span>
+          <span class="trust-pill">{{ featured_plan.box_size }}</span>
+          <span class="trust-pill">Ships {{ featured_plan.shipment_offset_days }} days after renewal</span>
+        </div>
+        <a href="{% url 'subscriptions:detail' featured_plan.slug %}" class="mt-8 inline-flex rounded-full bg-cocoa px-7 py-3.5 text-sm font-semibold text-cream transition hover:bg-chocolate">Explore the plan</a>
+      {% else %}
+        <h2 class="font-display mt-3 text-4xl font-semibold text-cocoa">Subscription plans are on the way.</h2>
+        <p class="mt-4 text-sm leading-7 text-cocoa/75">We’re preparing flexible recurring assortments with signature favorites and seasonal surprises.</p>
+      {% endif %}
+    </div>
+    <div class="grid gap-4">
+      {% for product in seasonal_products %}
+        <article class="merch-card p-6">
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+            <div class="overflow-hidden rounded-[1.35rem] bg-warm-beige sm:h-28 sm:w-28 sm:shrink-0">
+              {% if product.primary_image %}
+                <img src="{{ product.primary_image.image.url }}" alt="{{ product.primary_image.alt_text|default:product.name }}" class="h-full w-full object-cover" loading="lazy">
+              {% else %}
+                <div class="flex h-28 items-center justify-center text-xs text-cocoa/45">Seasonal image</div>
+              {% endif %}
+            </div>
+            <div>
+              <p class="eyebrow-label">Seasonal edit</p>
+              <h3 class="mt-2 text-xl font-semibold text-cocoa"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
+              <p class="mt-2 text-sm leading-7 text-cocoa/75">{{ product.short_description }}</p>
+            </div>
+          </div>
+        </article>
+      {% empty %}
+        <article class="rounded-[1.5rem] border border-dashed border-cocoa/20 bg-white/60 p-5">
+          <p class="text-sm leading-7 text-cocoa/70">Seasonal highlights will appear here once they’re curated.</p>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="container-shell py-8 lg:py-12">
+  <div class="flex items-end justify-between gap-6">
+    <div>
+      <p class="eyebrow-label">Kind words</p>
+      <h2 class="section-heading font-display mt-3 text-4xl font-semibold text-cocoa">Loved for gifting, remembered for flavor.</h2>
+    </div>
+  </div>
+  <div class="mt-10 grid gap-6 lg:grid-cols-3">
+    {% for testimonial in featured_testimonials %}
+      <article class="editorial-panel p-7">
+        <div class="text-caramel">{% for _ in '12345'|make_list %}{% if forloop.counter <= testimonial.rating %}★{% else %}☆{% endif %}{% endfor %}</div>
+        <p class="mt-4 text-base leading-8 text-cocoa/80">“{{ testimonial.quote }}”</p>
+        <p class="mt-6 text-sm font-semibold text-cocoa">{{ testimonial.customer_name }}</p>
+        {% if testimonial.customer_title %}<p class="text-sm text-cocoa/60">{{ testimonial.customer_title }}</p>{% endif %}
+      </article>
+    {% empty %}
+      <article class="rounded-[1.75rem] border border-dashed border-cocoa/20 bg-white/60 p-6 lg:col-span-3">
+        <p class="text-sm leading-7 text-cocoa/70">Featured testimonials will appear here once they’re added in the admin.</p>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="container-shell py-8 lg:py-16">
+  <div class="flex items-end justify-between gap-6">
+    <div>
+      <p class="eyebrow-label">From the journal</p>
+      <h2 class="section-heading font-display mt-3 text-4xl font-semibold text-cocoa">Hosting notes, gifting inspiration, and behind-the-bake stories.</h2>
+    </div>
+    <a href="{% url 'blog:list' %}" class="text-sm font-semibold text-caramel">Visit the journal</a>
+  </div>
+  <div class="mt-10 grid gap-6 md:grid-cols-3">
+    {% for post in latest_posts %}
+      <article class="merch-card p-6">
+        <p class="eyebrow-label">{{ post.category.name|default:'Journal' }}</p>
+        <h3 class="mt-4 text-2xl font-semibold text-cocoa"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+        <p class="mt-4 text-sm leading-7 text-cocoa/75">{{ post.excerpt }}</p>
+        <div class="mt-6 flex items-center justify-between text-sm text-cocoa/55">
+          <span>{{ post.reading_time_minutes }} min read</span>
+          <a href="{{ post.get_absolute_url }}" class="font-semibold text-caramel">Read more</a>
+        </div>
+      </article>
+    {% empty %}
+      <article class="rounded-[1.75rem] border border-dashed border-cocoa/20 bg-white/60 p-8 md:col-span-3">
+        <p class="text-sm leading-7 text-cocoa/70">Journal highlights will appear here once editorial stories are published.</p>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

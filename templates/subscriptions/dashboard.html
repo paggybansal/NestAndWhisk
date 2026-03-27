@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block title %}Subscription Dashboard | {{ site_settings.site_name|default:'Nest & Whisk' }}{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+  <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-[0.35em] text-caramel">Subscription dashboard</p>
+      <h1 class="font-display mt-3 text-4xl font-semibold text-cocoa">Your recurring cookie ritual.</h1>
+      <p class="mt-4 max-w-2xl text-sm leading-7 text-cocoa/70">View your active plans, upcoming shipments, and the latest delivery rhythm we’ve prepared for you.</p>
+    </div>
+    <a href="{% url 'subscriptions:list' %}" class="rounded-full border border-cocoa/15 px-5 py-2.5 text-sm font-semibold text-cocoa transition hover:border-caramel hover:text-caramel">Explore plans</a>
+  </div>
+
+  {% if highlighted_subscription %}
+    <div class="mt-8 rounded-[1.5rem] border border-caramel/20 bg-caramel/10 px-5 py-4 text-sm text-cocoa/80">
+      You’re viewing the latest updates for <strong>{{ highlighted_subscription.plan.name }}</strong>. Adjust preferences below or manage its current status anytime.
+    </div>
+  {% endif %}
+
+  <div class="mt-10 grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+    <div class="space-y-6">
+      {% if next_shipment %}
+        <div class="rounded-[1.75rem] bg-cocoa p-8 text-cream shadow-soft">
+          <p class="text-xs font-semibold uppercase tracking-[0.35em] text-cream/70">Next shipment</p>
+          <h2 class="mt-3 text-3xl font-semibold">{{ next_shipment.plan.name }}</h2>
+          <p class="mt-3 text-sm text-cream/80">Scheduled for {{ next_shipment.next_shipment_date|default:'To be confirmed' }} with renewal on {{ next_shipment.next_renewal_date|default:'To be confirmed' }}.</p>
+          <p class="mt-2 text-xs text-cream/70">This plan renews every {{ next_shipment.plan.cadence_days }} day{{ next_shipment.plan.cadence_days|pluralize }} and ships {{ next_shipment.plan.shipment_offset_days }} day{{ next_shipment.plan.shipment_offset_days|pluralize }} after renewal.</p>
+        </div>
+      {% else %}
+        <div class="rounded-[1.75rem] border border-dashed border-cocoa/15 bg-white/60 p-8 text-sm leading-7 text-cocoa/70 shadow-soft">
+          Your next shipment will appear here as soon as an active subscription has a renewal and dispatch schedule attached.
+        </div>
+      {% endif %}
+
+      <div class="grid gap-6 lg:grid-cols-2">
+        {% for row in subscription_rows %}
+          {% with subscription=row.subscription pref_form=row.preferences_form %}
+            <article class="rounded-[1.5rem] p-6 shadow-soft {% if row.is_highlighted %}border border-caramel/20 bg-caramel/10{% else %}bg-white/70{% endif %}">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-[0.25em] text-caramel">{{ subscription.plan.get_billing_interval_display }}</p>
+                  <h2 class="mt-2 text-2xl font-semibold text-cocoa">{{ subscription.plan.name }}</h2>
+                </div>
+                <span class="rounded-full bg-warm-beige/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-cocoa">{{ subscription.get_status_display }}</span>
+              </div>
+              <div class="mt-5 space-y-2 text-sm leading-7 text-cocoa/75">
+                <p><strong>Next renewal:</strong> {{ subscription.next_renewal_date|default:'To be scheduled' }}</p>
+                <p><strong>Next shipment:</strong> {{ subscription.next_shipment_date|default:'To be scheduled' }}</p>
+                <p><strong>Cadence:</strong> every {{ subscription.plan.cadence_days }} day{{ subscription.plan.cadence_days|pluralize }}</p>
+                <p><strong>Ships after renewal:</strong> {{ subscription.plan.shipment_offset_days }} day{{ subscription.plan.shipment_offset_days|pluralize }}</p>
+                <p><strong>Flavor preferences:</strong> {% if subscription.flavor_preferences %}{{ subscription.flavor_preferences|join:', ' }}{% else %}No preferences saved yet.{% endif %}</p>
+              </div>
+
+              <form method="post" action="{% url 'subscriptions:preferences' subscription.pk %}" class="mt-5 space-y-3">
+                {% csrf_token %}
+                {% if pref_form.non_field_errors %}
+                  <div class="rounded-2xl bg-dusty-rose/10 px-4 py-3 text-sm text-dusty-rose">{{ pref_form.non_field_errors|join:', ' }}</div>
+                {% endif %}
+                <div>
+                  <label class="mb-2 block text-sm font-medium text-cocoa">Renewal day</label>
+                  {{ pref_form.renewal_day }}
+                  {% if pref_form.renewal_day.errors %}<p class="mt-2 text-sm text-dusty-rose">{{ pref_form.renewal_day.errors|join:', ' }}</p>{% endif %}
+                </div>
+                <div>
+                  <label class="mb-2 block text-sm font-medium text-cocoa">Flavor preferences</label>
+                  {{ pref_form.flavor_preferences_text }}
+                  {% if pref_form.flavor_preferences_text.errors %}<p class="mt-2 text-sm text-dusty-rose">{{ pref_form.flavor_preferences_text.errors|join:', ' }}</p>{% endif %}
+                </div>
+                <button type="submit" class="inline-flex rounded-full border border-cocoa/15 px-4 py-2 text-sm font-semibold text-cocoa transition hover:border-caramel hover:text-caramel">Save preferences</button>
+              </form>
+
+              <div class="mt-5 flex flex-wrap gap-3">
+                {% if subscription.status == 'active' %}
+                  <form method="post" action="{% url 'subscriptions:pause' subscription.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="rounded-full border border-cocoa/15 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-cocoa transition hover:border-caramel hover:text-caramel">Pause</button>
+                  </form>
+                {% elif subscription.status == 'paused' %}
+                  <form method="post" action="{% url 'subscriptions:resume' subscription.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="rounded-full border border-cocoa/15 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-cocoa transition hover:border-caramel hover:text-caramel">Resume</button>
+                  </form>
+                {% endif %}
+                {% if subscription.status != 'cancelled' %}
+                  <form method="post" action="{% url 'subscriptions:cancel' subscription.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="rounded-full border border-dusty-rose/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-dusty-rose transition hover:border-dusty-rose hover:bg-dusty-rose/10">Cancel</button>
+                  </form>
+                {% endif %}
+              </div>
+            </article>
+          {% endwith %}
+        {% empty %}
+          <div class="lg:col-span-2 rounded-[1.75rem] border border-dashed border-cocoa/20 bg-white/60 p-12 text-center shadow-soft">
+            <h2 class="font-display text-4xl font-semibold text-cocoa">{{ dashboard_empty_state_title }}</h2>
+            <p class="mx-auto mt-4 max-w-2xl text-sm leading-7 text-cocoa/70">{{ dashboard_empty_state_body }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <aside class="rounded-[1.75rem] border border-cocoa/10 bg-white/80 p-8 shadow-soft">
+      <p class="text-xs font-semibold uppercase tracking-[0.35em] text-caramel">Start a subscription</p>
+      <h2 class="mt-3 text-2xl font-semibold text-cocoa">Add a new recurring box</h2>
+      <form method="post" action="{% url 'subscriptions:signup' %}" class="mt-6 space-y-4">
+        {% csrf_token %}
+        {% if signup_form.non_field_errors %}
+          <div class="rounded-2xl bg-dusty-rose/10 px-4 py-3 text-sm text-dusty-rose">{{ signup_form.non_field_errors|join:', ' }}</div>
+        {% endif %}
+        {% for field in signup_form %}
+          <div>
+            <label class="mb-2 block text-sm font-medium text-cocoa">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}<p class="mt-2 text-xs text-cocoa/50">{{ field.help_text }}</p>{% endif %}
+            {% if field.errors %}<p class="mt-2 text-sm text-dusty-rose">{{ field.errors|join:', ' }}</p>{% endif %}
+          </div>
+        {% endfor %}
+        <button type="submit" class="inline-flex w-full items-center justify-center rounded-full bg-cocoa px-6 py-3 text-sm font-semibold text-cream transition hover:bg-chocolate">Add subscription</button>
+      </form>
+    </aside>
+  </div>
+</section>
+{% endblock %}

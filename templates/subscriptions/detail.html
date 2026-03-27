@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load currency %}
+
+{% block title %}{{ plan.name }} | Subscriptions | {{ site_settings.site_name|default:'Nest & Whisk' }}{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+  <div class="grid gap-10 lg:grid-cols-[1fr_380px]">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-[0.35em] text-caramel">{{ plan.get_billing_interval_display }} plan</p>
+      <h1 class="font-display mt-4 text-5xl font-semibold text-cocoa">{{ plan.name }}</h1>
+      {% if plan.headline %}<p class="mt-5 max-w-3xl text-lg leading-8 text-cocoa/75">{{ plan.headline }}</p>{% endif %}
+      <div class="mt-8 rounded-[1.75rem] border border-cocoa/10 bg-white/80 p-8 shadow-soft">
+        <p class="text-sm leading-8 text-cocoa/75">{{ plan.description|default:'This subscription is designed for customers who want a thoughtful cookie ritual with flexible recurring delivery.' }}</p>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2">
+          <div class="rounded-2xl bg-warm-beige/70 px-4 py-4 text-sm text-cocoa/75"><strong>Box size:</strong> {{ plan.box_size }}</div>
+          <div class="rounded-2xl bg-warm-beige/70 px-4 py-4 text-sm text-cocoa/75"><strong>Billing:</strong> {{ plan.get_billing_interval_display }}</div>
+          <div class="rounded-2xl bg-warm-beige/70 px-4 py-4 text-sm text-cocoa/75"><strong>Cadence:</strong> every {{ plan.cadence_days }} day{{ plan.cadence_days|pluralize }}</div>
+          <div class="rounded-2xl bg-warm-beige/70 px-4 py-4 text-sm text-cocoa/75"><strong>Ships after renewal:</strong> {{ plan.shipment_offset_days }} day{{ plan.shipment_offset_days|pluralize }}</div>
+        </div>
+      </div>
+
+      {% if related_plans %}
+        <div class="mt-10">
+          <h2 class="text-2xl font-semibold text-cocoa">More plans to explore</h2>
+          <div class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {% for related_plan in related_plans %}
+              <article class="rounded-[1.5rem] border border-cocoa/10 bg-white/70 p-5 shadow-soft">
+                <p class="text-xs font-semibold uppercase tracking-[0.25em] text-caramel">{{ related_plan.get_billing_interval_display }}</p>
+                <h3 class="mt-2 text-lg font-semibold text-cocoa">{{ related_plan.name }}</h3>
+                <p class="mt-2 text-sm text-cocoa/70">{{ related_plan.price|inr }} per cycle</p>
+                <a href="{% url 'subscriptions:detail' related_plan.slug %}" class="mt-4 inline-flex text-sm font-semibold text-caramel">View plan</a>
+              </article>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <aside class="rounded-[1.75rem] bg-cocoa p-8 text-cream shadow-soft">
+      <p class="text-xs font-semibold uppercase tracking-[0.35em] text-cream/70">Plan summary</p>
+      <div class="mt-6 space-y-4 text-sm">
+        <div class="flex items-center justify-between"><span>Price</span><span>{{ plan.price|inr }}</span></div>
+        <div class="flex items-center justify-between"><span>Frequency</span><span>{{ plan.get_billing_interval_display }}</span></div>
+        <div class="flex items-center justify-between"><span>Box size</span><span>{{ plan.box_size }}</span></div>
+        <div class="flex items-center justify-between"><span>Cadence</span><span>{{ plan.cadence_days }} day{{ plan.cadence_days|pluralize }}</span></div>
+        <div class="flex items-center justify-between"><span>Ships after renewal</span><span>{{ plan.shipment_offset_days }} day{{ plan.shipment_offset_days|pluralize }}</span></div>
+      </div>
+      <div class="mt-6 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm text-cream/80">
+        Your renewal cadence and shipment timing are set by our team so your recurring box stays consistent from month to month.
+      </div>
+
+      {% if request.user.is_authenticated %}
+        <form method="post" action="{{ signup_url }}" class="mt-8 space-y-4">
+          {% csrf_token %}
+          {{ signup_form.plan.as_hidden }}
+          <div>
+            <label class="mb-2 block text-sm font-medium text-cream">Flavor preferences</label>
+            {{ signup_form.flavor_preferences }}
+          </div>
+          <div>
+            <label class="mb-2 block text-sm font-medium text-cream">Renewal day</label>
+            {{ signup_form.renewal_day }}
+          </div>
+          <p class="text-xs leading-6 text-cream/70">Based on this plan, shipments are targeted {{ plan.shipment_offset_days }} day{{ plan.shipment_offset_days|pluralize }} after each renewal date.</p>
+          <button type="submit" class="inline-flex w-full items-center justify-center rounded-full bg-cream px-6 py-3 text-sm font-semibold text-cocoa transition hover:bg-white">Add this subscription</button>
+        </form>
+        <a href="{{ dashboard_url }}" class="mt-4 inline-flex w-full items-center justify-center rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-cream transition hover:border-white hover:bg-white/5">Go to subscription dashboard</a>
+      {% else %}
+        <a href="{{ guest_cta_url }}" class="mt-8 inline-flex w-full items-center justify-center rounded-full bg-cream px-6 py-3 text-sm font-semibold text-cocoa transition hover:bg-white">Sign in to start this plan</a>
+        <p class="mt-4 text-sm text-cream/80">Sign in or create your account first so we can keep your recurring preferences, shipment schedule, and dashboard controls in one place.</p>
+      {% endif %}
+    </aside>
+  </div>
+</section>
+{% endblock %}

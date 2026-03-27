@@ -1,0 +1,33 @@
+{% extends 'account/base_auth.html' %}
+
+{% block title %}Email Addresses | Nest & Whisk{% endblock %}
+
+{% block auth_panel %}
+  <p class="text-xs font-semibold uppercase tracking-[0.35em] text-caramel">Email preferences</p>
+  <h2 class="font-display mt-3 text-4xl font-semibold text-cocoa">Manage your email address.</h2>
+  <p class="mt-3 text-sm leading-7 text-cocoa/70">Keep the right inbox connected for orders, gifting updates, and account notices.</p>
+
+  {% if user.emailaddress_set.all %}
+    <div class="mt-8 space-y-4">
+      {% for emailaddress in user.emailaddress_set.all %}
+        <label class="flex items-start gap-4 rounded-2xl border border-cocoa/10 bg-warm-beige/50 px-4 py-4 text-sm text-cocoa/75">
+          <input type="radio" name="email" value="{{ emailaddress.email }}" {% if emailaddress.primary %}checked{% endif %} class="mt-1 h-4 w-4 border-cocoa/20 text-caramel focus:ring-caramel" disabled>
+          <span>
+            <span class="block font-semibold text-cocoa">{{ emailaddress.email }}</span>
+            <span class="mt-1 block">{% if emailaddress.verified %}Verified{% else %}Verification pending{% endif %}{% if emailaddress.primary %} · Primary{% endif %}</span>
+          </span>
+        </label>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <form method="post" action="{% url 'account_email' %}" class="mt-8 space-y-5">
+    {% csrf_token %}
+    <div class="space-y-2">
+      <label for="id_email" class="text-sm font-medium text-cocoa">Add another email</label>
+      {{ form.email }}
+    </div>
+    <button type="submit" name="action_add" class="inline-flex w-full items-center justify-center rounded-full bg-cocoa px-6 py-3.5 text-sm font-semibold text-cream transition hover:bg-chocolate">Add email address</button>
+  </form>
+{% endblock %}
+

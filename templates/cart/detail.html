@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Cart | Nest & Whisk{% endblock %}
+
+{% block content %}
+<section class="container-shell py-16 lg:py-24">
+  <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+    <div>
+      <p class="eyebrow-label">Cart</p>
+      <h1 class="font-display mt-3 text-5xl font-semibold text-cocoa lg:text-6xl">Your cookie box, so far.</h1>
+      <p class="mt-4 max-w-2xl text-lg leading-8 text-cocoa/75">Review the assortment, refine the gifting details, and move into checkout with the calm of a polished bakery counter experience.</p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <span class="trust-pill">Gift notes stay attached</span>
+        <span class="trust-pill">Packaging preferences carry through</span>
+        <span class="trust-pill">Freshly baked dispatch guidance</span>
+      </div>
+    </div>
+    <div class="editorial-panel p-6 lg:p-7">
+      <p class="eyebrow-label">Cart concierge</p>
+      <p class="mt-4 text-sm leading-7 text-cocoa/75">Use this final edit step to balance box sizes, leave a polished gift message, and make sure the order feels considered before secure checkout.</p>
+      <div class="mt-5 space-y-3">
+        <div class="merch-stat">
+          <p class="luxury-kicker">Best next step</p>
+          <p class="mt-2 font-semibold text-cocoa">Finalize the assortment, then add delivery details only once at checkout.</p>
+        </div>
+        <div class="merch-stat">
+          <p class="luxury-kicker">Good to know</p>
+          <p class="mt-2 font-semibold text-cocoa">Every item keeps its gift note and packaging preferences when the order is created.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% include 'cart/_cart_content.html' with cart=cart %}
+</section>
+{% endblock %}

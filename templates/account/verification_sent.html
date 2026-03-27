@@ -1,0 +1,11 @@
+{% extends 'account/base_auth.html' %}
+
+{% block title %}Verification Sent | Nest & Whisk{% endblock %}
+
+{% block auth_panel %}
+  <p class="text-xs font-semibold uppercase tracking-[0.35em] text-caramel">Check your email</p>
+  <h2 class="font-display mt-3 text-4xl font-semibold text-cocoa">Verification sent.</h2>
+  <p class="mt-4 text-sm leading-7 text-cocoa/70">We’ve sent a verification link to your email address. Please confirm it to keep your account details up to date.</p>
+  <a href="{% url 'account_dashboard' %}" class="mt-8 inline-flex rounded-full bg-cocoa px-6 py-3 text-sm font-semibold text-cream transition hover:bg-chocolate">Return to dashboard</a>
+{% endblock %}
+

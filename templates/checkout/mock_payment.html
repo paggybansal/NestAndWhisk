@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load currency %}
+
+{% block title %}Mock Payment Simulator | Nest & Whisk{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+  <div class="rounded-[2rem] border border-cocoa/10 bg-white/80 p-10 shadow-soft">
+    <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.35em] text-caramel">Mock payment simulator</p>
+        <h1 class="font-display mt-4 text-4xl font-semibold text-cocoa">Simulate a payment outcome for {{ order.order_number }}.</h1>
+        <p class="mt-4 max-w-2xl text-sm leading-7 text-cocoa/75">Use this local-only testing screen to mark the payment as successful, failed, or cancelled without leaving the Nest &amp; Whisk checkout flow.</p>
+      </div>
+      <a href="{{ success_url }}" class="inline-flex rounded-full border border-cocoa/15 px-5 py-3 text-sm font-semibold text-cocoa transition hover:border-caramel hover:text-caramel">Back to order summary</a>
+    </div>
+
+    <div class="mt-8 grid gap-8 lg:grid-cols-[1fr_320px]">
+      <div class="space-y-4">
+        <article class="rounded-[1.5rem] border border-cocoa/10 bg-warm-beige/50 p-6">
+          <p class="text-sm text-cocoa/70">Current payment provider</p>
+          <p class="mt-2 text-lg font-semibold text-cocoa">{{ payment.provider|title }}</p>
+          <p class="mt-4 text-sm text-cocoa/70">Tracked amount</p>
+          <p class="mt-2 text-lg font-semibold text-cocoa">{{ payment.amount|inr }}</p>
+          <p class="mt-4 text-sm text-cocoa/70">Current payment status</p>
+          <p class="mt-2 text-lg font-semibold text-cocoa">{{ payment.get_status_display }}</p>
+        </article>
+
+        <div class="grid gap-4 sm:grid-cols-3">
+          <form method="post" class="rounded-[1.5rem] border border-cocoa/10 bg-white/90 p-5 shadow-soft">
+            {% csrf_token %}
+            <input type="hidden" name="outcome" value="success" />
+            <p class="text-sm font-semibold text-cocoa">Mark paid</p>
+            <p class="mt-2 text-sm leading-7 text-cocoa/70">Simulate a successful payment confirmation and move the order to paid.</p>
+            <button type="submit" class="mt-4 inline-flex rounded-full bg-cocoa px-5 py-3 text-sm font-semibold text-cream transition hover:bg-chocolate">Simulate success</button>
+          </form>
+
+          <form method="post" class="rounded-[1.5rem] border border-cocoa/10 bg-white/90 p-5 shadow-soft">
+            {% csrf_token %}
+            <input type="hidden" name="outcome" value="failed" />
+            <p class="text-sm font-semibold text-cocoa">Mark failed</p>
+            <p class="mt-2 text-sm leading-7 text-cocoa/70">Simulate a declined or failed payment and keep the order retryable.</p>
+            <button type="submit" class="mt-4 inline-flex rounded-full border border-dusty-rose/25 px-5 py-3 text-sm font-semibold text-dusty-rose transition hover:border-dusty-rose hover:bg-dusty-rose/10">Simulate failure</button>
+          </form>
+
+          <form method="post" class="rounded-[1.5rem] border border-cocoa/10 bg-white/90 p-5 shadow-soft">
+            {% csrf_token %}
+            <input type="hidden" name="outcome" value="cancelled" />
+            <p class="text-sm font-semibold text-cocoa">Mark cancelled</p>
+            <p class="mt-2 text-sm leading-7 text-cocoa/70">Simulate a customer-backed-out payment flow and reset the order to unpaid.</p>
+            <button type="submit" class="mt-4 inline-flex rounded-full border border-cocoa/15 px-5 py-3 text-sm font-semibold text-cocoa transition hover:border-caramel hover:text-caramel">Simulate cancellation</button>
+          </form>
+        </div>
+      </div>
+
+      <aside class="rounded-[1.75rem] bg-cocoa p-8 text-cream shadow-soft">
+        <p class="text-xs font-semibold uppercase tracking-[0.35em] text-cream/70">How it works</p>
+        <ul class="mt-6 space-y-3 text-sm leading-7 text-cream/80">
+          <li>• Mock actions update the same `Order` and `Payment` records used by the real payment flow.</li>
+          <li>• Use this to verify success, failure, cancellation, retry, and tracking UX locally.</li>
+          <li>• Stripe test mode remains available from checkout whenever you want to test the hosted gateway flow.</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+{% endblock %}
+

@@ -7,21 +7,11 @@ RUN_MIGRATIONS_ON_BOOT="${DJANGO_RUN_MIGRATIONS_ON_BOOT:-1}"
 COLLECTSTATIC_ON_BOOT="${DJANGO_COLLECTSTATIC_ON_BOOT:-1}"
 
 if [ "$RUN_MIGRATIONS_ON_BOOT" = "1" ]; then
-  # Bootstrap the dependency-heavy apps first so later apps can reference
-  # contenttypes/auth/catalog foreign keys cleanly. --fake-initial is safe
-  # because migrations are idempotent: it only marks initial migrations as
-  # applied when their target tables already exist *and* the schema matches.
-  for app_label in contenttypes auth catalog
-  do
-    python manage.py migrate "$app_label" --noinput --fake-initial
-  done
-
-
-  for app_label in admin sessions sites
-  do
-    python manage.py migrate "$app_label" --noinput --fake-initial
-  done
-
+  # One call: Django's migration framework resolves the dependency graph
+  # itself (e.g. accounts.User must precede admin.0001_initial). Manual
+  # per-app ordering used to be a workaround for --run-syncdb drift; it is
+  # no longer needed and actively breaks ordering when AUTH_USER_MODEL is
+  # custom. --fake-initial is idempotent and harmless on a fresh DB.
   python manage.py migrate --noinput --fake-initial
 fi
 

@@ -23,6 +23,13 @@ if [ "${DJANGO_BOOTSTRAP_DEMO:-0}" = "1" ]; then
   python manage.py seed_demo_store
 fi
 
+# One-shot data import: set DJANGO_LOAD_FIXTURE to a path inside the image
+# (e.g. backups/local_dump.json) for a single deploy, then unset it.
+if [ -n "${DJANGO_LOAD_FIXTURE:-}" ]; then
+  echo "Loading fixture from $DJANGO_LOAD_FIXTURE ..."
+  python manage.py loaddata "$DJANGO_LOAD_FIXTURE"
+fi
+
 if [ "${DJANGO_BOOTSTRAP_ADMIN:-0}" = "1" ]; then
   python manage.py bootstrap_admin
 fi

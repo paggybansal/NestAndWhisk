@@ -14,9 +14,6 @@ ENV/
 .vscode/
 node_modules/
 staticfiles/
-media/
-!media/Logo.jpeg
-!media/Logo.png
 .env
 .env.*
 !.env.example

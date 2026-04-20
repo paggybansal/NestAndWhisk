@@ -190,7 +190,7 @@
     "updated_at": "2026-03-19T15:42:03.105Z",
     "customer_name": "Ariana Chen",
     "customer_title": "Creative director",
-    "quote": "The packaging felt as thoughtful as the cookies themselves — polished, warm, and impossibly delicious.",
+    "quote": "The packaging felt as thoughtful as the cookies themselves â€” polished, warm, and impossibly delicious.",
     "rating": 5,
     "is_featured": true,
     "sort_order": 1
@@ -230,12 +230,12 @@
   "fields": {
     "created_at": "2026-03-18T14:40:50.161Z",
     "updated_at": "2026-03-19T15:42:03.096Z",
-    "page_title": "We’d love to help you plan something delicious.",
+    "page_title": "Weâ€™d love to help you plan something delicious.",
     "intro": "Questions about gifting, events, custom assortments, or recurring cookie deliveries? Our studio team is here to help.",
     "inquiry_email": "hello@nestandwhisk.com",
-    "business_hours": "Mon–Sat · 9am–6pm EST",
+    "business_hours": "Monâ€“Sat Â· 9amâ€“6pm EST",
     "studio_location": "New York City studio kitchen",
-    "contact_card_body": "Tell us what you’re celebrating and we’ll guide you toward a thoughtful cookie moment that feels beautifully personal."
+    "contact_card_body": "Tell us what youâ€™re celebrating and weâ€™ll guide you toward a thoughtful cookie moment that feels beautifully personal."
   }
 },
 {
@@ -589,7 +589,7 @@
     "storage_guidance": "",
     "video_file": "catalog/videos/choco_chip.mp4",
     "video_url": "",
-    "video_caption": "Watch our Choco Chip Signature Cookie come to life — from dough to golden perfection.",
+    "video_caption": "Watch our Choco Chip Signature Cookie come to life â€” from dough to golden perfection.",
     "featured_label": "Signature",
     "is_active": true,
     "is_featured": true,
@@ -818,7 +818,7 @@
     "created_at": "2026-03-18T14:40:50.217Z",
     "updated_at": "2026-03-19T15:42:03.162Z",
     "category": 1,
-    "name": "S’mores Stuffed",
+    "name": "Sâ€™mores Stuffed",
     "slug": "smores-stuffed",
     "short_description": "Chocolate cookie dough with marshmallow pockets and graham crunch.",
     "description": "A playful crowd-pleaser with toasted marshmallow notes, melty chocolate, and a nostalgic fireside finish.",
@@ -841,8 +841,8 @@
     "is_featured": false,
     "is_seasonal": false,
     "sort_order": 7,
-    "meta_title": "S’mores Stuffed Cookies | Nest & Whisk",
-    "meta_description": "Playful stuffed s’mores cookies with rich chocolate and marshmallow pockets.",
+    "meta_title": "Sâ€™mores Stuffed Cookies | Nest & Whisk",
+    "meta_description": "Playful stuffed sâ€™mores cookies with rich chocolate and marshmallow pockets.",
     "tags": [
       2
     ],
@@ -1095,7 +1095,7 @@
     "product": 7,
     "image": "catalog/products/double-dark.svg",
     "video_file": "",
-    "alt_text": "S’mores Stuffed",
+    "alt_text": "Sâ€™mores Stuffed",
     "is_primary": true,
     "sort_order": 0
   }
@@ -4417,10 +4417,10 @@
   "fields": {
     "created_at": "2026-03-18T14:40:50.249Z",
     "updated_at": "2026-03-19T15:42:03.196Z",
-    "name": "Monthly Founder’s Box",
+    "name": "Monthly Founderâ€™s Box",
     "slug": "monthly-founders-box",
     "headline": "A monthly delivery with signature favorites and a seasonal surprise.",
-    "description": "Our most giftable recurring plan — part signature collection, part seasonal reveal, and always packed with editorial polish.",
+    "description": "Our most giftable recurring plan â€” part signature collection, part seasonal reveal, and always packed with editorial polish.",
     "billing_interval": "monthly",
     "cadence_days": 30,
     "shipment_offset_days": 8,
@@ -4523,7 +4523,7 @@
     "customer_email": "naomi@classictaste.test",
     "rating": 5,
     "title": "A true bakery classic",
-    "body": "Exactly the kind of cookie you hope for in a premium gift box — soft, buttery, and packed with chocolate.",
+    "body": "Exactly the kind of cookie you hope for in a premium gift box â€” soft, buttery, and packed with chocolate.",
     "is_approved": true,
     "is_verified_purchase": true
   }
@@ -4574,7 +4574,7 @@
     "customer_email": "mina@seasonaltable.test",
     "rating": 5,
     "title": "Autumn in cookie form",
-    "body": "Warm spice, soft texture, and a lovely bakery finish. I’d order this every fall.",
+    "body": "Warm spice, soft texture, and a lovely bakery finish. Iâ€™d order this every fall.",
     "is_approved": true,
     "is_verified_purchase": true
   }
@@ -4591,7 +4591,7 @@
     "customer_email": "hugo@gifthost.test",
     "rating": 5,
     "title": "Our go-to hostess gift",
-    "body": "The ability to curate flavors made the box feel truly personal — and the packaging looked stunning.",
+    "body": "The ability to curate flavors made the box feel truly personal â€” and the packaging looked stunning.",
     "is_approved": true,
     "is_verified_purchase": true
   }
@@ -4644,7 +4644,7 @@
     "category": 1,
     "title": "How to build a cookie gift box that feels deeply personal",
     "slug": "how-to-build-a-cookie-gift-box-that-feels-personal",
-    "excerpt": "A few thoughtful choices—flavor balance, packaging tone, and a small handwritten note—can turn a sweet box into a memorable gift.",
+    "excerpt": "A few thoughtful choicesâ€”flavor balance, packaging tone, and a small handwritten noteâ€”can turn a sweet box into a memorable gift.",
     "body": "A beautiful gift box starts with intention. Begin by choosing a mix of familiar comfort and one unexpected flavor, then think about who you're sending it to and the mood you want the delivery to create.\n\nFor thank-yous, we love a balance of classic chocolate chip, sea salt caramel, and one elegant wildcard like Pistachio Rose. For celebrations, brighter profiles like Birthday Sprinkle or Red Velvet Crumble feel joyful without losing polish.\n\nPackaging matters just as much. Ribbon-ready wrapping, a warm card, and a small note written with specificity can make the moment feel generous before the box is even opened.",
     "hero_kicker": "Gifting guide",
     "reading_time_minutes": 4,
@@ -4665,7 +4665,7 @@
     "title": "Why small-batch baking changes the entire cookie experience",
     "slug": "why-small-batch-baking-makes-a-difference",
     "excerpt": "From ingredient quality to texture and finishing, small-batch baking gives artisan cookies their warmth, nuance, and consistency.",
-    "body": "Small-batch baking creates room for precision. Dough can rest properly, chocolate can be folded in thoughtfully, and each tray can be baked for the finish we want—golden edges, tender centers, and a fragrance that feels unmistakably bakery-fresh.\n\nAt Nest & Whisk, we think that kind of care is visible. It shows up in the shape of the cookie, the balance of salt, and the way every box feels intentionally assembled rather than mass produced.",
+    "body": "Small-batch baking creates room for precision. Dough can rest properly, chocolate can be folded in thoughtfully, and each tray can be baked for the finish we wantâ€”golden edges, tender centers, and a fragrance that feels unmistakably bakery-fresh.\n\nAt Nest & Whisk, we think that kind of care is visible. It shows up in the shape of the cookie, the balance of salt, and the way every box feels intentionally assembled rather than mass produced.",
     "hero_kicker": "Behind the bake",
     "reading_time_minutes": 3,
     "is_published": true,
@@ -4684,7 +4684,7 @@
     "category": 3,
     "title": "Hosting notes: styling a cozy table around pumpkin spice season",
     "slug": "hosting-with-seasonal-pumpkin-spice",
-    "excerpt": "A few tactile details—linen napkins, candlelight, warm ceramics, and softly spiced cookies—create an effortless autumn table.",
+    "excerpt": "A few tactile detailsâ€”linen napkins, candlelight, warm ceramics, and softly spiced cookiesâ€”create an effortless autumn table.",
     "body": "Seasonal hosting doesn't need to feel elaborate to feel beautiful. Start with warm neutrals, one textured floral or branch arrangement, and a serving plate that lets your cookies feel central.\n\nPumpkin Spice works especially well beside caramel tones, soft cream ceramics, and coffee-based pairings. Add one polished dessert fork, a linen napkin, and a handwritten place card and the whole moment feels elevated.",
     "hero_kicker": "Seasonal notes",
     "reading_time_minutes": 5,

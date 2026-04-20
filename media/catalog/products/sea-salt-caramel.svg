@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sea Salt Caramel</title>
+  <desc id="desc">A caramel-toned Nest &amp; Whisk product card for Sea Salt Caramel cookies.</desc>
+  <rect width="1200" height="900" fill="#FFF8F0"/>
+  <rect x="110" y="110" width="980" height="680" rx="42" fill="#F3E4D3"/>
+  <circle cx="600" cy="450" r="230" fill="#C98A44"/>
+  <path d="M410 430c70-40 160-35 240 8s134 42 140 7" fill="none" stroke="#FFF8F0" stroke-width="20" stroke-linecap="round"/>
+  <circle cx="480" cy="360" r="8" fill="#FFF8F0"/>
+  <circle cx="550" cy="325" r="8" fill="#FFF8F0"/>
+  <circle cx="715" cy="370" r="8" fill="#FFF8F0"/>
+  <circle cx="650" cy="555" r="8" fill="#FFF8F0"/>
+  <text x="150" y="175" fill="#4A2E2A" font-family="Georgia, 'Times New Roman', serif" font-size="56">Nest &amp; Whisk</text>
+  <text x="150" y="245" fill="#2B1B18" font-family="Arial, Helvetica, sans-serif" font-size="28" letter-spacing="8">SEA SALT CARAMEL</text>
+  <text x="150" y="745" fill="#4A2E2A" font-family="Arial, Helvetica, sans-serif" font-size="24">Golden edges · buttery caramel ribbons · a delicate salt finish</text>
+</svg>

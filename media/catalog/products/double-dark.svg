@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">Double Dark Chocolate</title>
+  <desc id="desc">A dark chocolate product image card for Nest &amp; Whisk.</desc>
+  <rect width="1200" height="900" fill="#2B1B18"/>
+  <circle cx="600" cy="450" r="250" fill="#4A2E2A"/>
+  <circle cx="520" cy="360" r="24" fill="#FFF8F0" opacity="0.9"/>
+  <circle cx="700" cy="395" r="18" fill="#FFF8F0" opacity="0.9"/>
+  <circle cx="620" cy="515" r="22" fill="#FFF8F0" opacity="0.9"/>
+  <circle cx="760" cy="520" r="16" fill="#FFF8F0" opacity="0.9"/>
+  <circle cx="470" cy="495" r="18" fill="#FFF8F0" opacity="0.9"/>
+  <text x="90" y="130" fill="#FFF8F0" font-family="Georgia, 'Times New Roman', serif" font-size="56">Nest &amp; Whisk</text>
+  <text x="90" y="200" fill="#F3E4D3" font-family="Arial, Helvetica, sans-serif" font-size="28" letter-spacing="8">DOUBLE DARK CHOCOLATE</text>
+  <text x="90" y="785" fill="#F3E4D3" font-family="Arial, Helvetica, sans-serif" font-size="24">Rich cocoa dough · bittersweet shards · bakery-style finish</text>
+</svg>

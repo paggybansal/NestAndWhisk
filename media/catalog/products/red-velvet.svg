@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">Red Velvet Crumble</title>
+  <desc id="desc">A dusty rose product card for Nest &amp; Whisk Red Velvet Crumble cookies.</desc>
+  <rect width="1200" height="900" fill="#FFF8F0"/>
+  <circle cx="600" cy="450" r="245" fill="#C97C88"/>
+  <circle cx="515" cy="360" r="18" fill="#F3E4D3"/>
+  <circle cx="560" cy="520" r="16" fill="#F3E4D3"/>
+  <circle cx="710" cy="395" r="14" fill="#F3E4D3"/>
+  <circle cx="685" cy="560" r="17" fill="#F3E4D3"/>
+  <text x="90" y="130" fill="#4A2E2A" font-family="Georgia, 'Times New Roman', serif" font-size="56">Nest &amp; Whisk</text>
+  <text x="90" y="200" fill="#2B1B18" font-family="Arial, Helvetica, sans-serif" font-size="28" letter-spacing="8">RED VELVET CRUMBLE</text>
+  <text x="90" y="785" fill="#4A2E2A" font-family="Arial, Helvetica, sans-serif" font-size="24">Cocoa crumb · tangy cream-cheese notes · festive bakery texture</text>
+</svg>

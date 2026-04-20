@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">Classic Chocolate Chip</title>
+  <desc id="desc">A warm beige editorial card with chocolate chip cookie accents for Nest &amp; Whisk.</desc>
+  <rect width="1200" height="900" fill="#F3E4D3"/>
+  <circle cx="940" cy="260" r="150" fill="#C98A44" opacity="0.18"/>
+  <circle cx="280" cy="720" r="180" fill="#C97C88" opacity="0.12"/>
+  <circle cx="600" cy="450" r="250" fill="#D9A35F"/>
+  <circle cx="520" cy="380" r="26" fill="#4A2E2A"/>
+  <circle cx="670" cy="400" r="20" fill="#4A2E2A"/>
+  <circle cx="560" cy="520" r="24" fill="#4A2E2A"/>
+  <circle cx="690" cy="540" r="18" fill="#4A2E2A"/>
+  <circle cx="470" cy="470" r="22" fill="#4A2E2A"/>
+  <text x="80" y="120" fill="#4A2E2A" font-family="Georgia, 'Times New Roman', serif" font-size="56">Nest &amp; Whisk</text>
+  <text x="80" y="190" fill="#2B1B18" font-family="Arial, Helvetica, sans-serif" font-size="28" letter-spacing="8">CLASSIC CHOCOLATE CHIP</text>
+  <text x="80" y="780" fill="#4A2E2A" font-family="Arial, Helvetica, sans-serif" font-size="24">Warm vanilla dough · puddles of dark chocolate · small-batch baked</text>
+</svg>

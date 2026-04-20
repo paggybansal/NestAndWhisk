@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">Signature Build-a-Box</title>
+  <desc id="desc">A premium Nest &amp; Whisk gift-box illustration for the custom build-a-box product.</desc>
+  <rect width="1200" height="900" fill="#FFF8F0"/>
+  <rect x="250" y="250" width="700" height="420" rx="32" fill="#4A2E2A"/>
+  <rect x="250" y="230" width="700" height="90" rx="24" fill="#2B1B18"/>
+  <circle cx="430" cy="470" r="88" fill="#C98A44"/>
+  <circle cx="600" cy="470" r="88" fill="#C97C88"/>
+  <circle cx="770" cy="470" r="88" fill="#A4B39B"/>
+  <text x="600" y="165" text-anchor="middle" fill="#4A2E2A" font-family="Georgia, 'Times New Roman', serif" font-size="58">Nest &amp; Whisk</text>
+  <text x="600" y="740" text-anchor="middle" fill="#4A2E2A" font-family="Arial, Helvetica, sans-serif" font-size="28" letter-spacing="8">SIGNATURE BUILD-A-BOX</text>
+  <text x="600" y="790" text-anchor="middle" fill="#4A2E2A" font-family="Arial, Helvetica, sans-serif" font-size="24">Choose your size · curate your flavors · send something memorable</text>
+</svg>

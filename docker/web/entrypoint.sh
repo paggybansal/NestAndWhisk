@@ -29,11 +29,22 @@ if [ "${DJANGO_BOOTSTRAP_DEMO:-0}" = "1" ]; then
   python manage.py seed_demo_store
 fi
 
-# One-shot data import: set DJANGO_LOAD_FIXTURE to a path inside the image
-# (e.g. backups/local_dump.json) for a single deploy, then unset it.
+# One-shot data import:
+#   - If DJANGO_LOAD_FIXTURE is set explicitly, always load that file.
+#   - Otherwise, if DJANGO_AUTOLOAD_FIXTURE points to a path AND the catalog
+#     is empty (no Product rows), load it. Lets a fresh DB get the local
+#     dataset on first boot without re-importing on every deploy.
 if [ -n "${DJANGO_LOAD_FIXTURE:-}" ]; then
   echo "Loading fixture from $DJANGO_LOAD_FIXTURE ..."
   python manage.py loaddata "$DJANGO_LOAD_FIXTURE"
+elif [ -n "${DJANGO_AUTOLOAD_FIXTURE:-}" ] && [ -f "$DJANGO_AUTOLOAD_FIXTURE" ]; then
+  product_count=$(python manage.py shell -c "from apps.catalog.models import Product; print(Product.objects.count())" 2>/dev/null | tail -n 1)
+  if [ "$product_count" = "0" ]; then
+    echo "DB has 0 products; auto-loading $DJANGO_AUTOLOAD_FIXTURE ..."
+    python manage.py loaddata "$DJANGO_AUTOLOAD_FIXTURE"
+  else
+    echo "DB already has $product_count products; skipping auto-load."
+  fi
 fi
 
 if [ "${DJANGO_BOOTSTRAP_ADMIN:-0}" = "1" ]; then

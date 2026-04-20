@@ -10,4 +10,8 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 USE_X_FORWARDED_HOST = True
+# Serve /media/* via Django so committed brand assets (Logo etc.) work without
+# an external bucket. Suitable for low-traffic; switch to S3/R2 for real
+# user-uploaded content at scale.
+SERVE_MEDIA_FILES = env.bool("SERVE_MEDIA_FILES", default=True)
 

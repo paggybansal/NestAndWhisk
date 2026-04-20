@@ -149,7 +149,11 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / "static"]
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# Vite already emits content-hashed filenames in static/build/assets/, so we
+# don't need WhiteNoise's ManifestStaticFilesStorage on top (which would also
+# fight django_vite by demanding every URL go through {% static %}). The
+# Compressed variant still gives us gzip + brotli precompression.
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"

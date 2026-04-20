@@ -4,8 +4,16 @@ WORKDIR /frontend
 
 COPY package.json package-lock.json* postcss.config.js tailwind.config.js vite.config.js ./
 COPY static_src ./static_src
+# Tailwind's JIT scans templates and app HTML to decide which utility classes
+# to emit. Without these, the built CSS is essentially empty.
+COPY templates ./templates
+COPY apps ./apps
 
-RUN npm ci && npm run build
+RUN npm ci && npm run build && \
+    echo "--- frontend build output ---" && \
+    ls -la static/build/assets && \
+    echo "--- manifest ---" && \
+    cat static/build/manifest.json
 
 
 FROM python:3.12-slim AS runtime

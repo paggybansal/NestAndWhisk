@@ -285,7 +285,7 @@
 
   .hero-cookie-rotator-image {
     filter: saturate(1.02) contrast(1.02);
-    transform: scale(1.015);
+    transform: scale(1.04);
     animation: hero-cookie-kenburns 6.8s ease-in-out infinite alternate;
     will-change: transform;
   }
@@ -314,20 +314,18 @@
   .htmx-request.htmx-indicator {
     @apply block;
   }
-}
 
+}
 
 @keyframes hero-cookie-kenburns {
   from {
-    transform: scale(1.015) translate3d(0, 0, 0);
+    transform: scale(1.04) translate3d(0, 0, 0);
   }
 
   to {
-    transform: scale(1.045) translate3d(0, -0.35rem, 0);
+    transform: scale(1.08) translate3d(0, 0, 0);
   }
 }
-
-
 
 @media (prefers-reduced-motion: reduce) {
   .hero-cookie-rotator-image,
@@ -341,3 +339,28 @@
   }
 }
 
+@media (max-width: 1024px) {
+  .product-gallery {
+    --gallery-main-size: 400px;
+  }
+}
+
+@media (max-width: 720px) {
+  .product-gallery {
+    --gallery-main-size: 100%;
+    --gallery-thumb-size: 72px;
+  }
+
+  .product-gallery__arrow {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@layer utilities {
+  body:not(.is-home) main > :first-child {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+}

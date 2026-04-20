@@ -11,8 +11,6 @@ class CartItemInline(admin.TabularInline):
         "variant",
         "quantity",
         "unit_price",
-        "gift_message",
-        "packaging_option",
     )
 
 
@@ -25,7 +23,7 @@ class WishlistItemInline(admin.TabularInline):
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
     list_display = ("id", "user", "session_key", "item_count", "subtotal", "is_active", "updated_at")
-    list_filter = ("is_active", "is_gift_wrapped")
+    list_filter = ("is_active",)
     search_fields = ("user__email", "session_key", "coupon_code")
     inlines = [CartItemInline]
 

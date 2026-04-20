@@ -72,7 +72,7 @@ def get_delhi_ncr_delivery_experience(*, city: str = "", postal_code: str = "") 
     shared = {
         "badge": "Delhi NCR local delivery",
         "pill": "Same-day / next-day in select Delhi NCR areas",
-        "coverage_summary": "Coverage commonly includes Delhi, Gurugram, Noida, Greater Noida, Ghaziabad, and Faridabad, while nationwide shipping remains available beyond NCR.",
+        "coverage_summary": "Coverage includes Delhi, Gurugram, Noida, Greater Noida, Ghaziabad, and Faridabad only.",
         "sample_postal_codes": "110001, 122002, 201301, 121001",
         "matched_city": matched_city,
         "normalized_postal_code": normalized_postal_code,
@@ -112,8 +112,8 @@ def get_delhi_ncr_delivery_experience(*, city: str = "", postal_code: str = "") 
         return DelhiNcrDeliveryExperience(
             status="city_conflict",
             headline=f"We recognize {matched_city}, but postal code {normalized_postal_code} sits outside our usual Delhi NCR express range.",
-            body="We can still ship nationwide, though the faster Delhi NCR delivery timing may not apply for this address.",
-            eta="If this is an event, gift window, or urgent order, our team can still help you plan the best dispatch timing.",
+            body="We currently deliver only within Delhi NCR, so this postal code is not serviceable yet.",
+            eta="Please use a Delhi NCR address to continue with checkout.",
             **shared,
         ).to_dict()
 
@@ -121,8 +121,8 @@ def get_delhi_ncr_delivery_experience(*, city: str = "", postal_code: str = "") 
         return DelhiNcrDeliveryExperience(
             status="outside",
             headline="This address does not currently look like a Delhi NCR local-delivery match.",
-            body="Nest & Whisk still delivers nationwide, but Delhi NCR same-day or next-day timing may not apply here.",
-            eta="Use delivery notes for timing requests and our team can help guide gifting or event orders.",
+            body="Nest & Whisk currently delivers only within Delhi NCR.",
+            eta="Please enter a Delhi NCR city and postal code to see local delivery options.",
             **shared,
         ).to_dict()
 
@@ -130,6 +130,6 @@ def get_delhi_ncr_delivery_experience(*, city: str = "", postal_code: str = "") 
         status="default",
         headline="Delhi NCR orders may qualify for faster local delivery.",
         body="Enter a Delhi, Gurugram, Noida, Greater Noida, Ghaziabad, or Faridabad address to see our best local delivery guidance at checkout.",
-        eta="We support same-day or next-day planning in select Delhi NCR pincodes, while keeping nationwide shipping available elsewhere.",
+        eta="We support same-day or next-day planning in select Delhi NCR pincodes.",
         **shared,
     ).to_dict()

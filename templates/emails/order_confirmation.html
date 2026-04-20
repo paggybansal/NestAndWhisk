@@ -1,0 +1,97 @@
+{% extends "emails/base.html" %}
+
+{% block email_heading %}Thank you for your order!{% endblock %}
+
+{% block email_content %}
+  <p style="margin:0 0 16px;font-size:16px;line-height:1.7;">Hello {{ customer_name }},</p>
+  <p style="margin:0 0 16px;font-size:16px;line-height:1.7;">
+    We've received your order <strong>{{ order.order_number }}</strong> — thank you for choosing {{ brand_name }}! A summary is below, and we'll send another note the moment your parcel is on its way.
+  </p>
+
+  <!-- Order summary card -->
+  <div style="margin:24px 0;border:1px solid #F3E4D3;border-radius:18px;overflow:hidden;">
+    <div style="background:#F3E4D3;padding:14px 20px;font-size:13px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#4A2E2A;">
+      Order {{ order.order_number }}
+    </div>
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+      <thead>
+        <tr>
+          <th align="left"  style="padding:14px 20px;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#4A2E2ACC;border-bottom:1px solid #F3E4D3;">Item</th>
+          <th align="center" style="padding:14px 12px;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#4A2E2ACC;border-bottom:1px solid #F3E4D3;">Qty</th>
+          <th align="right" style="padding:14px 20px;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#4A2E2ACC;border-bottom:1px solid #F3E4D3;">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in order.items.all %}
+          <tr>
+            <td align="left" style="padding:14px 20px;font-size:15px;line-height:1.5;color:#2B1B18;border-bottom:1px solid #F7EFE3;">
+              <strong>{{ item.product_name }}</strong>
+              {% if item.variant_name %}<br><span style="font-size:13px;color:#4A2E2ACC;">{{ item.variant_name }}</span>{% endif %}
+            </td>
+            <td align="center" style="padding:14px 12px;font-size:15px;color:#2B1B18;border-bottom:1px solid #F7EFE3;">{{ item.quantity }}</td>
+            <td align="right"  style="padding:14px 20px;font-size:15px;color:#2B1B18;border-bottom:1px solid #F7EFE3;">{{ order.currency }} {{ item.line_total }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2" align="right" style="padding:14px 20px;font-size:14px;color:#4A2E2ACC;">Subtotal</td>
+          <td align="right" style="padding:14px 20px;font-size:14px;color:#2B1B18;">{{ order.currency }} {{ order.subtotal }}</td>
+        </tr>
+        {% if order.discount_total and order.discount_total > 0 %}
+          <tr>
+            <td colspan="2" align="right" style="padding:6px 20px;font-size:14px;color:#4A2E2ACC;">Discount</td>
+            <td align="right" style="padding:6px 20px;font-size:14px;color:#2B1B18;">−{{ order.currency }} {{ order.discount_total }}</td>
+          </tr>
+        {% endif %}
+        <tr>
+          <td colspan="2" align="right" style="padding:6px 20px;font-size:14px;color:#4A2E2ACC;">Shipping</td>
+          <td align="right" style="padding:6px 20px;font-size:14px;color:#2B1B18;">{{ order.currency }} {{ order.shipping_total }}</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="right" style="padding:14px 20px 18px;font-size:16px;font-weight:700;color:#2B1B18;border-top:1px solid #F3E4D3;">Total</td>
+          <td align="right" style="padding:14px 20px 18px;font-size:16px;font-weight:700;color:#2B1B18;border-top:1px solid #F3E4D3;">{{ order.currency }} {{ order.total }}</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- Shipping address -->
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin:8px 0 24px;">
+    <tr>
+      <td style="padding:18px 20px;background:#FFF8F0;border-radius:18px;">
+        <p style="margin:0 0 6px;font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:#4A2E2ACC;">Ship to</p>
+        <p style="margin:0;font-size:15px;line-height:1.6;color:#2B1B18;">
+          <strong>{{ order.customer_first_name }} {{ order.customer_last_name }}</strong><br>
+          {{ order.shipping_address_line_1 }}{% if order.shipping_address_line_2 %}, {{ order.shipping_address_line_2 }}{% endif %}<br>
+          {{ order.shipping_city }}, {{ order.shipping_state }} {{ order.shipping_postal_code }}<br>
+          {{ order.shipping_country }}
+          {% if order.customer_phone %}<br>{{ order.customer_phone }}{% endif %}
+        </p>
+      </td>
+    </tr>
+  </table>
+
+  <!-- CTAs -->
+  {% if tracking_url or success_url %}
+    <table role="presentation" cellspacing="0" cellpadding="0" style="margin:8px 0 4px;">
+      <tr>
+        {% if success_url %}
+          <td style="padding-right:12px;">
+            <a href="{{ success_url }}" style="display:inline-block;background:#4A2E2A;color:#FFF8F0;text-decoration:none;padding:14px 22px;border-radius:999px;font-weight:700;font-size:14px;">View order</a>
+          </td>
+        {% endif %}
+        {% if tracking_url %}
+          <td>
+            <a href="{{ tracking_url }}" style="display:inline-block;background:#F3E4D3;color:#4A2E2A;text-decoration:none;padding:14px 22px;border-radius:999px;font-weight:700;font-size:14px;">Track order</a>
+          </td>
+        {% endif %}
+      </tr>
+    </table>
+  {% endif %}
+
+  <p style="margin:28px 0 0;font-size:14px;line-height:1.7;color:#4A2E2ACC;">
+    Questions? Just reply to this email — we're happy to help.
+  </p>
+{% endblock %}
+

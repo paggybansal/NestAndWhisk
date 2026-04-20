@@ -19,8 +19,6 @@ class Cart(TimeStampedModel):
     session_key = models.CharField(max_length=64, blank=True, db_index=True)
     token = models.UUIDField(default=uuid4, editable=False, unique=True)
     coupon_code = models.CharField(max_length=50, blank=True)
-    gift_note = models.CharField(max_length=255, blank=True)
-    is_gift_wrapped = models.BooleanField(default=False)
     preferred_delivery_date = models.DateField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
 
@@ -56,9 +54,6 @@ class CartItem(TimeStampedModel):
     )
     quantity = models.PositiveIntegerField(default=1)
     unit_price = models.DecimalField(max_digits=10, decimal_places=2)
-    build_a_box_payload = models.JSONField(default=dict, blank=True)
-    gift_message = models.CharField(max_length=255, blank=True)
-    packaging_option = models.CharField(max_length=80, blank=True)
 
     class Meta:
         ordering = ["created_at"]

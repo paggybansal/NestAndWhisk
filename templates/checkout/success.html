@@ -13,15 +13,6 @@
       <p class="mt-5 rounded-[1.5rem] bg-warm-beige/70 px-5 py-4 text-sm leading-7 text-cocoa/80">{{ hero.notice }}</p>
 
       <div class="mt-8 flex flex-wrap gap-3">
-        {% if can_retry_payment %}
-          <form method="post" action="{% url 'checkout:start_payment' order.order_number %}">
-            {% csrf_token %}
-            <button type="submit" class="cta-primary px-6 py-3">{{ retry_button_label }}</button>
-          </form>
-        {% endif %}
-        {% if payment and payment.provider == 'mock' %}
-          <a href="{% url 'checkout:mock_payment' order.order_number %}" class="cta-secondary px-6 py-3">Open mock payment simulator</a>
-        {% endif %}
         <a href="{{ tracking_url }}" class="cta-secondary px-6 py-3">Track this order</a>
         {% if request.user.is_authenticated %}
           <a href="{% url 'account_orders' %}" class="cta-secondary px-6 py-3">View account orders</a>
@@ -55,7 +46,7 @@
         <article class="editorial-panel p-6">
           <p class="eyebrow-label">Care & gifting notes</p>
           <div class="mt-5 space-y-4 text-sm leading-7 text-cocoa/75">
-            <p>Once paid, your order moves into preparation with the same gift notes and packaging preferences you selected earlier.</p>
+            <p>Once paid, your order moves into preparation and baking.</p>
             <p>For the best first bite, let the box settle at room temperature before serving and keep it sealed between moments.</p>
             <p>Need another status check later? Use the tracking page to review payment progress and order milestones in one place.</p>
           </div>
@@ -64,11 +55,17 @@
 
       {% if payment %}
         <section class="mt-8 editorial-panel p-6">
-          <p class="eyebrow-label">Payment summary</p>
+          <p class="eyebrow-label">Payment preference</p>
           <div class="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-3 text-sm text-cocoa/80">
             <div class="editorial-note p-4">
-              <p class="luxury-kicker">Provider</p>
-              <p class="mt-2 font-semibold text-cocoa">{{ payment.provider|title }}</p>
+              <p class="luxury-kicker">Selected mode</p>
+              <p class="mt-2 font-semibold text-cocoa">
+                {% if payment_preferences.payment_option == 'online_link' %}
+                  Pay Online (link by team)
+                {% else %}
+                  Cash on Delivery
+                {% endif %}
+              </p>
             </div>
             <div class="editorial-note p-4">
               <p class="luxury-kicker">Tracked amount</p>
@@ -79,29 +76,16 @@
               <p class="mt-2 font-semibold text-cocoa">{{ payment.get_status_display }}</p>
             </div>
           </div>
-          <div class="mt-5 space-y-2 text-sm text-cocoa/75">
-            {% if payment_preferences.payment_preference %}<p><strong>Checkout preference:</strong> {{ payment_preferences.payment_preference|title }}</p>{% endif %}
-            {% if payment_preferences.payment_method_types %}<p><strong>Configured methods:</strong> {{ payment_preferences.payment_method_types|join:', '|upper }}</p>{% endif %}
-            {% if payment.provider_checkout_id %}<p><strong>Checkout reference:</strong> {{ payment.provider_checkout_id }}</p>{% endif %}
-            {% if payment.provider_payment_id %}<p><strong>Payment reference:</strong> {{ payment.provider_payment_id }}</p>{% endif %}
-            {% if payment.paid_at %}<p><strong>Paid at:</strong> {{ payment.paid_at }}</p>{% endif %}
-            {% if payment.receipt_url %}<p class="pt-2"><a href="{{ payment.receipt_url }}" class="font-semibold text-caramel">View Stripe receipt</a></p>{% endif %}
-          </div>
         </section>
       {% endif %}
 
       <section class="mt-8 editorial-panel p-6">
         <p class="eyebrow-label">What happens next</p>
         <ul class="mt-5 space-y-3 text-sm leading-7 text-cocoa/75">
-          {% if payment and payment.provider == 'mock' %}
-            <li>• Mock mode lets you simulate paid, failed, or cancelled payment outcomes without leaving local development.</li>
-            <li>• Each simulator action updates the same order and payment states the storefront uses for real payment providers.</li>
-          {% else %}
-            <li>• Stripe confirms payment and updates this order through the webhook endpoint.</li>
-            <li>• Successful payments move the order to a paid state.</li>
-            <li>• Failed or expired sessions stay retryable from this screen.</li>
-            <li>• UPI payments can confirm asynchronously, so this page may briefly show processing before the final paid state arrives.</li>
-          {% endif %}
+          <li>• Your order is now recorded and visible in My Orders.</li>
+          <li>• If you selected Cash on Delivery, our team will confirm dispatch and delivery details.</li>
+          <li>• If you selected Pay Online, our team will share a secure payment link.</li>
+          <li>• Order status will be updated after team confirmation.</li>
         </ul>
       </section>
     </div>
@@ -116,7 +100,6 @@
                 <p class="font-semibold text-cream">{{ item.product_name }}</p>
                 {% if item.variant_name %}<p class="mt-1 text-xs uppercase tracking-[0.2em] text-cream/55">{{ item.variant_name }}</p>{% endif %}
                 <p class="mt-1 text-xs text-cream/55">Qty {{ item.quantity }}</p>
-                {% if item.packaging_option %}<p class="mt-1 text-xs text-cream/55">Packaging: {{ item.packaging_option }}</p>{% endif %}
               </div>
               <p class="font-semibold text-cream">{{ item.line_total|inr }}</p>
             </div>

@@ -21,14 +21,14 @@
     {% vite_asset 'js/main.js' %}
     {% block extra_head %}{% endblock %}
   </head>
-  <body class="relative isolate min-h-screen overflow-x-hidden bg-cream font-sans text-espresso antialiased">
+  <body class="relative isolate min-h-screen overflow-x-hidden bg-cream font-sans text-espresso antialiased {% block body_class %}{% endblock %}">
     <div aria-hidden="true" class="pointer-events-none fixed inset-x-0 top-0 -z-10 h-[28rem] bg-[radial-gradient(circle_at_top_left,rgba(201,138,68,0.18),transparent_32%),radial-gradient(circle_at_top_right,rgba(164,179,155,0.18),transparent_26%),linear-gradient(180deg,#FFF8F0_0%,#FFF8F0_42%,#F9EFE3_100%)]"></div>
     <div aria-hidden="true" class="pointer-events-none fixed bottom-[-7rem] right-[-3rem] -z-10 h-64 w-64 rounded-full bg-caramel/10 blur-3xl"></div>
     <div aria-hidden="true" class="pointer-events-none fixed left-[-5rem] top-1/3 -z-10 h-56 w-56 rounded-full bg-sage/10 blur-3xl"></div>
     <div class="announcement-bar px-4 py-2.5 text-center text-sm font-medium text-cream">
       <span class="inline-flex items-center gap-2 rounded-full border border-cream/15 bg-cream/10 px-4 py-1.5 shadow-[0_10px_26px_-18px_rgba(255,248,240,0.75)]">
         <span aria-hidden="true">✦</span>
-        <span>{{ site_settings.announcement_bar_text|default:'Free nationwide shipping on curated gift boxes over ₹2,500.' }}</span>
+        <span>{{ site_settings.announcement_bar_text|default:'Delhi NCR delivery only - same-day/next-day in select areas.' }}</span>
         <span aria-hidden="true">✦</span>
       </span>
     </div>

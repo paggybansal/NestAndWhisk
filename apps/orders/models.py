@@ -56,8 +56,6 @@ class Order(TimeStampedModel):
     shipping_postal_code = models.CharField(max_length=20)
     shipping_country = models.CharField(max_length=120, default="India")
     delivery_notes = models.TextField(blank=True)
-    gift_note = models.CharField(max_length=255, blank=True)
-    is_gift_wrapped = models.BooleanField(default=False)
     preferred_delivery_date = models.DateField(null=True, blank=True)
     subtotal = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal("0.00"))
     discount_total = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal("0.00"))
@@ -98,9 +96,6 @@ class OrderItem(TimeStampedModel):
     quantity = models.PositiveIntegerField(default=1)
     unit_price = models.DecimalField(max_digits=10, decimal_places=2)
     line_total = models.DecimalField(max_digits=10, decimal_places=2)
-    build_a_box_payload = models.JSONField(default=dict, blank=True)
-    gift_message = models.CharField(max_length=255, blank=True)
-    packaging_option = models.CharField(max_length=80, blank=True)
 
     class Meta:
         ordering = ["created_at"]

@@ -21,7 +21,7 @@ def deactivate_cart(*, cart: Cart):
 
 
 @transaction.atomic
-def add_product_to_cart(*, cart: Cart, product: Product, variant: ProductVariant | None, quantity: int, gift_message: str = "", packaging_option: str = ""):
+def add_product_to_cart(*, cart: Cart, product: Product, variant: ProductVariant | None, quantity: int):
     unit_price = variant.price if variant else product.price_from
     item, created = CartItem.objects.get_or_create(
         cart=cart,
@@ -30,16 +30,12 @@ def add_product_to_cart(*, cart: Cart, product: Product, variant: ProductVariant
         defaults={
             "quantity": quantity,
             "unit_price": unit_price,
-            "gift_message": gift_message,
-            "packaging_option": packaging_option,
         },
     )
     if not created:
         item.quantity += quantity
-        item.gift_message = gift_message or item.gift_message
-        item.packaging_option = packaging_option or item.packaging_option
         item.unit_price = unit_price
-        item.save(update_fields=["quantity", "gift_message", "packaging_option", "unit_price", "updated_at"])
+        item.save(update_fields=["quantity", "unit_price", "updated_at"])
     return item
 
 
@@ -56,29 +52,6 @@ def update_cart_item_quantity(*, item: CartItem, quantity: int):
 @transaction.atomic
 def increment_cart_item_quantity(*, item: CartItem, delta: int):
     return update_cart_item_quantity(item=item, quantity=item.quantity + delta)
-
-
-@transaction.atomic
-def add_build_a_box_to_cart(*, cart: Cart, product: Product, variant: ProductVariant, quantity: int, flavors, gift_message: str = "", packaging_option: str = ""):
-    flavor_snapshot = [
-        {"id": flavor.id, "name": flavor.name, "slug": flavor.slug}
-        for flavor in flavors
-    ]
-    item = CartItem.objects.create(
-        cart=cart,
-        product=product,
-        variant=variant,
-        quantity=quantity,
-        unit_price=variant.price,
-        build_a_box_payload={
-            "type": "build_a_box",
-            "flavors": flavor_snapshot,
-            "box_size": variant.pack_size,
-        },
-        gift_message=gift_message,
-        packaging_option=packaging_option,
-    )
-    return item
 
 
 def get_or_create_wishlist(user):

@@ -2,12 +2,11 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import FormView, TemplateView, View
+from django.views.generic import TemplateView, View
 
-from apps.cart.forms import BUILD_A_BOX_CATEGORY_SLUG, AddToCartForm, BuildABoxForm, CartItemUpdateForm
+from apps.cart.forms import AddToCartForm, CartItemUpdateForm
 from apps.cart.models import CartItem
 from apps.cart.services import (
-    add_build_a_box_to_cart,
     add_product_to_cart,
     get_or_create_cart,
     get_or_create_wishlist,
@@ -62,8 +61,6 @@ class AddToCartView(View):
             product=product,
             variant=variant,
             quantity=form.cleaned_data["quantity"],
-            gift_message=form.cleaned_data.get("gift_message", ""),
-            packaging_option=form.cleaned_data.get("packaging_option", ""),
         )
         messages.success(request, f"{product.name} was added to your cart.")
         return redirect("cart:detail")
@@ -123,56 +120,6 @@ class RemoveCartItemView(CartHtmxMixin, View):
             return self.render_cart_content(request, cart)
         messages.success(request, "Item removed from your cart.")
         return redirect("cart:detail")
-
-
-class BuildABoxView(CoreContextMixin, FormView):
-    template_name = "cart/build_a_box.html"
-    form_class = BuildABoxForm
-
-    def get_initial(self):
-        initial = super().get_initial()
-        base_product = (
-            Product.objects.filter(
-                is_active=True,
-                allows_build_a_box=True,
-                category__slug=BUILD_A_BOX_CATEGORY_SLUG,
-            )
-            .order_by("sort_order", "name")
-            .first()
-        )
-        if base_product:
-            initial["base_product"] = base_product.pk
-            initial_variant = base_product.variants.filter(is_active=True, inventory_quantity__gt=0).order_by("sort_order", "price").first()
-            if initial_variant:
-                initial["variant"] = initial_variant.pk
-        return initial
-
-    def form_valid(self, form):
-        session_key = self.request.session.session_key
-        if not session_key:
-            self.request.session.create()
-            session_key = self.request.session.session_key
-        cart = get_or_create_cart(user=self.request.user, session_key=session_key or "")
-        add_build_a_box_to_cart(
-            cart=cart,
-            product=form.cleaned_data["base_product"],
-            variant=form.cleaned_data["variant"],
-            quantity=form.cleaned_data["quantity"],
-            flavors=form.cleaned_data["flavors"],
-            gift_message=form.cleaned_data.get("gift_message", ""),
-            packaging_option=form.cleaned_data.get("packaging_option", ""),
-        )
-        messages.success(self.request, "Your custom cookie box was added to the cart.")
-        return redirect("cart:detail")
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["buildable_products"] = (
-            Product.objects.filter(is_active=True, allows_build_a_box=True)
-            .exclude(category__slug=BUILD_A_BOX_CATEGORY_SLUG)
-            .prefetch_related("variants")
-        )
-        return context
 
 
 class WishlistDetailView(LoginRequiredMixin, CoreContextMixin, TemplateView):

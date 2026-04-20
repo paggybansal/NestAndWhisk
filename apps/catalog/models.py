@@ -1,6 +1,6 @@
 from decimal import Decimal
 import re
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import urlparse
 
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
@@ -119,13 +119,13 @@ class Product(TimeStampedModel):
     pairing_notes = models.CharField(max_length=255, blank=True)
     shelf_life_days = models.PositiveSmallIntegerField(null=True, blank=True)
     storage_guidance = models.CharField(max_length=255, blank=True)
+    video_file = models.FileField(upload_to="catalog/videos/", blank=True)
     video_url = models.URLField(max_length=500, blank=True)
     video_caption = models.CharField(max_length=160, blank=True)
     featured_label = models.CharField(max_length=60, blank=True)
     is_active = models.BooleanField(default=True)
     is_featured = models.BooleanField(default=False)
     is_seasonal = models.BooleanField(default=False)
-    allows_build_a_box = models.BooleanField(default=True)
     sort_order = models.PositiveSmallIntegerField(default=0)
     meta_title = models.CharField(max_length=160, blank=True)
     meta_description = models.CharField(max_length=255, blank=True)
@@ -157,7 +157,11 @@ class Product(TimeStampedModel):
 
     @property
     def primary_image(self):
-        return self.images.filter(is_primary=True).first() or self.images.order_by("sort_order", "id").first()
+        return self.images.filter(is_primary=True).exclude(image="").first() or self.images.exclude(image="").order_by("sort_order", "id").first()
+
+    @property
+    def primary_stack_video(self):
+        return self.images.exclude(video_file="").order_by("sort_order", "id").first()
 
     @property
     def default_variant(self):
@@ -285,44 +289,34 @@ class Product(TimeStampedModel):
 
     @property
     def has_product_video(self) -> bool:
-        return bool(self.video_url)
+        return bool(self.product_video_embed_url)
 
     @property
     def product_video_kind(self) -> str:
+        if self.primary_stack_video and self.primary_stack_video.video_file:
+            return "direct"
+        if self.video_file:
+            return "direct"
         if not self.video_url:
             return ""
         parsed = urlparse(self.video_url)
-        host = parsed.netloc.lower()
         path = parsed.path.lower()
         if any(path.endswith(extension) for extension in (".mp4", ".webm", ".ogg")):
             return "direct"
-        if "youtu.be" in host or "youtube.com" in host:
-            return "youtube"
-        if "vimeo.com" in host:
-            return "vimeo"
-        return "external"
+        return ""
 
     @property
     def product_video_embed_url(self) -> str:
+        if self.primary_stack_video and self.primary_stack_video.video_file:
+            return self.primary_stack_video.video_file.url
+        if self.video_file:
+            return self.video_file.url
         if not self.video_url:
             return ""
         parsed = urlparse(self.video_url)
-        host = parsed.netloc.lower()
-        if "youtu.be" in host:
-            video_id = parsed.path.strip("/")
-            return f"https://www.youtube.com/embed/{video_id}" if video_id else ""
-        if "youtube.com" in host:
-            if "/embed/" in parsed.path:
-                return self.video_url
-            if "/shorts/" in parsed.path:
-                video_id = parsed.path.rstrip("/").split("/")[-1]
-                return f"https://www.youtube.com/embed/{video_id}" if video_id else ""
-            video_id = parse_qs(parsed.query).get("v", [""])[0]
-            return f"https://www.youtube.com/embed/{video_id}" if video_id else ""
-        if "vimeo.com" in host:
-            video_id = parsed.path.rstrip("/").split("/")[-1]
-            return f"https://player.vimeo.com/video/{video_id}" if video_id else ""
-        return self.video_url
+        if any(parsed.path.lower().endswith(extension) for extension in (".mp4", ".webm", ".ogg")):
+            return self.video_url
+        return ""
 
     @property
     def product_video_caption_display(self) -> str:
@@ -335,7 +329,8 @@ class Product(TimeStampedModel):
 
 class ProductImage(TimeStampedModel):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images")
-    image = models.ImageField(upload_to="catalog/products/")
+    image = models.ImageField(upload_to="catalog/products/", blank=True)
+    video_file = models.FileField(upload_to="catalog/products/videos/", blank=True)
     alt_text = models.CharField(max_length=180, blank=True)
     is_primary = models.BooleanField(default=False)
     sort_order = models.PositiveSmallIntegerField(default=0)

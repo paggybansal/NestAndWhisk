@@ -27,7 +27,6 @@ class TestPremiumStorefrontRendering:
             is_active=True,
             is_featured=True,
             is_seasonal=True,
-            allows_build_a_box=True,
         )
         variant = ProductVariant.objects.create(
             product=product,

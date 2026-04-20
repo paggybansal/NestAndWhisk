@@ -58,7 +58,6 @@ def test_answer_support_question_uses_active_product_knowledge():
         ingredients="Butter, flour, caramel, sea salt",
         allergen_information="Contains wheat and dairy",
         is_active=True,
-        allows_build_a_box=True,
     )
     product.dietary_attributes.add(dietary)
     ProductVariant.objects.create(

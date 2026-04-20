@@ -14,8 +14,6 @@ class OrderItemInline(admin.TabularInline):
         "quantity",
         "unit_price",
         "line_total",
-        "gift_message",
-        "packaging_option",
     )
     readonly_fields = (
         "product_name",
@@ -85,7 +83,6 @@ class OrderAdmin(admin.ModelAdmin):
         "status",
         "payment_status",
         "currency",
-        "is_gift_wrapped",
         "preferred_delivery_date",
     )
     search_fields = (
@@ -147,15 +144,6 @@ class OrderAdmin(admin.ModelAdmin):
                     "shipping_country",
                     "delivery_notes",
                     "preferred_delivery_date",
-                )
-            },
-        ),
-        (
-            "Gifting",
-            {
-                "fields": (
-                    "gift_note",
-                    "is_gift_wrapped",
                 )
             },
         ),

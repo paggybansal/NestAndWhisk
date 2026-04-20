@@ -13,7 +13,7 @@ from apps.catalog.models import (
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
     extra = 1
-    fields = ("image", "alt_text", "is_primary", "sort_order")
+    fields = ("image", "video_file", "alt_text", "is_primary", "sort_order")
 
 
 class ProductVariantInline(admin.TabularInline):
@@ -71,7 +71,6 @@ class ProductAdmin(admin.ModelAdmin):
         "is_active",
         "is_featured",
         "is_seasonal",
-        "allows_build_a_box",
     )
     search_fields = (
         "name",
@@ -100,7 +99,6 @@ class ProductAdmin(admin.ModelAdmin):
                     "is_active",
                     "is_featured",
                     "is_seasonal",
-                    "allows_build_a_box",
                     "sort_order",
                 )
             },
@@ -125,7 +123,6 @@ class ProductAdmin(admin.ModelAdmin):
                 "fields": (
                     ("texture_chewy", "texture_crunchy", "texture_gooey"),
                     "pairing_notes",
-                    "video_url",
                     "video_caption",
                     "tags",
                     "dietary_attributes",
@@ -164,4 +161,5 @@ class ProductImageAdmin(admin.ModelAdmin):
     list_display = ("product", "is_primary", "sort_order")
     list_filter = ("is_primary",)
     search_fields = ("product__name", "alt_text")
+    fields = ("product", "image", "video_file", "alt_text", "is_primary", "sort_order")
     list_editable = ("is_primary", "sort_order")

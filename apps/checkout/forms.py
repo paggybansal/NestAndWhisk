@@ -1,25 +1,15 @@
 from django import forms
 
 from apps.accounts.forms import FORM_INPUT_CLASS
+from apps.core.delivery import get_delhi_ncr_delivery_experience, normalize_postal_code
 
 
 class CheckoutForm(forms.Form):
-    PAYMENT_PROVIDER_STRIPE = "stripe"
-    PAYMENT_PROVIDER_MOCK = "mock"
+    PAYMENT_OPTION_COD = "cod"  # kept for backward compatibility with existing order data only
+    PAYMENT_OPTION_ONLINE_LINK = "online_link"
 
-    PAYMENT_PREFERENCE_CARD = "card"
-    PAYMENT_PREFERENCE_UPI = "upi"
-    PAYMENT_PREFERENCE_FLEXIBLE = "flexible"
-
-    PAYMENT_PREFERENCE_CHOICES = [
-        (PAYMENT_PREFERENCE_CARD, "Card"),
-        (PAYMENT_PREFERENCE_UPI, "UPI"),
-        (PAYMENT_PREFERENCE_FLEXIBLE, "Best available option"),
-    ]
-
-    PAYMENT_PROVIDER_CHOICES = [
-        (PAYMENT_PROVIDER_STRIPE, "Stripe test mode"),
-        (PAYMENT_PROVIDER_MOCK, "Mock payment simulator"),
+    PAYMENT_OPTION_CHOICES = [
+        (PAYMENT_OPTION_ONLINE_LINK, "Pay Online (payment link via team)"),
     ]
 
     customer_email = forms.EmailField()
@@ -33,38 +23,17 @@ class CheckoutForm(forms.Form):
     shipping_postal_code = forms.CharField(max_length=20)
     shipping_country = forms.CharField(max_length=120, initial="India")
     delivery_notes = forms.CharField(required=False, widget=forms.Textarea(attrs={"rows": 4}))
-    payment_provider = forms.ChoiceField(
-        choices=PAYMENT_PROVIDER_CHOICES,
-        initial=PAYMENT_PROVIDER_STRIPE,
-        widget=forms.RadioSelect,
-    )
-    payment_preference = forms.ChoiceField(
-        choices=PAYMENT_PREFERENCE_CHOICES,
-        initial=PAYMENT_PREFERENCE_FLEXIBLE,
+    payment_option = forms.ChoiceField(
+        choices=PAYMENT_OPTION_CHOICES,
+        initial=PAYMENT_OPTION_ONLINE_LINK,
         widget=forms.RadioSelect,
     )
 
     def __init__(self, *args, **kwargs):
-        allow_upi = kwargs.pop("allow_upi", False)
-        allow_mock = kwargs.pop("allow_mock", False)
-        default_payment_provider = kwargs.pop("default_payment_provider", self.PAYMENT_PROVIDER_STRIPE)
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs.setdefault("class", FORM_INPUT_CLASS)
-        provider_choices = [(self.PAYMENT_PROVIDER_STRIPE, "Stripe test mode")]
-        if allow_mock:
-            provider_choices.append((self.PAYMENT_PROVIDER_MOCK, "Mock payment simulator"))
-        self.fields["payment_provider"].choices = provider_choices
-        self.fields["payment_provider"].initial = default_payment_provider if default_payment_provider in {value for value, _label in provider_choices} else self.PAYMENT_PROVIDER_STRIPE
-        self.fields["payment_provider"].widget.attrs.pop("class", None)
-        payment_choices = [
-            (self.PAYMENT_PREFERENCE_CARD, "Card"),
-            (self.PAYMENT_PREFERENCE_FLEXIBLE, "Best available option"),
-        ]
-        if allow_upi:
-            payment_choices.insert(1, (self.PAYMENT_PREFERENCE_UPI, "UPI"))
-        self.fields["payment_preference"].choices = payment_choices
-        self.fields["payment_preference"].widget.attrs.pop("class", None)
+        self.fields["payment_option"].widget.attrs.pop("class", None)
         self.fields["customer_email"].widget.attrs.update(
             {
                 "placeholder": "you@example.com",
@@ -125,6 +94,17 @@ class CheckoutForm(forms.Form):
             "placeholder",
             "Gate code, landmark, preferred slot, or gifting instructions",
         )
+
+    def clean_shipping_postal_code(self):
+        raw_postal_code = self.cleaned_data.get("shipping_postal_code", "")
+        normalized_postal_code = normalize_postal_code(raw_postal_code)
+        experience = get_delhi_ncr_delivery_experience(
+            city=self.cleaned_data.get("shipping_city", ""),
+            postal_code=normalized_postal_code,
+        )
+        if not experience.get("is_express_zone"):
+            raise forms.ValidationError("We currently deliver only in Delhi NCR. Please enter a valid Delhi NCR pincode.")
+        return normalized_postal_code
 
 
 class OrderLookupForm(forms.Form):

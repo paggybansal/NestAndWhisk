@@ -9,6 +9,9 @@ from apps.checkout.views import (
     CheckoutView,
     OrderLookupView,
     OrderTrackingView,
+    PhonePeCallbackView,
+    PhonePeRedirectView,
+    PhonePeStatusView,
     StripeWebhookView,
     TrackingLinkRequestView,
 )
@@ -26,4 +29,8 @@ urlpatterns = [
     path("track/send-links/", TrackingLinkRequestView.as_view(), name="send_tracking_links"),
     path("track/<str:order_number>/", OrderTrackingView.as_view(), name="tracking"),
     path("webhooks/stripe/", StripeWebhookView.as_view(), name="stripe_webhook"),
+    # ---- PhonePe ----
+    path("webhooks/phonepe/", PhonePeCallbackView.as_view(), name="phonepe_callback"),
+    path("phonepe/redirect/<str:order_number>/", PhonePeRedirectView.as_view(), name="phonepe_redirect"),
+    path("phonepe/status/<str:order_number>/", PhonePeStatusView.as_view(), name="phonepe_status"),
 ]

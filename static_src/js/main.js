@@ -321,10 +321,74 @@ Alpine.data('heroRotator', ({ total = 0, interval = 6400 } = {}) => ({
     if (!this.total) return;
     this.active = (this.active + 1) % this.total;
   },
+  prev() {
+    if (!this.total) return;
+    this.active = (this.active - 1 + this.total) % this.total;
+  },
   goTo(index) {
     this.active = Number(index) || 0;
     this.start();
   }
+}));
+
+
+Alpine.data('productGallery', ({
+  images = [],
+  activeType = 'image',
+  activeImage = '',
+  activeAlt = '',
+  activeVideo = '',
+  activePoster = '',
+  interval = 5200,
+} = {}) => ({
+  images: Array.isArray(images) ? images : [],
+  imageIndex: 0,
+  activeType,
+  activeImage,
+  activeAlt,
+  activeVideo,
+  activePoster,
+  interval: Number(interval) || 5200,
+  timer: null,
+  init() {
+    if (this.images.length) {
+      const matchIndex = this.images.findIndex((item) => item.src === this.activeImage);
+      this.imageIndex = matchIndex >= 0 ? matchIndex : 0;
+    }
+    this.startAuto();
+  },
+  setImageByIndex(index) {
+    if (!this.images.length) return;
+    const safeIndex = (Number(index) || 0) % this.images.length;
+    const normalizedIndex = safeIndex < 0 ? safeIndex + this.images.length : safeIndex;
+    const item = this.images[normalizedIndex];
+    this.imageIndex = normalizedIndex;
+    this.activeType = 'image';
+    this.activeImage = item.src;
+    this.activeAlt = item.alt;
+  },
+  setImageBySrc(src, alt) {
+    const matchIndex = this.images.findIndex((item) => item.src === src);
+    if (matchIndex >= 0) {
+      this.imageIndex = matchIndex;
+    }
+    this.activeType = 'image';
+    this.activeImage = src;
+    this.activeAlt = alt;
+  },
+  startAuto() {
+    if (this.images.length <= 1) return;
+    this.stopAuto();
+    this.timer = window.setInterval(() => {
+      this.setImageByIndex(this.imageIndex + 1);
+    }, this.interval);
+  },
+  stopAuto() {
+    if (this.timer) {
+      window.clearInterval(this.timer);
+      this.timer = null;
+    }
+  },
 }));
 
 Alpine.data('miniCart', ({ itemCount = 0, subtotal = '0.00' } = {}) => ({

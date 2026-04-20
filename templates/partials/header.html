@@ -15,7 +15,6 @@
       <a href="{% url 'home' %}" class="luxury-nav-link">Home</a>
       <a href="{% url 'about' %}" class="luxury-nav-link">Our Story</a>
       <a href="{% url 'catalog:shop' %}" class="luxury-nav-link">Shop</a>
-      <a href="{% url 'cart:build_a_box' %}" class="luxury-nav-link">Build a Box</a>
       <a href="{% url 'subscriptions:list' %}" class="luxury-nav-link">Subscriptions</a>
       <a href="{% url 'blog:list' %}" class="luxury-nav-link">Journal</a>
       <a href="{% url 'contact' %}" class="luxury-nav-link">Contact</a>
@@ -63,7 +62,6 @@
         <a href="{% url 'home' %}" @click="closeMobileNav()" class="flex items-center justify-between rounded-2xl border border-cocoa/10 bg-white/70 px-4 py-3 text-sm font-medium text-cocoa transition hover:border-caramel hover:text-caramel"><span>Home</span><span aria-hidden="true">→</span></a>
         <a href="{% url 'about' %}" @click="closeMobileNav()" class="flex items-center justify-between rounded-2xl border border-cocoa/10 bg-white/70 px-4 py-3 text-sm font-medium text-cocoa transition hover:border-caramel hover:text-caramel"><span>Our Story</span><span aria-hidden="true">→</span></a>
         <a href="{% url 'catalog:shop' %}" @click="closeMobileNav()" class="flex items-center justify-between rounded-2xl border border-cocoa/10 bg-white/70 px-4 py-3 text-sm font-medium text-cocoa transition hover:border-caramel hover:text-caramel"><span>Shop</span><span aria-hidden="true">→</span></a>
-        <a href="{% url 'cart:build_a_box' %}" @click="closeMobileNav()" class="flex items-center justify-between rounded-2xl border border-cocoa/10 bg-white/70 px-4 py-3 text-sm font-medium text-cocoa transition hover:border-caramel hover:text-caramel"><span>Build a Box</span><span aria-hidden="true">→</span></a>
         <a href="{% url 'subscriptions:list' %}" @click="closeMobileNav()" class="flex items-center justify-between rounded-2xl border border-cocoa/10 bg-white/70 px-4 py-3 text-sm font-medium text-cocoa transition hover:border-caramel hover:text-caramel"><span>Subscriptions</span><span aria-hidden="true">→</span></a>
         <a href="{% url 'blog:list' %}" @click="closeMobileNav()" class="flex items-center justify-between rounded-2xl border border-cocoa/10 bg-white/70 px-4 py-3 text-sm font-medium text-cocoa transition hover:border-caramel hover:text-caramel"><span>Journal</span><span aria-hidden="true">→</span></a>
         <a href="{% url 'contact' %}" @click="closeMobileNav()" class="flex items-center justify-between rounded-2xl border border-cocoa/10 bg-white/70 px-4 py-3 text-sm font-medium text-cocoa transition hover:border-caramel hover:text-caramel"><span>Contact</span><span aria-hidden="true">→</span></a>
@@ -112,7 +110,7 @@
           <div class="rounded-[1.5rem] border border-dashed border-cocoa/20 bg-white/70 p-8 text-center shadow-soft transition duration-300">
             <div class="mx-auto inline-flex h-14 w-14 items-center justify-center rounded-full bg-cocoa/5 text-2xl text-cocoa/70">🍪</div>
             <h3 class="font-display mt-4 text-3xl font-semibold text-cocoa">Your cart is empty.</h3>
-            <p class="mt-3 text-sm leading-7 text-cocoa/70">Browse handcrafted favorites or build a custom cookie box to get started.</p>
+            <p class="mt-3 text-sm leading-7 text-cocoa/70">Browse handcrafted favorites or explore our signature cookies to get started.</p>
           </div>
         {% endif %}
       </div>

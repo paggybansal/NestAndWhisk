@@ -1,14 +1,11 @@
-from __future__ import annotations
-
+﻿from __future__ import annotations
 from datetime import date, timedelta
 from decimal import Decimal
-
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from django.urls import reverse
 from django.utils import timezone
-
 from apps.blog.models import BlogCategory, BlogPost
 from apps.catalog.models import DietaryAttribute, Product, ProductCategory, ProductImage, ProductTag, ProductVariant
 from apps.core.models import ContactSettings, FAQ, HomepageContent, NewsletterSignup, PolicyPage, SiteSettings, Testimonial
@@ -17,11 +14,8 @@ from apps.marketing.models import CampaignAttribution, MarketingSource
 from apps.orders.models import Order, OrderItem, Payment
 from apps.reviews.models import Review
 from apps.subscriptions.models import SubscriptionPlan, SubscriptionShipment, UserSubscription
-
-
 class Command(BaseCommand):
     help = "Seed the local Nest & Whisk storefront with polished demo merchandising content."
-
     @transaction.atomic
     def handle(self, *args, **options):
         site_settings = self.seed_site_settings()
@@ -39,15 +33,12 @@ class Command(BaseCommand):
         self.seed_reviews(products=products)
         plans = self.seed_subscription_plans()
         self.seed_demo_operations(products=products, plans=plans, marketing=marketing)
-
         self.stdout.write(self.style.SUCCESS("Demo store content seeded successfully."))
         self.stdout.write(f"Home: {reverse('home')}")
         self.stdout.write(f"Shop: {reverse('catalog:shop')}")
         self.stdout.write(f"Subscriptions: {reverse('subscriptions:list')}")
-        self.stdout.write(f"Build a box: {reverse('cart:build_a_box')}")
         self.stdout.write(f"Contact: {reverse('contact')}")
         self.stdout.write(f"Brand: {site_settings.site_name}")
-
     def seed_site_settings(self) -> SiteSettings:
         settings_obj = SiteSettings.load()
         settings_obj.site_name = "Nest & Whisk"
@@ -56,7 +47,7 @@ class Command(BaseCommand):
         settings_obj.meta_description = (
             "Small-batch artisan cookies, curated gifting boxes, subscriptions, and custom cookie assortments from Nest & Whisk."
         )
-        settings_obj.announcement_bar_text = "Free nationwide shipping on curated gift boxes over ₹2,500."
+        settings_obj.announcement_bar_text = "Delhi NCR delivery only - same-day/next-day in select areas."
         settings_obj.support_email = "hello@nestandwhisk.com"
         settings_obj.support_phone = "+1 (212) 555-0188"
         settings_obj.instagram_url = "https://instagram.com/nestandwhisk"
@@ -68,7 +59,6 @@ class Command(BaseCommand):
         )
         settings_obj.save()
         return settings_obj
-
     def seed_homepage_content(self) -> None:
         homepage = HomepageContent.load()
         homepage.eyebrow = "Premium handcrafted cookies"
@@ -78,8 +68,8 @@ class Command(BaseCommand):
         )
         homepage.primary_cta_label = "Shop Now"
         homepage.primary_cta_url = reverse("catalog:shop")
-        homepage.secondary_cta_label = "Build a Box"
-        homepage.secondary_cta_url = reverse("cart:build_a_box")
+        homepage.secondary_cta_label = "Our Cookies"
+        homepage.secondary_cta_url = reverse("catalog:shop")
         homepage.tertiary_cta_label = "Subscribe"
         homepage.tertiary_cta_url = reverse("subscriptions:list")
         homepage.feature_one_label = "Bestseller"
@@ -100,21 +90,19 @@ class Command(BaseCommand):
             "Build-your-own assortments, subscription rituals, and polished gifting moments crafted to feel personal."
         )
         homepage.save()
-
     def seed_contact_settings(self) -> None:
         contact = ContactSettings.load()
-        contact.page_title = "We’d love to help you plan something delicious."
+        contact.page_title = "Weâ€™d love to help you plan something delicious."
         contact.intro = (
             "Questions about gifting, events, custom assortments, or recurring cookie deliveries? Our studio team is here to help."
         )
         contact.inquiry_email = "hello@nestandwhisk.com"
-        contact.business_hours = "Mon–Sat · 9am–6pm EST"
+        contact.business_hours = "Monâ€“Sat Â· 9amâ€“6pm EST"
         contact.studio_location = "New York City studio kitchen"
         contact.contact_card_body = (
-            "Tell us what you’re celebrating and we’ll guide you toward a thoughtful cookie moment that feels beautifully personal."
+            "Tell us what youâ€™re celebrating and weâ€™ll guide you toward a thoughtful cookie moment that feels beautifully personal."
         )
         contact.save()
-
     def seed_policy_pages(self) -> None:
         policies = [
             {
@@ -160,7 +148,6 @@ class Command(BaseCommand):
         ]
         for policy in policies:
             PolicyPage.objects.update_or_create(slug=policy["slug"], defaults=policy)
-
     def seed_faqs(self) -> None:
         faqs = [
             (
@@ -204,13 +191,12 @@ class Command(BaseCommand):
                     "sort_order": sort_order,
                 },
             )
-
     def seed_testimonials(self) -> None:
         testimonials = [
             (
                 "Ariana Chen",
                 "Creative director",
-                "The packaging felt as thoughtful as the cookies themselves — polished, warm, and impossibly delicious.",
+                "The packaging felt as thoughtful as the cookies themselves â€” polished, warm, and impossibly delicious.",
                 5,
                 1,
             ),
@@ -240,7 +226,6 @@ class Command(BaseCommand):
                     "sort_order": sort_order,
                 },
             )
-
     def seed_newsletter_signups(self) -> None:
         signups = [
             ("amelia@nwandfriends.test", "Amelia", "homepage"),
@@ -257,7 +242,6 @@ class Command(BaseCommand):
                     "confirmed_at": timezone.now(),
                 },
             )
-
     def seed_marketing_data(self) -> dict[str, dict[str, object]]:
         sources = {}
         for payload in [
@@ -267,7 +251,6 @@ class Command(BaseCommand):
         ]:
             source, _ = MarketingSource.objects.update_or_create(slug=payload["slug"], defaults=payload)
             sources[payload["slug"]] = source
-
         campaigns = {}
         for payload in [
             {
@@ -299,9 +282,7 @@ class Command(BaseCommand):
                 campaign_code=payload["campaign_code"], defaults=payload
             )
             campaigns[payload["campaign_code"]] = campaign
-
         return {"sources": sources, "campaigns": campaigns}
-
     def seed_blog_content(self) -> None:
         categories = {}
         for payload in [
@@ -329,14 +310,13 @@ class Command(BaseCommand):
         ]:
             category, _ = BlogCategory.objects.update_or_create(slug=payload["slug"], defaults=payload)
             categories[payload["slug"]] = category
-
         now = timezone.now()
         posts = [
             {
                 "slug": "how-to-build-a-cookie-gift-box-that-feels-personal",
                 "category": categories["entertaining"],
                 "title": "How to build a cookie gift box that feels deeply personal",
-                "excerpt": "A few thoughtful choices—flavor balance, packaging tone, and a small handwritten note—can turn a sweet box into a memorable gift.",
+                "excerpt": "A few thoughtful choicesâ€”flavor balance, packaging tone, and a small handwritten noteâ€”can turn a sweet box into a memorable gift.",
                 "body": (
                     "A beautiful gift box starts with intention. Begin by choosing a mix of familiar comfort and one unexpected flavor, then think about who you're sending it to and the mood you want the delivery to create.\n\n"
                     "For thank-yous, we love a balance of classic chocolate chip, sea salt caramel, and one elegant wildcard like Pistachio Rose. For celebrations, brighter profiles like Birthday Sprinkle or Red Velvet Crumble feel joyful without losing polish.\n\n"
@@ -356,7 +336,7 @@ class Command(BaseCommand):
                 "title": "Why small-batch baking changes the entire cookie experience",
                 "excerpt": "From ingredient quality to texture and finishing, small-batch baking gives artisan cookies their warmth, nuance, and consistency.",
                 "body": (
-                    "Small-batch baking creates room for precision. Dough can rest properly, chocolate can be folded in thoughtfully, and each tray can be baked for the finish we want—golden edges, tender centers, and a fragrance that feels unmistakably bakery-fresh.\n\n"
+                    "Small-batch baking creates room for precision. Dough can rest properly, chocolate can be folded in thoughtfully, and each tray can be baked for the finish we wantâ€”golden edges, tender centers, and a fragrance that feels unmistakably bakery-fresh.\n\n"
                     "At Nest & Whisk, we think that kind of care is visible. It shows up in the shape of the cookie, the balance of salt, and the way every box feels intentionally assembled rather than mass produced."
                 ),
                 "hero_kicker": "Behind the bake",
@@ -371,7 +351,7 @@ class Command(BaseCommand):
                 "slug": "hosting-with-seasonal-pumpkin-spice",
                 "category": categories["seasonal-notes"],
                 "title": "Hosting notes: styling a cozy table around pumpkin spice season",
-                "excerpt": "A few tactile details—linen napkins, candlelight, warm ceramics, and softly spiced cookies—create an effortless autumn table.",
+                "excerpt": "A few tactile detailsâ€”linen napkins, candlelight, warm ceramics, and softly spiced cookiesâ€”create an effortless autumn table.",
                 "body": (
                     "Seasonal hosting doesn't need to feel elaborate to feel beautiful. Start with warm neutrals, one textured floral or branch arrangement, and a serving plate that lets your cookies feel central.\n\n"
                     "Pumpkin Spice works especially well beside caramel tones, soft cream ceramics, and coffee-based pairings. Add one polished dessert fork, a linen napkin, and a handwritten place card and the whole moment feels elevated."
@@ -387,7 +367,6 @@ class Command(BaseCommand):
         ]
         for payload in posts:
             BlogPost.objects.update_or_create(slug=payload["slug"], defaults=payload)
-
     def seed_corporate_page_content(self) -> None:
         page = CorporatePageContent.load()
         page.eyebrow = "Corporate gifting"
@@ -408,7 +387,6 @@ class Command(BaseCommand):
             "Our gifting team pairs boutique hospitality with editorial presentation, so every touchpoint feels thoughtful from the first inquiry through final delivery."
         )
         page.save()
-
     def seed_taxonomy(self) -> dict[str, dict[str, object]]:
         categories = {}
         for payload in [
@@ -436,7 +414,6 @@ class Command(BaseCommand):
         ]:
             category, _ = ProductCategory.objects.update_or_create(slug=payload["slug"], defaults=payload)
             categories[payload["slug"]] = category
-
         tags = {}
         for payload in [
             {"name": "Bestseller", "slug": "bestseller"},
@@ -447,7 +424,6 @@ class Command(BaseCommand):
         ]:
             tag, _ = ProductTag.objects.update_or_create(slug=payload["slug"], defaults=payload)
             tags[payload["slug"]] = tag
-
         dietary = {}
         for payload in [
             {
@@ -477,14 +453,11 @@ class Command(BaseCommand):
         ]:
             attribute, _ = DietaryAttribute.objects.update_or_create(slug=payload["slug"], defaults=payload)
             dietary[payload["slug"]] = attribute
-
         return {"categories": categories, "tags": tags, "dietary": dietary}
-
     def seed_products(self, *, taxonomy: dict[str, dict[str, object]]) -> dict[str, Product]:
         categories = taxonomy["categories"]
         tags = taxonomy["tags"]
         dietary = taxonomy["dietary"]
-
         products: dict[str, Product] = {}
         product_payloads = [
             {
@@ -500,7 +473,6 @@ class Command(BaseCommand):
                 "featured_label": "Signature",
                 "is_featured": True,
                 "is_seasonal": False,
-                "allows_build_a_box": True,
                 "sort_order": 1,
                 "meta_title": "Classic Chocolate Chip Cookies | Nest & Whisk",
                 "meta_description": "Soft, bakery-style classic chocolate chip cookies with a premium artisan finish.",
@@ -525,7 +497,6 @@ class Command(BaseCommand):
                 "featured_label": "Bestseller",
                 "is_featured": True,
                 "is_seasonal": False,
-                "allows_build_a_box": True,
                 "sort_order": 2,
                 "meta_title": "Sea Salt Caramel Cookies | Nest & Whisk",
                 "meta_description": "Premium caramel cookies with buttery centers and a delicate sea salt finish.",
@@ -550,7 +521,6 @@ class Command(BaseCommand):
                 "featured_label": "Chocolate lover",
                 "is_featured": True,
                 "is_seasonal": False,
-                "allows_build_a_box": True,
                 "sort_order": 3,
                 "meta_title": "Double Dark Chocolate Cookies | Nest & Whisk",
                 "meta_description": "Deep, bakery-style double dark chocolate cookies for serious chocolate lovers.",
@@ -575,7 +545,6 @@ class Command(BaseCommand):
                 "featured_label": "Celebration",
                 "is_featured": False,
                 "is_seasonal": False,
-                "allows_build_a_box": True,
                 "sort_order": 4,
                 "meta_title": "Red Velvet Crumble Cookies | Nest & Whisk",
                 "meta_description": "Festive red velvet artisan cookies with refined cocoa notes.",
@@ -600,7 +569,6 @@ class Command(BaseCommand):
                 "featured_label": "Elegant favorite",
                 "is_featured": True,
                 "is_seasonal": False,
-                "allows_build_a_box": True,
                 "sort_order": 5,
                 "meta_title": "Pistachio Rose Cookies | Nest & Whisk",
                 "meta_description": "Elegant pistachio rose artisan cookies with floral bakery notes.",
@@ -625,7 +593,6 @@ class Command(BaseCommand):
                 "featured_label": "Cozy classic",
                 "is_featured": False,
                 "is_seasonal": False,
-                "allows_build_a_box": True,
                 "sort_order": 6,
                 "meta_title": "Oatmeal Cinnamon Cookies | Nest & Whisk",
                 "meta_description": "Warm, comforting oatmeal cinnamon artisan cookies with a bakery-soft texture.",
@@ -640,7 +607,7 @@ class Command(BaseCommand):
             {
                 "slug": "smores-stuffed",
                 "category": categories["signature-collection"],
-                "name": "S’mores Stuffed",
+                "name": "Sâ€™mores Stuffed",
                 "short_description": "Chocolate cookie dough with marshmallow pockets and graham crunch.",
                 "description": "A playful crowd-pleaser with toasted marshmallow notes, melty chocolate, and a nostalgic fireside finish.",
                 "ingredients": "Flour, butter, cocoa, marshmallow, graham crumbs, dark chocolate.",
@@ -650,10 +617,9 @@ class Command(BaseCommand):
                 "featured_label": "Crowd favorite",
                 "is_featured": False,
                 "is_seasonal": False,
-                "allows_build_a_box": True,
                 "sort_order": 7,
-                "meta_title": "S’mores Stuffed Cookies | Nest & Whisk",
-                "meta_description": "Playful stuffed s’mores cookies with rich chocolate and marshmallow pockets.",
+                "meta_title": "Sâ€™mores Stuffed Cookies | Nest & Whisk",
+                "meta_description": "Playful stuffed sâ€™mores cookies with rich chocolate and marshmallow pockets.",
                 "tags": [tags["gifting-favorite"]],
                 "dietary": [dietary["vegetarian"], dietary["gift-ready"]],
                 "image": "catalog/products/double-dark.svg",
@@ -675,7 +641,6 @@ class Command(BaseCommand):
                 "featured_label": "Luxury bite",
                 "is_featured": False,
                 "is_seasonal": False,
-                "allows_build_a_box": True,
                 "sort_order": 8,
                 "meta_title": "White Chocolate Macadamia Cookies | Nest & Whisk",
                 "meta_description": "Luxurious white chocolate macadamia artisan cookies with buttery crunch.",
@@ -700,7 +665,6 @@ class Command(BaseCommand):
                 "featured_label": "Party-ready",
                 "is_featured": False,
                 "is_seasonal": False,
-                "allows_build_a_box": True,
                 "sort_order": 9,
                 "meta_title": "Birthday Sprinkle Cookies | Nest & Whisk",
                 "meta_description": "Festive birthday sprinkle artisan cookies for joyful gifting moments.",
@@ -725,7 +689,6 @@ class Command(BaseCommand):
                 "featured_label": "Limited batch",
                 "is_featured": True,
                 "is_seasonal": True,
-                "allows_build_a_box": True,
                 "sort_order": 10,
                 "meta_title": "Seasonal Pumpkin Spice Cookies | Nest & Whisk",
                 "meta_description": "Limited seasonal pumpkin spice artisan cookies with cozy autumn flavor.",
@@ -750,7 +713,6 @@ class Command(BaseCommand):
                 "featured_label": "Custom gifting",
                 "is_featured": True,
                 "is_seasonal": False,
-                "allows_build_a_box": True,
                 "sort_order": 11,
                 "meta_title": "Build Your Own Cookie Box | Nest & Whisk",
                 "meta_description": "Create a custom artisan cookie assortment with Nest & Whisk build-a-box gifting.",
@@ -763,7 +725,6 @@ class Command(BaseCommand):
                 ],
             },
         ]
-
         for payload in product_payloads:
             tag_objects = payload.pop("tags")
             dietary_objects = payload.pop("dietary")
@@ -800,7 +761,6 @@ class Command(BaseCommand):
                 )
             products[product.slug] = product
         return products
-
     def seed_reviews(self, *, products: dict[str, Product]) -> None:
         review_payloads = [
             {
@@ -809,7 +769,7 @@ class Command(BaseCommand):
                 "customer_email": "naomi@classictaste.test",
                 "rating": 5,
                 "title": "A true bakery classic",
-                "body": "Exactly the kind of cookie you hope for in a premium gift box — soft, buttery, and packed with chocolate.",
+                "body": "Exactly the kind of cookie you hope for in a premium gift box â€” soft, buttery, and packed with chocolate.",
                 "is_verified_purchase": True,
             },
             {
@@ -836,7 +796,7 @@ class Command(BaseCommand):
                 "customer_email": "mina@seasonaltable.test",
                 "rating": 5,
                 "title": "Autumn in cookie form",
-                "body": "Warm spice, soft texture, and a lovely bakery finish. I’d order this every fall.",
+                "body": "Warm spice, soft texture, and a lovely bakery finish. Iâ€™d order this every fall.",
                 "is_verified_purchase": True,
             },
             {
@@ -845,7 +805,7 @@ class Command(BaseCommand):
                 "customer_email": "hugo@gifthost.test",
                 "rating": 5,
                 "title": "Our go-to hostess gift",
-                "body": "The ability to curate flavors made the box feel truly personal — and the packaging looked stunning.",
+                "body": "The ability to curate flavors made the box feel truly personal â€” and the packaging looked stunning.",
                 "is_verified_purchase": True,
             },
         ]
@@ -862,7 +822,6 @@ class Command(BaseCommand):
                     "is_verified_purchase": payload["is_verified_purchase"],
                 },
             )
-
     def seed_subscription_plans(self) -> dict[str, SubscriptionPlan]:
         plans: dict[str, SubscriptionPlan] = {}
         payloads = [
@@ -898,9 +857,9 @@ class Command(BaseCommand):
             },
             {
                 "slug": "monthly-founders-box",
-                "name": "Monthly Founder’s Box",
+                "name": "Monthly Founderâ€™s Box",
                 "headline": "A monthly delivery with signature favorites and a seasonal surprise.",
-                "description": "Our most giftable recurring plan — part signature collection, part seasonal reveal, and always packed with editorial polish.",
+                "description": "Our most giftable recurring plan â€” part signature collection, part seasonal reveal, and always packed with editorial polish.",
                 "billing_interval": SubscriptionPlan.BillingInterval.MONTHLY,
                 "cadence_days": 30,
                 "shipment_offset_days": 8,
@@ -916,7 +875,6 @@ class Command(BaseCommand):
             plan, _ = SubscriptionPlan.objects.update_or_create(slug=payload["slug"], defaults=payload)
             plans[plan.slug] = plan
         return plans
-
     def seed_demo_operations(self, *, products: dict[str, Product], plans: dict[str, SubscriptionPlan], marketing: dict[str, dict[str, object]]) -> None:
         User = get_user_model()
         customer, created = User.objects.get_or_create(
@@ -931,14 +889,12 @@ class Command(BaseCommand):
         if created:
             customer.set_unusable_password()
             customer.save(update_fields=["password"])
-
         featured_product = products["sea-salt-caramel"]
         featured_variant = featured_product.variants.order_by("sort_order", "price").first()
         seasonal_product = products["seasonal-pumpkin-spice"]
         seasonal_variant = seasonal_product.variants.order_by("sort_order", "price").first()
         if not featured_variant or not seasonal_variant:
             return
-
         paid_order, _ = Order.objects.update_or_create(
             order_number="NWDEMO1001",
             defaults={
@@ -956,8 +912,6 @@ class Command(BaseCommand):
                 "shipping_postal_code": "10012",
                 "shipping_country": "United States",
                 "delivery_notes": "Leave with concierge if unavailable.",
-                "gift_note": "Thank you for hosting such a beautiful evening.",
-                "is_gift_wrapped": True,
                 "preferred_delivery_date": date.today() + timedelta(days=5),
                 "subtotal": featured_variant.price,
                 "discount_total": Decimal("0.00"),
@@ -981,8 +935,6 @@ class Command(BaseCommand):
                 "quantity": 1,
                 "unit_price": featured_variant.price,
                 "line_total": featured_variant.price,
-                "gift_message": "With love, Claire",
-                "packaging_option": "Ribbon-ready signature wrap",
             },
         )
         Payment.objects.update_or_create(
@@ -1000,7 +952,6 @@ class Command(BaseCommand):
                 "paid_at": timezone.now() - timedelta(days=2),
             },
         )
-
         pending_order, _ = Order.objects.update_or_create(
             order_number="NWDEMO1002",
             defaults={
@@ -1018,8 +969,6 @@ class Command(BaseCommand):
                 "shipping_postal_code": "10012",
                 "shipping_country": "United States",
                 "delivery_notes": "Ring bell once.",
-                "gift_note": "A little autumn treat.",
-                "is_gift_wrapped": False,
                 "preferred_delivery_date": date.today() + timedelta(days=9),
                 "subtotal": seasonal_variant.price,
                 "discount_total": Decimal("0.00"),
@@ -1043,8 +992,6 @@ class Command(BaseCommand):
                 "quantity": 1,
                 "unit_price": seasonal_variant.price,
                 "line_total": seasonal_variant.price,
-                "gift_message": "Hope this brightens your week.",
-                "packaging_option": "Minimal seasonal wrap",
             },
         )
         Payment.objects.update_or_create(
@@ -1060,7 +1007,6 @@ class Command(BaseCommand):
                 "raw_response": {"demo": True, "kind": "seeded-processing-payment"},
             },
         )
-
         subscription, _ = UserSubscription.objects.update_or_create(
             user=customer,
             plan=plans["biweekly-hostess-edit"],
@@ -1080,7 +1026,6 @@ class Command(BaseCommand):
         subscription.latest_order = paid_order
         subscription.status = UserSubscription.Status.ACTIVE
         subscription.save(update_fields=["latest_order", "status", "next_renewal_date", "next_shipment_date", "updated_at"])
-
         if subscription.next_shipment_date:
             SubscriptionShipment.objects.update_or_create(
                 subscription=subscription,
@@ -1092,7 +1037,6 @@ class Command(BaseCommand):
                     "shipment_notes": "Seeded upcoming subscription shipment.",
                 },
             )
-
         CorporateInquiry.objects.update_or_create(
             company_name="Aster & Pine Interiors",
             email="events@asterpine.test",
@@ -1113,4 +1057,3 @@ class Command(BaseCommand):
                 "admin_notes": "Seeded local lead for pipeline review.",
             },
         )
-

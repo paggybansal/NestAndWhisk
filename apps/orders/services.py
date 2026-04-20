@@ -169,8 +169,6 @@ def create_order_from_cart(*, cart: Cart, checkout_data: dict, user=None) -> Ord
         shipping_postal_code=checkout_data["shipping_postal_code"],
         shipping_country=checkout_data["shipping_country"],
         delivery_notes=checkout_data.get("delivery_notes", ""),
-        gift_note=cart.gift_note,
-        is_gift_wrapped=cart.is_gift_wrapped,
         preferred_delivery_date=cart.preferred_delivery_date,
         subtotal=subtotal,
         discount_total=discount_total,
@@ -191,17 +189,15 @@ def create_order_from_cart(*, cart: Cart, checkout_data: dict, user=None) -> Ord
             quantity=cart_item.quantity,
             unit_price=cart_item.unit_price,
             line_total=cart_item.line_total,
-            build_a_box_payload=cart_item.build_a_box_payload,
-            gift_message=cart_item.gift_message,
-            packaging_option=cart_item.packaging_option,
         )
 
     create_pending_payment_for_order(
         order=order,
-        provider=checkout_data.get("payment_provider", "stripe"),
+        provider=checkout_data.get("payment_provider", "offline"),
         metadata={
             "checkout_preferences": {
-                "payment_provider": checkout_data.get("payment_provider", "stripe"),
+                "payment_option": checkout_data.get("payment_option", "online_link"),
+                "payment_provider": checkout_data.get("payment_provider", "offline"),
                 "payment_preference": checkout_data.get("payment_preference", "flexible"),
                 "currency": currency,
             }

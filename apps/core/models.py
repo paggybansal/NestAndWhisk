@@ -40,7 +40,7 @@ class SiteSettings(SingletonModel):
     meta_description = models.TextField(blank=True)
     announcement_bar_text = models.CharField(
         max_length=255,
-        default="Free nationwide shipping on curated gift boxes over ₹2,500.",
+        default="Delhi NCR delivery only - same-day/next-day in select areas.",
     )
     support_email = models.EmailField(default="hello@nestandwhisk.com")
     support_phone = models.CharField(max_length=32, blank=True)

@@ -11,7 +11,11 @@ from django.views.generic import FormView, TemplateView, View
 import stripe
 
 from apps.cart.services import get_or_create_cart
-from apps.checkout.emailing import build_tracking_link_payloads, send_tracking_links_email
+from apps.checkout.emailing import (
+    build_tracking_link_payloads,
+    send_order_confirmation_email,
+    send_tracking_links_email,
+)
 from apps.checkout.forms import CheckoutForm, OrderLookupForm, TrackingLinkRequestForm
 from apps.checkout.shiprocket import get_checkout_delivery_experience
 from apps.checkout.services import (
@@ -45,12 +49,6 @@ class CheckoutView(CoreContextMixin, FormView):
             postal_code = initial.get("shipping_postal_code", "")
         return get_checkout_delivery_experience(city=city, postal_code=postal_code)
 
-    def upi_enabled(self) -> bool:
-        return settings.STRIPE_ENABLE_UPI and settings.STRIPE_CURRENCY.lower() == "inr"
-
-    def mock_enabled(self) -> bool:
-        return settings.MOCK_PAYMENT_ENABLED
-
     def get_cart(self):
         session_key = self.request.session.session_key
         if not session_key:
@@ -72,19 +70,9 @@ class CheckoutView(CoreContextMixin, FormView):
             )
         return initial
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs["allow_upi"] = self.upi_enabled()
-        kwargs["allow_mock"] = self.mock_enabled()
-        kwargs["default_payment_provider"] = settings.DEFAULT_PAYMENT_PROVIDER
-        return kwargs
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["cart"] = self.get_cart()
-        context["upi_enabled"] = self.upi_enabled()
-        context["mock_payment_enabled"] = self.mock_enabled()
-        context["store_currency"] = settings.STRIPE_CURRENCY.upper()
         context["delivery_experience"] = self.get_delivery_experience(context.get("form"))
         return context
 
@@ -95,10 +83,15 @@ class CheckoutView(CoreContextMixin, FormView):
             return redirect("cart:detail")
         order = create_order_from_cart(
             cart=cart,
-            checkout_data=form.cleaned_data,
+            checkout_data={
+                **form.cleaned_data,
+                "payment_provider": settings.DEFAULT_PAYMENT_PROVIDER,
+            },
             user=self.request.user,
         )
-        messages.success(self.request, f"Order {order.order_number} created. Payment is the next step.")
+        # Fire-and-forget: any SMTP failure is logged but never breaks checkout.
+        send_order_confirmation_email(order=order, request=self.request)
+        messages.success(self.request, f"Order {order.order_number} placed successfully.")
         return redirect(reverse("checkout:success", kwargs={"order_number": order.order_number}))
 
 
@@ -210,6 +203,122 @@ class StripeWebhookView(View):
         return HttpResponse(status=200)
 
 
+@method_decorator(csrf_exempt, name="dispatch")
+class PhonePeCallbackView(View):
+    """Server-to-server callback from PhonePe (V2).
+
+    PhonePe V2 signs callbacks with:
+        Authorization = sha256(username + ":" + password)
+    where username/password are configured in the PhonePe merchant dashboard
+    and mirrored into our env as PHONEPE_CALLBACK_USERNAME/_PASSWORD.
+
+    PhonePe retries non-2xx responses, so we must be idempotent (event_id)
+    and return 200 once we've written our audit row.
+    """
+    http_method_names = ["get", "post", "head"]
+
+    def get(self, request):
+        # PhonePe dashboard pings the URL at save-time to validate reachability;
+        # responding 200 here makes the "Add webhook" form succeed.
+        return HttpResponse("PhonePe webhook endpoint OK", status=200)
+
+    def head(self, request):  # some validators issue HEAD instead of GET
+        return HttpResponse(status=200)
+
+    def post(self, request):
+        authorization = request.META.get("HTTP_AUTHORIZATION", "")
+        try:
+            phonepe_gateway.handle_callback(
+                authorization_header=authorization, raw_body=request.body
+            )
+        except phonepe_gateway.PhonePeChecksumError:
+            return HttpResponse("Invalid Authorization", status=401)
+        except phonepe_gateway.PhonePeAPIError as exc:
+            return HttpResponse(f"Bad payload: {exc}", status=400)
+        except phonepe_gateway.PhonePeConfigurationError as exc:
+            return HttpResponse(str(exc), status=500)
+        return HttpResponse(status=200)
+
+
+class PhonePeRedirectView(View):
+    """Browser redirect target after the user returns from PhonePe.
+
+    PhonePe does NOT guarantee the query string carries a final status, so we
+    synchronously poll ``/pg/v1/status`` to reconcile before rendering the
+    success page.  This is the recommended PhonePe pattern and closes the
+    classic race where the callback arrives seconds after the user lands.
+    """
+    http_method_names = ["get"]
+
+    def get(self, request, order_number):
+        order = get_object_or_404(
+            Order.objects.prefetch_related("payments"), order_number=order_number
+        )
+        payment = (
+            order.payments.filter(provider=phonepe_gateway.PROVIDER_KEY)
+            .order_by("-created_at")
+            .first()
+        )
+        if payment and payment.provider_checkout_id:
+            # Poll PhonePe; swallow errors so we always get the user back to UI.
+            try:
+                phonepe_gateway.reconcile_payment(
+                    merchant_order_id=payment.provider_checkout_id
+                )
+            except Exception:  # pragma: no cover - reconcile is best-effort
+                pass
+        # Refresh and pick a redirect state for the success page.
+        order.refresh_from_db()
+        payment = order.payments.first()
+        state = ""
+        if payment:
+            if payment.status == "failed":
+                state = "failed"
+            elif payment.status == "cancelled":
+                state = "cancelled"
+        target = reverse("checkout:success", kwargs={"order_number": order.order_number})
+        if state:
+            target = f"{target}?state={state}"
+        return redirect(target)
+
+
+class PhonePeStatusView(View):
+    """Lightweight JSON endpoint for the frontend to poll if the callback is slow.
+
+    GET /checkout/phonepe/status/<order_number>/
+    Response: {"status": "succeeded|processing|failed|...", "order_number": "..."}
+    """
+    http_method_names = ["get"]
+
+    def get(self, request, order_number):
+        order = get_object_or_404(Order, order_number=order_number)
+        payment = (
+            order.payments.filter(provider=phonepe_gateway.PROVIDER_KEY)
+            .order_by("-created_at")
+            .first()
+        )
+        if payment and payment.provider_checkout_id and payment.status in {
+            "pending", "requires_action", "processing",
+        }:
+            try:
+                phonepe_gateway.reconcile_payment(
+                    merchant_order_id=payment.provider_checkout_id
+                )
+                payment.refresh_from_db()
+            except Exception:  # pragma: no cover
+                pass
+        return JsonResponse(
+            {
+                "ok": True,
+                "order_number": order.order_number,
+                "order_status": order.status,
+                "order_payment_status": order.payment_status,
+                "payment_status": payment.status if payment else None,
+                "provider": payment.provider if payment else None,
+            }
+        )
+
+
 class CheckoutCancelledView(View):
     def get(self, request, order_number):
         return redirect("checkout:success", order_number=order_number, state="cancelled")
@@ -291,6 +400,19 @@ class CheckoutSuccessView(CoreContextMixin, TemplateView):
                 "body": "Use the mock simulator to mark this order as paid, failed, or cancelled while you test the Nest & Whisk payment lifecycle locally.",
                 "notice": "Mock mode updates the same order and payment states used by the real checkout flow.",
             }
+        elif payment and payment.provider == "offline":
+            payment_option = payment_preferences.get("payment_option", "online_link")
+            is_online_link = payment_option == "online_link"
+            hero = {
+                "eyebrow": "Order placed",
+                "title": "Your order is placed. Our team will confirm payment next.",
+                "body": (
+                    "You selected Pay Online. Our team will send a secure payment link shortly."
+                    if is_online_link
+                    else "You selected Cash on Delivery. Our team will confirm dispatch and order details shortly."
+                ),
+                "notice": "Track status in My Orders. The order will be confirmed after team verification.",
+            }
         else:
             hero = {
                 "eyebrow": "Awaiting payment",
@@ -299,13 +421,19 @@ class CheckoutSuccessView(CoreContextMixin, TemplateView):
                 "notice": "Webhook updates will refresh the payment and order status behind the scenes.",
             }
 
+        can_retry_payment = bool(
+            payment
+            and payment.provider in {"stripe", "mock"}
+            and payment.status in self.RETRYABLE_PAYMENT_STATUSES
+        )
+
         context.update(
             {
                 "order": order,
                 "payment": payment,
                 "payment_preferences": payment_preferences,
                 "hero": hero,
-                "can_retry_payment": bool(payment and payment.status in self.RETRYABLE_PAYMENT_STATUSES),
+                "can_retry_payment": can_retry_payment,
                 "retry_button_label": (
                     "Open mock payment simulator"
                     if payment and payment.provider == "mock"

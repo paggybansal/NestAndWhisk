@@ -254,6 +254,38 @@ STRIPE_ENABLE_UPI = env.bool("STRIPE_ENABLE_UPI", default=STRIPE_CURRENCY.lower(
 MOCK_PAYMENT_ENABLED = env.bool("MOCK_PAYMENT_ENABLED", default=DEBUG)
 DEFAULT_PAYMENT_PROVIDER = env("DEFAULT_PAYMENT_PROVIDER", default="stripe")
 
+# ---- PhonePe PG Checkout V2 (OAuth client_credentials) ----
+PHONEPE_ENV = env("PHONEPE_ENV", default="SANDBOX").upper()  # SANDBOX | PRODUCTION
+# V2 credentials (preferred). Fallback to legacy MERCHANT_ID / SALT_KEY names
+# so an existing .env keeps working during the V1 → V2 migration.
+PHONEPE_CLIENT_ID = env("PHONEPE_CLIENT_ID", default="") or env("PHONEPE_MERCHANT_ID", default="")
+PHONEPE_CLIENT_SECRET = env("PHONEPE_CLIENT_SECRET", default="") or env("PHONEPE_SALT_KEY", default="")
+PHONEPE_CLIENT_VERSION = env("PHONEPE_CLIENT_VERSION", default="1")
+# Callback auth (configured in PhonePe dashboard → Webhooks).
+# Callback Authorization header = sha256(username + ":" + password) as hex.
+PHONEPE_CALLBACK_USERNAME = env("PHONEPE_CALLBACK_USERNAME", default="")
+PHONEPE_CALLBACK_PASSWORD = env("PHONEPE_CALLBACK_PASSWORD", default="")
+PHONEPE_BASE_URL_SANDBOX = env(
+    "PHONEPE_BASE_URL_SANDBOX",
+    default="https://api-preprod.phonepe.com/apis/pg-sandbox",
+)
+PHONEPE_BASE_URL_PRODUCTION = env(
+    "PHONEPE_BASE_URL_PRODUCTION",
+    default="https://api.phonepe.com/apis/pg",
+)
+# PhonePe V2 auth endpoint uses a dedicated host in production ("identity-manager")
+# while sandbox serves auth on the same base as the data-plane. We therefore
+# allow both to be configured independently; the sandbox default is fine.
+PHONEPE_AUTH_BASE_URL_SANDBOX = env(
+    "PHONEPE_AUTH_BASE_URL_SANDBOX",
+    default="https://api-preprod.phonepe.com/apis/pg-sandbox",
+)
+PHONEPE_AUTH_BASE_URL_PRODUCTION = env(
+    "PHONEPE_AUTH_BASE_URL_PRODUCTION",
+    default="https://api.phonepe.com/apis/identity-manager",
+)
+PHONEPE_TIMEOUT_SECONDS = env.int("PHONEPE_TIMEOUT_SECONDS", default=15)
+
 SHIPROCKET_ENABLED = env.bool("SHIPROCKET_ENABLED", default=False)
 SHIPROCKET_BASE_URL = env(
     "SHIPROCKET_BASE_URL",

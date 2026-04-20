@@ -1,0 +1,10 @@
+{
+  "name": "product-gallery-slider",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Vanilla JS product image gallery slider demo",
+  "scripts": {
+    "serve": "python -m http.server 8000"
+  }
+}
+

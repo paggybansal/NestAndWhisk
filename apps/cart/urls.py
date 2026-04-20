@@ -2,7 +2,6 @@ from django.urls import path
 
 from apps.cart.views import (
     AddToCartView,
-    BuildABoxView,
     CartDetailView,
     CartItemStepQuantityView,
     CartItemUpdateView,
@@ -15,7 +14,6 @@ app_name = "cart"
 
 urlpatterns = [
     path("", CartDetailView.as_view(), name="detail"),
-    path("build-a-box/", BuildABoxView.as_view(), name="build_a_box"),
     path("add/<slug:slug>/", AddToCartView.as_view(), name="add"),
     path("update/<int:pk>/", CartItemUpdateView.as_view(), name="update"),
     path("update-step/<int:pk>/", CartItemStepQuantityView.as_view(), name="update_step"),

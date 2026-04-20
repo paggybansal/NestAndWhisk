@@ -229,7 +229,7 @@ def test_checkout_invalid_post_shows_delhi_ncr_delivery_guidance_for_matching_ad
 
     assert response.status_code == 200
     assert "This field is required." in content
-    assert "Great news — this address looks eligible for Delhi NCR local delivery." in content
-    assert "Gurugram with postal code 122002 sits within our current Delhi NCR guidance zone" in content
+    assert "Delhi NCR delivery only" in content
+    assert "Please enter a valid Delhi NCR pincode." in content
 
 

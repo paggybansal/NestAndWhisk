@@ -100,7 +100,7 @@ def test_public_auth_pages_render_with_branding_and_shared_base_context(client, 
     assert '/static/brand/site.webmanifest' in content
     assert content.count(brand_logo_path) >= 3
     assert expected_copy in content
-    assert "Free nationwide shipping on curated gift boxes over ₹2,500." in content
+    assert "Delhi NCR delivery only - same-day/next-day in select areas." in content
     assert "Join the list" in content
 
 
@@ -129,7 +129,7 @@ def test_authenticated_allauth_account_pages_render_with_shared_base_context(cli
     assert '/static/brand/apple-touch-icon.png' in content
     assert '/static/brand/site.webmanifest' in content
     assert content.count(brand_logo_path) >= 3
-    assert "Free nationwide shipping on curated gift boxes over ₹2,500." in content
+    assert "Delhi NCR delivery only - same-day/next-day in select areas." in content
     assert "Join the list" in content
 
 

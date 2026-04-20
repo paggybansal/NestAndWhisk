@@ -152,7 +152,6 @@ def _build_knowledge_items() -> list[_KnowledgeItem]:
 
         dietary_labels = [item.badge_label or item.name for item in product.dietary_attributes.all()]
         dietary_text = ", ".join(dietary_labels) if dietary_labels else "No dietary badges listed"
-        build_a_box_text = "Available in build-a-box assortments." if product.allows_build_a_box else "Not part of build-a-box assortments."
         ingredient_highlights = ", ".join(product.ingredient_highlight_items)
         texture_text = ", ".join(
             f"{item['label']} {item['score']}/5" for item in product.texture_meter_items
@@ -175,7 +174,6 @@ def _build_knowledge_items() -> list[_KnowledgeItem]:
                 f"Texture profile: {texture_text}.",
                 f"Recommended pairings: {pairing_text}." if pairing_text else "",
                 f"Dietary attributes: {dietary_text}.",
-                build_a_box_text,
                 f"Variants: {'; '.join(variant_summaries)}." if variant_summaries else "Currently no active variants are listed.",
             ]
             if part

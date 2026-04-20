@@ -32,6 +32,7 @@ staticfiles/
 .env
 .env.*
 !.env.example
+railway.*.local.json
 
 # Node
 node_modules/
@@ -60,4 +61,7 @@ redis_data/
 # Misc
 *.swp
 *.swo
+
+# Temp / smoke-test scripts at repo root
+/_*.py
 

@@ -3,6 +3,7 @@
 
 {% block title %}{{ site_settings.site_name|default:'Nest & Whisk' }} | {{ homepage.hero_title|default:'Premium Artisan Cookies' }}{% endblock %}
 {% block meta_description %}{{ site_settings.tag_line|default:homepage.hero_body }}{% endblock %}
+{% block body_class %}is-home{% endblock %}
 
 {% block content %}
 <section class="relative overflow-hidden">
@@ -14,7 +15,6 @@
       <p class="mt-6 max-w-xl text-lg leading-8 text-cocoa/75">{{ homepage.hero_body }}</p>
       <div class="mt-8 flex flex-wrap gap-4">
         <a href="{% url 'catalog:shop' %}" class="cta-primary">{{ homepage.primary_cta_label }}</a>
-        <a href="{% url 'cart:build_a_box' %}" class="cta-secondary">{{ homepage.secondary_cta_label }}</a>
         <a href="{{ homepage.tertiary_cta_url }}" class="cta-secondary">{{ homepage.tertiary_cta_label }}</a>
       </div>
       <div class="mt-10 flex flex-wrap gap-3">
@@ -22,56 +22,46 @@
         <span class="trust-pill">Gift-ready presentation</span>
         <span class="trust-pill">UPI-ready checkout</span>
       </div>
-      <div class="mt-10 grid gap-4 sm:grid-cols-3">
-        <div class="editorial-panel px-5 py-5">
-          <p class="eyebrow-label">Small-batch</p>
-          <p class="mt-3 text-sm leading-7 text-cocoa/75">Measured, mixed, and baked in intimate runs for softness, structure, and beautiful finish.</p>
-        </div>
-        <div class="editorial-panel px-5 py-5">
-          <p class="eyebrow-label">Warm gifting</p>
-          <p class="mt-3 text-sm leading-7 text-cocoa/75">Elegant boxing, handwritten notes, and just-right details from doorstep to first bite.</p>
-        </div>
-        <div class="editorial-panel px-5 py-5">
-          <p class="eyebrow-label">Recurring joy</p>
-          <p class="mt-3 text-sm leading-7 text-cocoa/75">Curated subscription boxes and custom assortments that feel like a monthly celebration.</p>
-        </div>
-      </div>
+
     </div>
 
     <div class="relative">
       <div class="editorial-panel overflow-hidden bg-warm-beige/70 p-5 sm:p-6">
-        <div class="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
-          <div class="relative overflow-hidden rounded-[2rem] bg-cocoa text-cream shadow-[0_30px_90px_-34px_rgba(43,27,24,0.52)]">
+        <div class="grid items-start gap-4 lg:grid-cols-[1.05fr_0.95fr]">
+          <div class="relative self-start overflow-hidden rounded-[2rem] bg-cocoa text-cream shadow-[0_30px_90px_-34px_rgba(43,27,24,0.52)]">
             {% if hero_rotator_products %}
-              <div x-data="heroRotator({ total: {{ hero_rotator_products|length }}, interval: 6400 })" x-init="start()" class="hero-cookie-rotator relative min-h-[24rem]" @mouseenter="pause()" @mouseleave="resume()">
+              <div x-data="heroRotator({ total: {{ hero_rotator_products|length }}, interval: 6400 })" x-init="start()" class="hero-cookie-rotator relative h-[28rem] sm:h-[30rem]" @mouseenter="pause()" @mouseleave="resume()">
                 {% for product in hero_rotator_products %}
                   <a
                     href="{{ product.get_absolute_url }}"
                     x-show="active === {{ forloop.counter0 }}"
-                    x-transition:enter="transition ease-out duration-[1200ms]"
-                    x-transition:enter-start="opacity-0 translate-y-3 scale-[0.992]"
-                    x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-                    x-transition:leave="transition ease-in duration-[900ms]"
-                    x-transition:leave-start="opacity-100 translate-y-0 scale-100"
-                    x-transition:leave-end="opacity-0 -translate-y-2 scale-[1.01]"
-                    class="absolute inset-0 block"
+                    x-transition:enter="transition ease-out duration-700"
+                    x-transition:enter-start="opacity-0"
+                    x-transition:enter-end="opacity-100"
+                    x-transition:leave="transition ease-in duration-500"
+                    x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0"
+                    class="absolute inset-0 block h-full overflow-hidden"
                     x-cloak
                     aria-label="View {{ product.name }}"
                   >
-                    <img src="{{ product.primary_image.image.url }}" alt="{{ product.primary_image.alt_text|default:product.name }}" class="h-full min-h-[24rem] w-full object-cover hero-cookie-rotator-image" loading="eager" decoding="async">
-                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-chocolate/80 via-chocolate/20 to-transparent p-6 sm:p-7">
-                      <p class="text-xs uppercase tracking-[0.35em] text-cream/70">{{ product.featured_label|default:'Signature cookie' }}</p>
-                      <h2 class="font-display mt-3 text-3xl sm:text-[2.2rem]">{{ product.name }}</h2>
-                      <p class="mt-3 max-w-sm text-sm leading-7 text-cream/80">{{ product.short_description }}</p>
-                      <div class="mt-5 flex items-center justify-between gap-4 text-sm">
-                        <span>From {{ product.price_from|inr }}</span>
-                        <span class="font-semibold text-cream underline decoration-cream/40 underline-offset-4">View details</span>
+                    {% if product.primary_image %}
+                      <img src="{{ product.primary_image.image.url }}" alt="{{ product.primary_image.alt_text|default:product.name }}" class="absolute inset-0 block h-full w-full object-cover object-top hero-cookie-rotator-image" loading="eager" decoding="async">
+                    {% else %}
+                      <div class="absolute inset-0 flex items-center justify-center bg-warm-beige/35 text-sm text-cream/80">Image coming soon</div>
+                    {% endif %}
+                    <div class="absolute inset-x-0 bottom-0 bg-cream/90 p-5 text-cocoa shadow-[0_-12px_30px_-24px_rgba(43,27,24,0.35)] sm:p-6">
+                      <p class="text-xs uppercase tracking-[0.35em] text-cocoa/80">{{ product.featured_label|default:'Signature cookie' }}</p>
+                      <h2 class="font-display mt-2 text-2xl text-cocoa sm:text-[2rem]">{{ product.name }}</h2>
+                      <div class="mt-3 flex items-center justify-between gap-4 text-sm">
+                        <span class="text-cocoa/90">From {{ product.price_from|inr }}</span>
+                        <span class="font-semibold text-cocoa underline decoration-cocoa/30 underline-offset-4">View details</span>
                       </div>
                     </div>
                   </a>
                 {% endfor %}
 
-                <div class="absolute left-6 top-6 z-20 inline-flex items-center gap-2 rounded-full border border-cream/15 bg-cream/10 px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-cream/80 backdrop-blur sm:left-7 sm:top-7">
+                <div class="absolute left-6 top-6 z-20 inline-flex items-center gap-2 rounded-full border border-cocoa/15 bg-cream/90 px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-cocoa shadow-[0_12px_30px_-22px_rgba(43,27,24,0.4)] backdrop-blur sm:left-7 sm:top-7">
                   <span class="h-2 w-2 rounded-full bg-caramel"></span>
                   Baked fresh for gifting
                 </div>
@@ -98,17 +88,13 @@
           </div>
           <div class="grid gap-4">
             <div class="rounded-[1.75rem] border border-cocoa/10 bg-white/80 p-6 shadow-[0_20px_50px_-32px_rgba(43,27,24,0.22)] backdrop-blur">
-              <p class="eyebrow-label">{{ homepage.feature_two_label }}</p>
-              <h2 class="font-display mt-3 text-3xl text-cocoa">{{ homepage.feature_two_title }}</h2>
-              <p class="mt-3 text-sm leading-7 text-cocoa/75">{{ homepage.feature_two_body }}</p>
+              <p class="eyebrow-label">Signature pick</p>
+              <h2 class="font-display mt-3 text-3xl text-cocoa">Choco Chip Signature Cookie</h2>
+              <p class="mt-3 text-sm leading-7 text-cocoa/75">Our most-loved classic with buttery depth and generous chocolate chips, baked fresh in small batches.</p>
               <div class="mt-5 flex flex-wrap gap-2">
                 <span class="soft-chip">Hand-packed</span>
-                <span class="soft-chip">Limited drops</span>
+                <span class="soft-chip">Best seller</span>
               </div>
-            </div>
-            <div class="rounded-[1.75rem] border border-dusty-rose/20 bg-dusty-rose/15 p-6 shadow-[0_20px_50px_-32px_rgba(43,27,24,0.16)]">
-              <p class="eyebrow-label">{{ homepage.feature_banner_label }}</p>
-              <p class="mt-3 text-lg leading-8 text-cocoa/80">{{ homepage.feature_banner_body }}</p>
             </div>
           </div>
         </div>
@@ -144,10 +130,10 @@
       <a href="{% url 'catalog:shop' %}" class="mt-6 inline-flex rounded-full bg-cocoa px-5 py-3 text-sm font-semibold text-cream transition hover:bg-chocolate">Shop gifting favorites</a>
     </article>
     <article class="merch-card merch-card-hover bg-warm-beige/75 p-8">
-      <p class="eyebrow-label">For personal curation</p>
-      <h3 class="font-display mt-3 text-3xl text-cocoa">Build your own box</h3>
-      <p class="mt-4 text-sm leading-7 text-cocoa/75">Choose your preferred box size, assemble a bespoke flavor edit, and add gifting touches with ease.</p>
-      <a href="{% url 'cart:build_a_box' %}" class="mt-6 inline-flex rounded-full border border-cocoa/15 px-5 py-3 text-sm font-semibold text-cocoa transition hover:border-caramel hover:text-caramel">Start building</a>
+      <p class="eyebrow-label">Our cookies</p>
+      <h3 class="font-display mt-3 text-3xl text-cocoa">Two signature flavours</h3>
+      <p class="mt-4 text-sm leading-7 text-cocoa/75">Choco Chip Signature Cookie and Double Chocolate Cookie—crafted with care, ready to delight.</p>
+      <a href="{% url 'catalog:shop' %}" class="mt-6 inline-flex rounded-full border border-cocoa/15 px-5 py-3 text-sm font-semibold text-cocoa transition hover:border-caramel hover:text-caramel">Explore our cookies</a>
     </article>
     <article class="merch-card merch-card-hover p-8">
       <p class="eyebrow-label">For recurring delight</p>

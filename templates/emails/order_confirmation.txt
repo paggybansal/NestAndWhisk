@@ -1,0 +1,31 @@
+{{ brand_name }} — Order Confirmation
+
+Hello {{ customer_name }},
+
+Thank you for your order! We've received order {{ order.order_number }}.
+
+ORDER SUMMARY
+-------------
+{% for item in order.items.all %}{{ item.quantity }} × {{ item.product_name }}{% if item.variant_name %} ({{ item.variant_name }}){% endif %} — {{ order.currency }} {{ item.line_total }}
+{% endfor %}
+Subtotal: {{ order.currency }} {{ order.subtotal }}
+{% if order.discount_total and order.discount_total > 0 %}Discount: −{{ order.currency }} {{ order.discount_total }}
+{% endif %}Shipping: {{ order.currency }} {{ order.shipping_total }}
+Total:    {{ order.currency }} {{ order.total }}
+
+SHIPPING ADDRESS
+----------------
+{{ order.customer_first_name }} {{ order.customer_last_name }}
+{{ order.shipping_address_line_1 }}{% if order.shipping_address_line_2 %}, {{ order.shipping_address_line_2 }}{% endif %}
+{{ order.shipping_city }}, {{ order.shipping_state }} {{ order.shipping_postal_code }}
+{{ order.shipping_country }}{% if order.customer_phone %}
+Phone: {{ order.customer_phone }}{% endif %}
+
+{% if success_url %}View order: {{ success_url }}
+{% endif %}{% if tracking_url %}Track order: {{ tracking_url }}
+{% endif %}
+We'll notify you again the moment your parcel ships. Reply to this email for any questions.
+
+Warmly,
+{{ brand_name }}
+

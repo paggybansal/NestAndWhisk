@@ -16,7 +16,13 @@ if [ "$RUN_MIGRATIONS_ON_BOOT" = "1" ]; then
 fi
 
 if [ "$COLLECTSTATIC_ON_BOOT" = "1" ]; then
+  echo "===== STATIC SOURCE: /app/static/build/assets ====="
+  ls -la /app/static/build/assets 2>&1 || echo "(missing)"
+  echo "===== MEDIA SOURCE: /app/media (top level) ====="
+  ls -la /app/media 2>&1 || echo "(missing)"
   python manage.py collectstatic --noinput --clear
+  echo "===== STATIC COLLECTED: /app/staticfiles/build/assets ====="
+  ls -la /app/staticfiles/build/assets 2>&1 || echo "(missing)"
 fi
 
 if [ "${DJANGO_BOOTSTRAP_DEMO:-0}" = "1" ]; then

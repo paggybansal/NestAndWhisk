@@ -206,6 +206,20 @@ REST_FRAMEWORK = {
 REDIS_URL = env("REDIS_URL", default="redis://127.0.0.1:6379/0")
 USE_REDIS_CACHE = env.bool("USE_REDIS_CACHE", default=True)
 
+# Guard against misconfigured REDIS_URL on PaaS (e.g. unresolved
+# "${{Redis.REDIS_URL}}" reference, bare host, or empty string). If the value
+# is not a valid redis scheme, silently fall back to a local in-memory cache
+# so the app still boots instead of 500ing on every request.
+_valid_redis_schemes = ("redis://", "rediss://", "unix://")
+if USE_REDIS_CACHE and not (REDIS_URL and REDIS_URL.startswith(_valid_redis_schemes)):
+    import logging as _logging
+    _logging.getLogger(__name__).warning(
+        "USE_REDIS_CACHE is true but REDIS_URL=%r is not a valid redis scheme; "
+        "falling back to local-memory cache and DB sessions.",
+        REDIS_URL,
+    )
+    USE_REDIS_CACHE = False
+
 if USE_REDIS_CACHE:
     CACHES = {
         "default": {
@@ -223,12 +237,13 @@ else:
     }
     SESSION_ENGINE = "django.contrib.sessions.backends.db"
 
+_redis_available = REDIS_URL and REDIS_URL.startswith(_valid_redis_schemes)
 CELERY_BROKER_URL = env(
-    "CELERY_BROKER_URL", default=REDIS_URL if USE_REDIS_CACHE else "memory://"
+    "CELERY_BROKER_URL", default=REDIS_URL if _redis_available else "memory://"
 )
 CELERY_RESULT_BACKEND = env(
     "CELERY_RESULT_BACKEND",
-    default="redis://127.0.0.1:6379/1" if USE_REDIS_CACHE else "cache+memory://",
+    default="redis://127.0.0.1:6379/1" if _redis_available and USE_REDIS_CACHE else "cache+memory://",
 )
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"

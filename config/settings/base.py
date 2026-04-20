@@ -343,6 +343,9 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = "DENY"
 SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 SECURE_SSL_REDIRECT = env("SECURE_SSL_REDIRECT")
+# Exempt health check and well-known paths so Railway's internal HTTP health
+# probe (which does not follow redirects) isn't 301'd to HTTPS.
+SECURE_REDIRECT_EXEMPT = [r"^health/$", r"^\.well-known/"]
 SESSION_COOKIE_SECURE = env("SESSION_COOKIE_SECURE")
 CSRF_COOKIE_SECURE = env("CSRF_COOKIE_SECURE")
 SESSION_COOKIE_SAMESITE = env("COOKIE_SAMESITE", default="Lax")

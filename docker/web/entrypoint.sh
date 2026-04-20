@@ -9,17 +9,17 @@ COLLECTSTATIC_ON_BOOT="${DJANGO_COLLECTSTATIC_ON_BOOT:-1}"
 if [ "$RUN_MIGRATIONS_ON_BOOT" = "1" ]; then
   for app_label in contenttypes auth catalog
   do
-    python manage.py migrate "$app_label" --noinput
+    python manage.py migrate "$app_label" --noinput --fake-initial
   done
 
-  python manage.py migrate --run-syncdb --noinput
+  python manage.py migrate --run-syncdb --noinput --fake-initial
 
   for app_label in admin sessions sites
   do
-    python manage.py migrate "$app_label" --noinput
+    python manage.py migrate "$app_label" --noinput --fake-initial
   done
 
-  python manage.py migrate --noinput
+  python manage.py migrate --noinput --fake-initial
 fi
 
 if [ "$COLLECTSTATIC_ON_BOOT" = "1" ]; then

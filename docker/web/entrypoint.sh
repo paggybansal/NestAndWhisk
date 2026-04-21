@@ -35,6 +35,12 @@ fi
 #     is empty (no Product rows), load it. Lets a fresh DB get the local
 #     dataset on first boot without re-importing on every deploy.
 if [ -n "${DJANGO_LOAD_FIXTURE:-}" ]; then
+  echo "===== FIXTURE DIAGNOSTIC: $DJANGO_LOAD_FIXTURE ====="
+  ls -la "$DJANGO_LOAD_FIXTURE" 2>&1 || echo "(missing)"
+  sha256sum "$DJANGO_LOAD_FIXTURE" 2>&1 || true
+  head -c 200 "$DJANGO_LOAD_FIXTURE" 2>&1 || true
+  echo ""
+  echo "===== end diagnostic ====="
   echo "Loading fixture from $DJANGO_LOAD_FIXTURE ..."
   python manage.py loaddata "$DJANGO_LOAD_FIXTURE"
 elif [ -n "${DJANGO_AUTOLOAD_FIXTURE:-}" ] && [ -f "$DJANGO_AUTOLOAD_FIXTURE" ]; then

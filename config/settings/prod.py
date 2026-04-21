@@ -1,7 +1,10 @@
 from .base import *  # noqa: F403, F401
 
 DEBUG = False
-EMAIL_BACKEND = env("EMAIL_BACKEND", default="django.core.mail.backends.smtp.EmailBackend")
+# Only force SMTP when an EMAIL_HOST is actually configured; otherwise keep
+# the console backend so checkout isn't blocked by a non-existent mail server.
+if env("EMAIL_HOST", default=""):
+    EMAIL_BACKEND = env("EMAIL_BACKEND", default="django.core.mail.backends.smtp.EmailBackend")
 SECURE_SSL_REDIRECT = env.bool("SECURE_SSL_REDIRECT", default=True)
 SESSION_COOKIE_SECURE = env.bool("SESSION_COOKIE_SECURE", default=True)
 CSRF_COOKIE_SECURE = env.bool("CSRF_COOKIE_SECURE", default=True)

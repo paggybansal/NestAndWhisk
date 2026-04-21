@@ -17,4 +17,7 @@ django-ratelimit==4.1.0
 requests==2.32.3
 markdown==3.7
 bleach==6.2.0
+# Transactional email via HTTPS API (Resend). Avoids SMTP egress blocks that
+# some PaaS networks have against Zoho India's mail servers.
+django-anymail[resend]==12.0
 

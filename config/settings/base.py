@@ -64,6 +64,7 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "anymail",
 ]
 
 LOCAL_APPS = [
@@ -228,6 +229,15 @@ EMAIL_TIMEOUT = env.int("EMAIL_TIMEOUT", default=10)
 DEFAULT_FROM_EMAIL = env(
     "DEFAULT_FROM_EMAIL", default="Nest & Whisk <hello@nestandwhisk.com>"
 )
+
+# django-anymail: used when EMAIL_BACKEND (or ASYNC_EMAIL_REAL_BACKEND) is
+# pointed at an anymail transport such as anymail.backends.resend.EmailBackend.
+# Keeping credentials env-driven means dev/test default to the console/locmem
+# backends and never accidentally hit a real provider.
+ANYMAIL = {
+    "RESEND_API_KEY": env("RESEND_API_KEY", default=""),
+    # Optional: sandbox / webhook secrets can be added here later.
+}
 SERVER_EMAIL = env("SERVER_EMAIL", default="server@nestandwhisk.com")
 
 REST_FRAMEWORK = {

@@ -11,11 +11,18 @@ from django_ratelimit.decorators import ratelimit
 
 from apps.blog.models import BlogPost
 from apps.catalog.models import Product
+from apps.core.cache import cached
 from apps.core.delivery import get_delhi_ncr_delivery_experience
 from apps.core.forms import FAQAssistantForm, NewsletterSignupForm
 from apps.core.models import ContactSettings, FAQ, HomepageContent, PolicyPage, SiteSettings, Testimonial
 from apps.core.services import answer_support_question
 from apps.subscriptions.models import SubscriptionPlan
+
+
+# Cache TTLs (seconds). Short enough that admin edits are visible quickly,
+# long enough to absorb burst traffic.
+_FOOTER_TTL = 300            # 5 min — policies barely ever change
+_HOMEPAGE_TTL = 120           # 2 min — featured products, testimonials, latest posts
 
 
 class CoreContextMixin:
@@ -26,7 +33,14 @@ class CoreContextMixin:
         context = super().get_context_data(**kwargs)
         context.setdefault("site_settings", self.get_site_settings())
         context.setdefault("newsletter_form", NewsletterSignupForm())
-        context.setdefault("footer_policies", PolicyPage.objects.filter(is_published=True)[:4])
+        context.setdefault(
+            "footer_policies",
+            cached(
+                "core:footer_policies",
+                _FOOTER_TTL,
+                lambda: list(PolicyPage.objects.filter(is_published=True)[:4]),
+            ),
+        )
         context.setdefault("delivery_experience", get_delhi_ncr_delivery_experience())
         return context
 
@@ -37,13 +51,35 @@ class HomeView(CoreContextMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["homepage"] = HomepageContent.load()
-        context["featured_testimonials"] = Testimonial.objects.filter(is_featured=True)[:3]
-        featured_products = Product.objects.filter(is_active=True, is_featured=True).prefetch_related(
-            "images", "variants", "dietary_attributes"
-        )[:4]
-        seasonal_products = Product.objects.filter(is_active=True, is_seasonal=True).prefetch_related(
-            "images", "variants"
-        )[:3]
+
+        context["featured_testimonials"] = cached(
+            "home:featured_testimonials",
+            _HOMEPAGE_TTL,
+            lambda: list(Testimonial.objects.filter(is_featured=True)[:3]),
+        )
+
+        # Featured + seasonal products are the most expensive calls on the
+        # page (prefetch_related joins on images, variants, dietary_attrs).
+        # Materialise to a list before caching so the prefetch results are
+        # captured — pickled QuerySets otherwise lazy-hit the DB on unpickle.
+        featured_products = cached(
+            "home:featured_products",
+            _HOMEPAGE_TTL,
+            lambda: list(
+                Product.objects.filter(is_active=True, is_featured=True).prefetch_related(
+                    "images", "variants", "dietary_attributes"
+                )[:4]
+            ),
+        )
+        seasonal_products = cached(
+            "home:seasonal_products",
+            _HOMEPAGE_TTL,
+            lambda: list(
+                Product.objects.filter(is_active=True, is_seasonal=True).prefetch_related(
+                    "images", "variants"
+                )[:3]
+            ),
+        )
         context["featured_products"] = featured_products
         context["seasonal_products"] = seasonal_products
 
@@ -58,8 +94,18 @@ class HomeView(CoreContextMixin, TemplateView):
                     break
         context["hero_rotator_products"] = hero_rotator_products
 
-        context["featured_plan"] = SubscriptionPlan.objects.filter(is_active=True, is_featured=True).first()
-        context["latest_posts"] = BlogPost.objects.filter(is_published=True).select_related("category")[:3]
+        context["featured_plan"] = cached(
+            "home:featured_plan",
+            _HOMEPAGE_TTL,
+            lambda: SubscriptionPlan.objects.filter(is_active=True, is_featured=True).first(),
+        )
+        context["latest_posts"] = cached(
+            "home:latest_posts",
+            _HOMEPAGE_TTL,
+            lambda: list(
+                BlogPost.objects.filter(is_published=True).select_related("category")[:3]
+            ),
+        )
         return context
 
 

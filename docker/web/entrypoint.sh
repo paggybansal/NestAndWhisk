@@ -16,13 +16,7 @@ if [ "$RUN_MIGRATIONS_ON_BOOT" = "1" ]; then
 fi
 
 if [ "$COLLECTSTATIC_ON_BOOT" = "1" ]; then
-  echo "===== STATIC SOURCE: /app/static/build/assets ====="
-  ls -la /app/static/build/assets 2>&1 || echo "(missing)"
-  echo "===== MEDIA SOURCE: /app/media (top level) ====="
-  ls -la /app/media 2>&1 || echo "(missing)"
   python manage.py collectstatic --noinput --clear
-  echo "===== STATIC COLLECTED: /app/staticfiles/build/assets ====="
-  ls -la /app/staticfiles/build/assets 2>&1 || echo "(missing)"
 fi
 
 if [ "${DJANGO_BOOTSTRAP_DEMO:-0}" = "1" ]; then
@@ -30,27 +24,13 @@ if [ "${DJANGO_BOOTSTRAP_DEMO:-0}" = "1" ]; then
 fi
 
 # One-shot data import:
-#   - If DJANGO_LOAD_FIXTURE is set explicitly, always load that file.
-#   - Otherwise, if DJANGO_AUTOLOAD_FIXTURE points to a path AND the catalog
-#     is empty (no Product rows), load it. Lets a fresh DB get the local
-#     dataset on first boot without re-importing on every deploy.
+#   - DJANGO_LOAD_FIXTURE: always load (use once then unset).
+#   - DJANGO_AUTOLOAD_FIXTURE: load only when the catalog is empty
+#     (safe to keep permanently — re-loads a fresh DB on first boot only).
 if [ -n "${DJANGO_LOAD_FIXTURE:-}" ]; then
-  echo "===== FIXTURE DIAGNOSTIC: $DJANGO_LOAD_FIXTURE ====="
-  ls -la "$DJANGO_LOAD_FIXTURE" 2>&1 || echo "(missing)"
-  sha256sum "$DJANGO_LOAD_FIXTURE" 2>&1 || true
-  head -c 200 "$DJANGO_LOAD_FIXTURE" 2>&1 || true
-  echo ""
-  echo "===== end diagnostic ====="
   echo "Loading fixture from $DJANGO_LOAD_FIXTURE ..."
   python manage.py loaddata "$DJANGO_LOAD_FIXTURE"
 elif [ -n "${DJANGO_AUTOLOAD_FIXTURE:-}" ] && [ -f "$DJANGO_AUTOLOAD_FIXTURE" ]; then
-  echo "===== FIXTURE DIAGNOSTIC: $DJANGO_AUTOLOAD_FIXTURE ====="
-  ls -la "$DJANGO_AUTOLOAD_FIXTURE" 2>&1 || echo "(missing)"
-  sha256sum "$DJANGO_AUTOLOAD_FIXTURE" 2>&1 || true
-  echo "---first 200 bytes---"
-  head -c 200 "$DJANGO_AUTOLOAD_FIXTURE" 2>&1 || true
-  echo ""
-  echo "===== end diagnostic ====="
   product_count=$(python manage.py shell -c "from apps.catalog.models import Product; print(Product.objects.count())" 2>/dev/null | tail -n 1)
   if [ "$product_count" = "0" ]; then
     echo "DB has 0 products; auto-loading $DJANGO_AUTOLOAD_FIXTURE ..."

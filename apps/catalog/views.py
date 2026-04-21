@@ -25,6 +25,14 @@ class ShopView(CoreContextMixin, ListView):
             .prefetch_related("dietary_attributes", "tags", "images", "variants")
             .annotate(min_price=Min("variants__price"))
         )
+        ordering_map = {
+            "featured": ["-is_featured", "sort_order", "name", "id"],
+            "newest": ["-created_at", "name", "id"],
+            "price_asc": ["min_price", "name", "id"],
+            "price_desc": ["-min_price", "name", "id"],
+            "name": ["name", "id"],
+        }
+        sort = "featured"
         form = self.get_filter_form()
         if form.is_valid():
             search = form.cleaned_data.get("search")
@@ -46,16 +54,11 @@ class ShopView(CoreContextMixin, ListView):
             if in_stock:
                 queryset = queryset.filter(variants__inventory_quantity__gt=0, variants__is_active=True)
 
-            ordering_map = {
-                "featured": ["-is_featured", "sort_order", "name"],
-                "newest": ["-created_at", "name"],
-                "price_asc": ["min_price", "name"],
-                "price_desc": ["-min_price", "name"],
-                "name": ["name"],
-            }
-            queryset = queryset.order_by(*ordering_map.get(sort, ordering_map["featured"]))
-
-        return queryset.distinct()
+        # Always apply a deterministic ordering — pagination across an
+        # unordered queryset can repeat/skip rows (and Django warns about it).
+        # The trailing `id` is a tiebreaker to keep pagination stable when the
+        # primary key tie happens (e.g. identical min_price across products).
+        return queryset.order_by(*ordering_map.get(sort, ordering_map["featured"])).distinct()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

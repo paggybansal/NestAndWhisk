@@ -30,7 +30,11 @@ urlpatterns = [
     path("track/<str:order_number>/", OrderTrackingView.as_view(), name="tracking"),
     path("webhooks/stripe/", StripeWebhookView.as_view(), name="stripe_webhook"),
     # ---- PhonePe ----
+    # Register both slashed and slashless so the PhonePe dashboard accepts
+    # either form without relying on Django's APPEND_SLASH 301 redirect
+    # (PhonePe's POSTs may not follow redirects).
     path("webhooks/phonepe/", PhonePeCallbackView.as_view(), name="phonepe_callback"),
+    path("webhooks/phonepe", PhonePeCallbackView.as_view(), name="phonepe_callback_noslash"),
     path("phonepe/redirect/<str:order_number>/", PhonePeRedirectView.as_view(), name="phonepe_redirect"),
     path("phonepe/status/<str:order_number>/", PhonePeStatusView.as_view(), name="phonepe_status"),
 ]

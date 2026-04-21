@@ -7,6 +7,36 @@
     <title>{% block title %}{{ site_settings.site_name|default:'Nest & Whisk' }} | Premium Artisan Cookies{% endblock %}</title>
     <meta name="description" content="{% block meta_description %}{{ site_settings.meta_description|default:site_settings.tag_line|default:'Premium handcrafted cookies delivered with warmth, elegance, and delight.' }}{% endblock %}" />
     <meta name="theme-color" content="#FFF8F0" />
+
+    {# --- Canonical + robots ------------------------------------------------ #}
+    {% spaceless %}
+      {% with canonical_path=request.path %}
+        <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{% block canonical_path %}{{ canonical_path }}{% endblock %}" />
+      {% endwith %}
+    {% endspaceless %}
+    <meta name="robots" content="{% block robots %}index, follow, max-image-preview:large{% endblock %}" />
+
+    {# --- OpenGraph / social card ------------------------------------------- #}
+    {% block og_tags %}
+      <meta property="og:site_name" content="{{ site_settings.site_name|default:'Nest & Whisk' }}" />
+      <meta property="og:type" content="{% block og_type %}website{% endblock %}" />
+      <meta property="og:locale" content="en_IN" />
+      <meta property="og:title" content="{% block og_title %}{{ site_settings.site_name|default:'Nest & Whisk' }} | Premium Artisan Cookies{% endblock %}" />
+      <meta property="og:description" content="{% block og_description %}{{ site_settings.meta_description|default:site_settings.tag_line|default:'Premium handcrafted cookies delivered with warmth, elegance, and delight.' }}{% endblock %}" />
+      <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}" />
+      <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'brand/android-chrome-512x512.png' %}{% endblock %}" />
+      <meta property="og:image:alt" content="{% block og_image_alt %}{{ site_settings.site_name|default:'Nest & Whisk' }}{% endblock %}" />
+    {% endblock %}
+
+    {# --- Twitter card ------------------------------------------------------ #}
+    {% block twitter_tags %}
+      <meta name="twitter:card" content="{% block twitter_card %}summary_large_image{% endblock %}" />
+      <meta name="twitter:title" content="{% block twitter_title %}{{ site_settings.site_name|default:'Nest & Whisk' }} | Premium Artisan Cookies{% endblock %}" />
+      <meta name="twitter:description" content="{% block twitter_description %}{{ site_settings.meta_description|default:site_settings.tag_line|default:'Premium handcrafted cookies delivered with warmth, elegance, and delight.' }}{% endblock %}" />
+      <meta name="twitter:image" content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'brand/android-chrome-512x512.png' %}{% endblock %}" />
+    {% endblock %}
+
+    {# --- Favicon / manifest ----------------------------------------------- #}
     <link rel="icon" href="{% static 'brand/favicon-32x32.png' %}" sizes="32x32" type="image/png" />
     <link rel="icon" href="{% static 'brand/favicon-16x16.png' %}" sizes="16x16" type="image/png" />
     <link rel="shortcut icon" href="{% static 'brand/favicon.ico' %}" type="image/x-icon" />
@@ -19,6 +49,33 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     {% vite_hmr_client %}
     {% vite_asset 'js/main.js' %}
+
+    {# --- Structured data: Organization (site-wide) ------------------------ #}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "{{ site_settings.site_name|default:'Nest & Whisk'|escapejs }}",
+      "url": "{{ request.scheme }}://{{ request.get_host }}/",
+      "logo": "{{ request.scheme }}://{{ request.get_host }}{% static 'brand/android-chrome-512x512.png' %}",
+      "description": "{{ site_settings.meta_description|default:site_settings.tag_line|default:'Premium handcrafted cookies delivered with warmth, elegance, and delight.'|escapejs }}"
+      {% if site_settings.instagram_url or site_settings.pinterest_url or site_settings.tiktok_url %}
+      , "sameAs": [
+        {% if site_settings.instagram_url %}"{{ site_settings.instagram_url|escapejs }}"{% if site_settings.pinterest_url or site_settings.tiktok_url %},{% endif %}{% endif %}
+        {% if site_settings.pinterest_url %}"{{ site_settings.pinterest_url|escapejs }}"{% if site_settings.tiktok_url %},{% endif %}{% endif %}
+        {% if site_settings.tiktok_url %}"{{ site_settings.tiktok_url|escapejs }}"{% endif %}
+      ]
+      {% endif %}
+      {% if site_settings.support_email %}
+      , "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "email": "{{ site_settings.support_email|escapejs }}"{% if site_settings.support_phone %}, "telephone": "{{ site_settings.support_phone|escapejs }}"{% endif %}
+      }
+      {% endif %}
+    }
+    </script>
+
     {% block extra_head %}{% endblock %}
   </head>
   <body class="relative isolate min-h-screen overflow-x-hidden bg-cream font-sans text-espresso antialiased {% block body_class %}{% endblock %}">

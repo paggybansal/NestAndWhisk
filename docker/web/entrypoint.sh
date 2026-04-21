@@ -44,6 +44,25 @@ if [ "${DJANGO_BOOTSTRAP_ADMIN:-0}" = "1" ]; then
   python manage.py bootstrap_admin
 fi
 
+# Sync django.contrib.sites Site row with the deploy's public domain so the
+# sitemap and allauth email links always reference the live host.
+if [ -n "${SITE_DOMAIN:-}" ]; then
+  python -c "
+import os, django
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.prod')
+django.setup()
+from django.conf import settings
+from django.contrib.sites.models import Site
+domain = os.environ['SITE_DOMAIN'].strip().rstrip('/')
+name = os.environ.get('SITE_NAME', domain)
+site, _ = Site.objects.update_or_create(
+    pk=settings.SITE_ID,
+    defaults={'domain': domain, 'name': name},
+)
+print(f'[site] pk={site.pk} domain={site.domain} name={site.name}')
+" || true
+fi
+
 # Non-fatal Redis connectivity probe so deploy logs clearly state whether the
 # shared cache is live or the app is running on per-process LocMem.
 python -c "

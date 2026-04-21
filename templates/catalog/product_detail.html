@@ -1,8 +1,76 @@
 {% extends 'base.html' %}
-{% load currency %}
+{% load static currency %}
 
 {% block title %}{{ product.meta_title|default:product.name }} | {{ site_settings.site_name|default:'Nest & Whisk' }}{% endblock %}
 {% block meta_description %}{{ product.meta_description|default:product.short_description }}{% endblock %}
+
+{% block og_type %}product{% endblock %}
+{% block og_title %}{{ product.meta_title|default:product.name }}{% endblock %}
+{% block og_description %}{{ product.meta_description|default:product.short_description }}{% endblock %}
+{% block og_image %}{% if product.primary_image and product.primary_image.image %}{{ request.scheme }}://{{ request.get_host }}{{ product.primary_image.image.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'brand/android-chrome-512x512.png' %}{% endif %}{% endblock %}
+{% block og_image_alt %}{{ product.name }}{% endblock %}
+{% block twitter_title %}{{ product.meta_title|default:product.name }}{% endblock %}
+{% block twitter_description %}{{ product.meta_description|default:product.short_description }}{% endblock %}
+{% block twitter_image %}{% if product.primary_image and product.primary_image.image %}{{ request.scheme }}://{{ request.get_host }}{{ product.primary_image.image.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'brand/android-chrome-512x512.png' %}{% endif %}{% endblock %}
+
+{% block extra_head %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{{ product.name|escapejs }}",
+  "description": "{{ product.short_description|default:product.description|truncatechars:280|escapejs }}",
+  {% if product.primary_image and product.primary_image.image %}
+  "image": "{{ request.scheme }}://{{ request.get_host }}{{ product.primary_image.image.url }}",
+  {% endif %}
+  "sku": "{{ product.slug|escapejs }}",
+  "url": "{{ request.scheme }}://{{ request.get_host }}{{ product.get_absolute_url }}",
+  "brand": {
+    "@type": "Brand",
+    "name": "{{ site_settings.site_name|default:'Nest & Whisk'|escapejs }}"
+  }
+  {% if product.price_from %}
+  , "offers": {
+    "@type": "Offer",
+    "url": "{{ request.scheme }}://{{ request.get_host }}{{ product.get_absolute_url }}",
+    "priceCurrency": "INR",
+    "price": "{{ product.price_from }}",
+    "availability": "{% if product.is_in_stock %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+    "itemCondition": "https://schema.org/NewCondition"
+  }
+  {% endif %}
+  {% if approved_reviews %}
+  , "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{% widthratio approved_reviews|length 1 5 %}",
+    "reviewCount": "{{ approved_reviews|length }}"
+  }
+  {% endif %}
+}
+</script>
+
+{# Breadcrumb structured data — helps Google render the trail in results #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Shop",
+      "item": "{{ request.scheme }}://{{ request.get_host }}{% url 'catalog:shop' %}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ product.name|escapejs }}",
+      "item": "{{ request.scheme }}://{{ request.get_host }}{{ product.get_absolute_url }}"
+    }
+  ]
+}
+</script>
+{% endblock %}
 
 {% block content %}
 <section class="container-shell py-14 lg:py-22">

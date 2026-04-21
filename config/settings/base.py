@@ -206,6 +206,16 @@ RATELIMIT_ENABLE = env.bool("RATELIMIT_ENABLE", default=not DEBUG)
 EMAIL_BACKEND = env(
     "EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
 )
+# When EMAIL_BACKEND points at apps.core.mail.AsyncEmailBackend, this is the
+# real transport used off-thread. Defaults to SMTP for production parity.
+ASYNC_EMAIL_REAL_BACKEND = env(
+    "ASYNC_EMAIL_REAL_BACKEND",
+    default="django.core.mail.backends.smtp.EmailBackend",
+)
+ASYNC_EMAIL_MAX_WORKERS = env.int("ASYNC_EMAIL_MAX_WORKERS", default=4)
+# Force synchronous sends (handy for tests / debugging). Implicitly on when
+# Django's test runner sets settings.TESTING.
+ASYNC_EMAIL_SYNC = env.bool("ASYNC_EMAIL_SYNC", default=False)
 EMAIL_HOST = env("EMAIL_HOST", default="")
 EMAIL_PORT = env.int("EMAIL_PORT", default=587)
 EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")

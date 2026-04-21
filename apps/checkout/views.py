@@ -92,6 +92,45 @@ class CheckoutView(CoreContextMixin, FormView):
         )
         # Fire-and-forget: any SMTP failure is logged but never breaks checkout.
         send_order_confirmation_email(order=order, request=self.request)
+
+        # Kick off the payment gateway right away so the customer lands on the
+        # hosted checkout instead of an order-only confirmation page.
+        payment = order.payments.order_by("-created_at").first()
+        provider = (payment.provider if payment else settings.DEFAULT_PAYMENT_PROVIDER) or ""
+
+        if provider == phonepe_gateway.PROVIDER_KEY and payment is not None:
+            try:
+                checkout_url = phonepe_gateway.initiate_payment(
+                    order=order, payment=payment, request=self.request
+                )
+            except (
+                phonepe_gateway.PhonePeConfigurationError,
+                phonepe_gateway.PhonePeAPIError,
+                phonepe_gateway.PhonePeAuthError,
+            ) as exc:
+                messages.error(
+                    self.request,
+                    f"Order {order.order_number} placed, but we couldn't start PhonePe: {exc}",
+                )
+                return redirect("checkout:success", order_number=order.order_number)
+            return redirect(checkout_url)
+
+        if provider == "stripe" and payment is not None:
+            try:
+                checkout_url = create_stripe_checkout_session(
+                    order=order, payment=payment, request=self.request
+                )
+            except (StripeCheckoutConfigurationError, stripe.StripeError) as exc:
+                messages.error(
+                    self.request,
+                    f"Order {order.order_number} placed, but Stripe couldn't start: {exc}",
+                )
+                return redirect("checkout:success", order_number=order.order_number)
+            return redirect(checkout_url)
+
+        if provider == "mock" and settings.MOCK_PAYMENT_ENABLED:
+            return redirect("checkout:mock_payment", order_number=order.order_number)
+
         messages.success(self.request, f"Order {order.order_number} placed successfully.")
         return redirect(reverse("checkout:success", kwargs={"order_number": order.order_number}))
 
@@ -111,6 +150,21 @@ class CheckoutStartPaymentView(CoreContextMixin, View):
                 messages.error(request, "Mock payment mode is not enabled in this environment.")
                 return redirect("checkout:success", order_number=order.order_number)
             return redirect("checkout:mock_payment", order_number=order.order_number)
+
+        if payment.provider == phonepe_gateway.PROVIDER_KEY:
+            try:
+                checkout_url = phonepe_gateway.initiate_payment(
+                    order=order, payment=payment, request=request
+                )
+            except (
+                phonepe_gateway.PhonePeConfigurationError,
+                phonepe_gateway.PhonePeAPIError,
+                phonepe_gateway.PhonePeAuthError,
+            ) as exc:
+                messages.error(request, f"PhonePe could not start checkout: {exc}")
+                return redirect("checkout:success", order_number=order.order_number)
+            return redirect(checkout_url)
+
         if payment.provider != "stripe":
             messages.error(request, f"Unsupported payment provider '{payment.provider}'.")
             return redirect("checkout:success", order_number=order.order_number, state="failed")

@@ -11,6 +11,7 @@ from django.views.generic import FormView, TemplateView, View
 import stripe
 
 from apps.cart.services import get_or_create_cart
+from apps.checkout import phonepe as phonepe_gateway
 from apps.checkout.emailing import (
     build_tracking_link_payloads,
     send_order_confirmation_email,

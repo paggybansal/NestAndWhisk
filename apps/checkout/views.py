@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import FormView, TemplateView, View
 
 import stripe
+from django_ratelimit.decorators import ratelimit
 
 from apps.cart.services import get_or_create_cart
 from apps.checkout import phonepe as phonepe_gateway
@@ -37,6 +38,20 @@ from apps.orders.services import create_order_from_cart
 class CheckoutView(CoreContextMixin, FormView):
     template_name = "checkout/checkout.html"
     form_class = CheckoutForm
+
+    # Prevent a bot from flooding us with fake orders (which also hammers the
+    # PhonePe create-order API). 20/hr is plenty for a real human placing a
+    # few test carts. block=False so we can redirect back to the cart with a
+    # friendly message instead of a bare 403/429 page.
+    @method_decorator(ratelimit(key="ip", rate="20/h", method="POST", block=False))
+    def post(self, request, *args, **kwargs):
+        if getattr(request, "limited", False):
+            messages.error(
+                request,
+                "Too many checkout attempts in a short window. Please wait a few minutes and try again.",
+            )
+            return redirect("cart:detail")
+        return super().post(request, *args, **kwargs)
 
     def get_delivery_experience(self, form=None):
         city = ""

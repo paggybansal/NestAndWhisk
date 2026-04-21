@@ -186,6 +186,22 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_VERIFICATION = "optional"
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_SESSION_REMEMBER = True
+# allauth rate limits — brute-force protection on auth endpoints. Keys are
+# IP-based by default. Exceeding the limit returns HTTP 429.
+ACCOUNT_RATE_LIMITS = {
+    "login_failed": "5/5m",      # 5 failed logins per 5 minutes per IP+email
+    "signup": "10/h",            # 10 signups per hour per IP (stops bulk fake accounts)
+    "reset_password": "5/h",     # 5 reset requests per hour per IP
+    "confirm_email": "5/h",
+    "manage_email": "10/m",
+    "change_email": "5/h",
+    "change_password": "5/h",
+}
+
+# django-ratelimit backs its counters on Django's default cache. We've already
+# wired that to Redis in prod (or LocMem fallback); no extra config needed.
+RATELIMIT_USE_CACHE = "default"
+RATELIMIT_ENABLE = env.bool("RATELIMIT_ENABLE", default=not DEBUG)
 
 EMAIL_BACKEND = env(
     "EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"

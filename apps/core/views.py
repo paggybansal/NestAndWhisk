@@ -3,8 +3,11 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import DetailView, FormView, TemplateView
+
+from django_ratelimit.decorators import ratelimit
 
 from apps.blog.models import BlogPost
 from apps.catalog.models import Product
@@ -103,6 +106,18 @@ class NewsletterSignupView(FormView):
     form_class = NewsletterSignupForm
     http_method_names = ["post"]
 
+    # Block IP abuse: 5 signups/hour is generous for a single person using
+    # multiple devices but blocks a bot trying to spam the newsletter list.
+    @method_decorator(ratelimit(key="ip", rate="5/h", method="POST", block=False))
+    def post(self, request, *args, **kwargs):
+        if getattr(request, "limited", False):
+            messages.info(
+                request,
+                "You've just subscribed — check your inbox. Try again in a bit if this was a mistake.",
+            )
+            return redirect(self.get_success_url())
+        return super().post(request, *args, **kwargs)
+
     def form_valid(self, form):
         form.save()
         messages.success(self.request, "You’re on the list for new drops, gifting moments, and seasonal boxes.")
@@ -121,7 +136,29 @@ class NewsletterSignupView(FormView):
 class FAQAssistantView(View):
     http_method_names = ["get"]
 
+    # FAQAssistantView hits an external AI API (Gemini/OpenAI) on every call
+    # so it's the most expensive public endpoint. Two-tier limit:
+    #   * burst protection   — 10/min per IP stops mashed-keyboard abuse
+    #   * sustained quota    — 60/hour per IP protects the monthly AI budget
+    # block=False so we return a friendly JSON error instead of a bare 429.
+    @method_decorator(ratelimit(key="ip", rate="10/m", method="GET", block=False))
+    @method_decorator(ratelimit(key="ip", rate="60/h", method="GET", block=False))
     def get(self, request, *args, **kwargs):
+        if getattr(request, "limited", False):
+            return JsonResponse(
+                {
+                    "ok": False,
+                    "answer": (
+                        "You've sent a lot of questions in a short time. "
+                        "Please wait a minute and try again — or browse the FAQ below."
+                    ),
+                    "follow_up_questions": list(
+                        FAQ.objects.filter(is_published=True).values_list("question", flat=True)[:4]
+                    ),
+                },
+                status=429,
+            )
+
         form = FAQAssistantForm(request.GET)
         if not form.is_valid():
             return JsonResponse(

@@ -357,12 +357,30 @@ def _initialize_sentry() -> None:
         from sentry_sdk.integrations.django import DjangoIntegration
     except ImportError:
         return
+
+    def _before_send(event, hint):
+        # Drop uninteresting noise so the free-tier quota isn't burned on:
+        #   * health-check / static / media / favicon requests
+        #   * SystemExit from gunicorn worker-timeout cleanup
+        request = (event.get("request") or {}).get("url", "") or ""
+        for prefix in ("/health", "/static/", "/media/", "/favicon.ico", "/robots.txt"):
+            if prefix in request:
+                return None
+        exc_info = hint.get("exc_info") if hint else None
+        if exc_info and exc_info[0] is SystemExit:
+            return None
+        return event
+
     sentry_sdk.init(
         dsn=SENTRY_DSN,
         environment=SENTRY_ENVIRONMENT,
         traces_sample_rate=SENTRY_TRACES_SAMPLE_RATE,
         send_default_pii=True,
         integrations=[DjangoIntegration(), CeleryIntegration()],
+        before_send=_before_send,
+        # Tag releases by git commit when RAILWAY_GIT_COMMIT_SHA is available;
+        # lets "Regression" alerts pinpoint the deploy that reintroduced a bug.
+        release=env("RAILWAY_GIT_COMMIT_SHA", default=None),
     )
 
 

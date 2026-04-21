@@ -44,6 +44,13 @@ if [ -n "${DJANGO_LOAD_FIXTURE:-}" ]; then
   echo "Loading fixture from $DJANGO_LOAD_FIXTURE ..."
   python manage.py loaddata "$DJANGO_LOAD_FIXTURE"
 elif [ -n "${DJANGO_AUTOLOAD_FIXTURE:-}" ] && [ -f "$DJANGO_AUTOLOAD_FIXTURE" ]; then
+  echo "===== FIXTURE DIAGNOSTIC: $DJANGO_AUTOLOAD_FIXTURE ====="
+  ls -la "$DJANGO_AUTOLOAD_FIXTURE" 2>&1 || echo "(missing)"
+  sha256sum "$DJANGO_AUTOLOAD_FIXTURE" 2>&1 || true
+  echo "---first 200 bytes---"
+  head -c 200 "$DJANGO_AUTOLOAD_FIXTURE" 2>&1 || true
+  echo ""
+  echo "===== end diagnostic ====="
   product_count=$(python manage.py shell -c "from apps.catalog.models import Product; print(Product.objects.count())" 2>/dev/null | tail -n 1)
   if [ "$product_count" = "0" ]; then
     echo "DB has 0 products; auto-loading $DJANGO_AUTOLOAD_FIXTURE ..."

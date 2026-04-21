@@ -26,8 +26,23 @@ class SingletonModel(TimeStampedModel):
 
     @classmethod
     def load(cls):
-        obj, _created = cls.objects.get_or_create(pk=1)
+        # Singletons are read on every template render via the context
+        # processor / CoreContextMixin. Cache for 60s to skip the round-trip
+        # to Postgres; admin saves invalidate via the post_save signal below.
+        from django.core.cache import cache
+
+        cache_key = f"singleton:{cls._meta.label_lower}"
+        obj = cache.get(cache_key)
+        if obj is None:
+            obj, _created = cls.objects.get_or_create(pk=1)
+            cache.set(cache_key, obj, timeout=60)
         return obj
+
+    @classmethod
+    def _invalidate_singleton_cache(cls):
+        from django.core.cache import cache
+
+        cache.delete(f"singleton:{cls._meta.label_lower}")
 
 
 class SiteSettings(SingletonModel):
@@ -204,4 +219,16 @@ class NewsletterSignup(TimeStampedModel):
 
     def __str__(self) -> str:
         return self.email
+
+
+# Invalidate singleton caches when they're saved through admin, so edits are
+# reflected within the 60s cache TTL window instantly.
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
+@receiver(post_save)
+def _invalidate_singleton_cache_on_save(sender, instance, **_):
+    if isinstance(instance, SingletonModel):
+        sender._invalidate_singleton_cache()
 

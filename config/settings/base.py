@@ -132,7 +132,16 @@ else:
     )
 
 DATABASES = {"default": default_database_config}
-DATABASES["default"]["ATOMIC_REQUESTS"] = True
+# Reuse DB connections across requests (huge win on Railway/any remote Postgres
+# where each TCP+TLS handshake is ~50-150 ms). CONN_HEALTH_CHECKS pings the
+# connection before reuse so stale sockets are auto-replaced.
+DATABASES["default"].setdefault("CONN_MAX_AGE", env.int("DB_CONN_MAX_AGE", default=60))
+DATABASES["default"].setdefault("CONN_HEALTH_CHECKS", True)
+# ATOMIC_REQUESTS wraps every request (including GETs) in a transaction. That
+# adds BEGIN/COMMIT overhead to every page load for no gain on read-only
+# traffic. Keep off by default; any write path that needs it uses
+# @transaction.atomic explicitly.
+DATABASES["default"]["ATOMIC_REQUESTS"] = env.bool("DB_ATOMIC_REQUESTS", default=False)
 
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},

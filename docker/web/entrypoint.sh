@@ -46,8 +46,14 @@ fi
 
 exec gunicorn config.wsgi:application \
   --bind 0.0.0.0:"$PORT" \
-  --workers "${GUNICORN_WORKERS:-3}" \
-  --timeout "${GUNICORN_TIMEOUT:-120}" \
+  --worker-class "${GUNICORN_WORKER_CLASS:-gthread}" \
+  --workers "${GUNICORN_WORKERS:-2}" \
+  --threads "${GUNICORN_THREADS:-8}" \
+  --timeout "${GUNICORN_TIMEOUT:-60}" \
+  --graceful-timeout "${GUNICORN_GRACEFUL_TIMEOUT:-30}" \
+  --keep-alive "${GUNICORN_KEEPALIVE:-5}" \
+  --max-requests "${GUNICORN_MAX_REQUESTS:-1000}" \
+  --max-requests-jitter "${GUNICORN_MAX_REQUESTS_JITTER:-100}" \
   --access-logfile - \
   --error-logfile -
 

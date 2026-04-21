@@ -44,6 +44,23 @@ if [ "${DJANGO_BOOTSTRAP_ADMIN:-0}" = "1" ]; then
   python manage.py bootstrap_admin
 fi
 
+# Non-fatal Redis connectivity probe so deploy logs clearly state whether the
+# shared cache is live or the app is running on per-process LocMem.
+python -c "
+import os, django, sys
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.prod')
+django.setup()
+from django.core.cache import cache
+from django.conf import settings
+backend = settings.CACHES['default']['BACKEND']
+try:
+    cache.set('__boot_probe__', '1', 10)
+    ok = cache.get('__boot_probe__') == '1'
+    print(f'[cache] backend={backend} probe={\"OK\" if ok else \"FAIL\"}')
+except Exception as exc:
+    print(f'[cache] backend={backend} probe=ERROR error={exc!r}', file=sys.stderr)
+" || true
+
 exec gunicorn config.wsgi:application \
   --bind 0.0.0.0:"$PORT" \
   --worker-class "${GUNICORN_WORKER_CLASS:-gthread}" \
